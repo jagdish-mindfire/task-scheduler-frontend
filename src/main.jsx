@@ -11,6 +11,10 @@ import Signup from './components/Signup.jsx';
 
 const router = createBrowserRouter([
   {
+    path: "/",
+    element:  <Login />,
+  },
+  {
     path: "/login",
     element:  <Login />,
   },
