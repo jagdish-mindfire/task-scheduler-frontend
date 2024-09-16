@@ -1,11 +1,13 @@
-import {useState,useEffect} from 'react'
-import { Link } from "react-router-dom"
+import {useState,useEffect,useContext} from 'react'
+import { Link,useNavigate } from "react-router-dom"
 import axios from 'axios';
-
+import { AuthContext } from '../context/AuthContext';
 export default function Login() {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const {login} = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,8 +16,9 @@ export default function Login() {
       const response = await axios.post(apiUrl+'/auth/login',{email,password});
       const refreshToken = response.data.refresh_token;
       const name = response.data?.name;
-      localStorage.setItem('refreshToken', refreshToken);
-      console.log({refreshToken});
+      login(refreshToken,name);
+      navigate('/dashboard');
+      
     } catch (error) {
       console.log(error.response.data);
       setErrorMessage(error?.response?.data?.message)
