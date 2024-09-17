@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   RouterProvider,redirect
 } from "react-router-dom";
-// import App from './App.jsx'
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import Dashboard from './components/Dashboard.jsx';
@@ -82,7 +81,6 @@ const router = createBrowserRouter([
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { TaskProvider } from './context/TaskContext.jsx';
 import './index.css';

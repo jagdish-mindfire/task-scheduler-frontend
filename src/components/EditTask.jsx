@@ -17,18 +17,9 @@ export default function EditTask({open, setOpen,passedTaskData}) {
         });
   };
   useEffect(()=>{
-    setNewTask({title:passedTaskData?.title, description:passedTaskData.description, due_date:moment(passedTaskData?.due_date).format('YYYY-MM-DD')});
+    setNewTask({title:passedTaskData?.title, description:passedTaskData.description, due_date:moment(passedTaskData?.dueDate).format('YYYY-MM-DD')});
   },[passedTaskData])
-  const createNewTask = async ()=>{
-    if(newTask?.title?.length > 0 && newTask?.description?.length && newTask?.due_date?.length > 0){
-        await updateTask(newTask);
-        setOpen(false);
-    }else{
-        console.log('some fields are missing');
-        console.log(newTask);
-    }
-    // setNewTask({title:'',description:'',due_date:''});
-  }
+ 
   useEffect(()=>{
     if(newTask?.title?.length > 0 && newTask?.description?.length && newTask?.due_date?.length > 0){
         setButtonDisbled(false);

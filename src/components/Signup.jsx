@@ -1,20 +1,26 @@
 import { Link } from "react-router-dom"
 import { useState,useEffect } from "react"
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function Signup() {
     const [data,setData] = useState({email:'',name:'',password:''});
     const [errorMessage,setErrorMessage] = useState(null);
+    const navigate = useNavigate();
+
     const handleSubmit = async (e)=>{
         e.preventDefault();
         const apiUrl = import.meta.env.VITE_API_URL;
         try {
           const response = await axios.post(apiUrl+'/auth/signup',{email:data?.email,password:data?.password,name:data?.name});
-          const message = response.data?.message;
-          
+          navigate("/login",{ state: { showSuccess:true } });
         } catch (error) {
-          console.log(error.response.data);
+          console.log(error);
+          // console.log(error.response.data);
           setErrorMessage(error?.response?.data?.message)
         }
     }
+
+
     return (
       <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

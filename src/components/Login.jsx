@@ -1,13 +1,18 @@
 import {useState,useEffect,useContext} from 'react'
-import { Link,useNavigate } from "react-router-dom"
+import { Link,useNavigate,useLocation } from "react-router-dom"
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
+import Modal from "./Modal";
+
 export default function Login() {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   const {login} = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,8 +29,15 @@ export default function Login() {
       setErrorMessage(error?.response?.data?.message)
     }
   };
+
+  useEffect(()=>{
+    if(location?.state?.showSuccess){
+      setShowModal(true);
+    }
+  },[])
   return (
     <>
+      <Modal open={showModal} setOpen={setShowModal} title={'Success'} description={'your account created Successfully,Please Login to proceed'} />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <div className="text-center m-6 text-xl font-bold">

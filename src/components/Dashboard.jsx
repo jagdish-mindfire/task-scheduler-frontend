@@ -72,6 +72,13 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
               </td>
             </tr>
           ))}
+          {
+            taskList?.length === 0 && (
+              <tr>
+                <td colSpan="5" className="py-2 px-4 text-center font-bold">Click on Add Task to create your first task</td>
+              </tr>
+            )
+          }
         </tbody>
       </table>
     </div>
