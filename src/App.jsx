@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Signup from './components/Signup';
-import Login from './components/login';
+import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 
 import { AuthContext } from './context/AuthContext';
