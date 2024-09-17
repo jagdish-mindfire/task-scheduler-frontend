@@ -1,154 +1,82 @@
-import React, { useMemo } from 'react';
-import { useTable, usePagination } from 'react-table';
+import React, { useState, useEffect ,useContext} from 'react';
+import moment from 'moment';
+import Modal from './Modal';
+import ViewTask from './ViewTask';
+import AddTask from './AddTask';
+import useCallAPI from '../hooks/useCallAPI';
+import { TaskContext } from '../context/TaskContext';
+import Header from './Header';
+import Footer from './Footer';
+const TasksTable = ({ tasks, onComplete, onEdit }) => {
+//   const [taskList, setTaskList] = useState([]);
+    const [viewTask,setViewTask] = useState(false);
+    const [taskData,setTaskData] = useState({});
+    const [showAddTask,setShowAddTask] = useState(false);
+    const {callAuthAPI} = useCallAPI();
+    const {taskList,setTaskList} = useContext(TaskContext);
 
-const TasksTable = ({ tasks=[{title:'hii',description:'adsfasdf asdfsad adsfsadfsa asdf',dueDate:"2024-09-20T03:30:33.000+00:00",id:1}], onComplete, onEdit }) => {
-  // Define columns for the table
-  const columns = useMemo(
-    () => [
-      {
-        Header: 'Task Name',
-        accessor: 'name',
-      },
-      {
-        Header: 'Description',
-        accessor: 'description',
-      },
-      {
-        Header: 'Actions',
-        accessor: 'id',
-        Cell: ({ value }) => (
-          <div className="flex gap-2">
-            <button
-              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              onClick={() => onComplete(value)}
-            >
-              Complete
-            </button>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              onClick={() => onEdit(value)}
-            >
-              Edit
-            </button>
-          </div>
-        ),
-      },
-    ],
-    [onComplete, onEdit]
-  );
+  useEffect(() => {
+   const getAllTasks = async () =>{
+    try {
+        const response = await callAuthAPI({url:'/task/',method:'GET'});
+        console.log(response.data);
+        setTaskList(response?.data?.tasks);
+    } catch (error) {
+        console.log(error);
+    }   
+   };
+   getAllTasks();
 
-  const data = useMemo(() => tasks, [tasks]);
+  }, []);
 
-  // Set up table instance with pagination
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState: { pageIndex: 0 }, // Start on the first page
-    },
-    usePagination
-  );
-
+  
   return (
+    <>
+    <Header/>
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Tasks List</h2>
-      <table {...getTableProps()} className="min-w-full bg-white border border-gray-300">
+        <ViewTask open={viewTask} setOpen={setViewTask} taskData={taskData}/>
+        <AddTask open={showAddTask} setOpen={setShowAddTask} />
+        <div style={{display:'flex',flexWrap:'wrap'}} className='di'>
+        <h2  className="text-2xl font-bold mb-4">Tasks List</h2>
+        <button  
+        onClick={()=>setShowAddTask(true)}
+        className="ml-auto p-3 m-3 rounded-md bg-green-400  font-semibold text-gray-900   ring-green-600 hover:bg-green-500"
+        >Add Task</button>
+        </div>
+
+      <table className="min-w-full bg-white border border-gray-300">
+        
         <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()} className="bg-gray-100 text-left">
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()} className="py-2 px-4 border-b">
-                  {column.render('Header')}
-                </th>
-              ))}
+          <tr className="bg-gray-100 text-left">
+            <th className="py-2 px-4 border-b">Task Name</th>
+            <th className="py-2 px-4 border-b">Description</th>
+            <th className="py-2 px-4 border-b">Status</th>
+            <th className="py-2 px-4 border-b">Due Date</th>
+            <th className="py-2 px-4 border-b">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {taskList?.map((task, index) => (
+              <tr key={index} className={task?.isCompleted  ? 'bg-green-50 hover:bg-green-100' : 'bg-slate-20 hover:bg-gray-50'}>
+              <td className="py-2 px-4 border-b">{task?.title}</td>
+              <td className="py-2 px-4 border-b">{task?.description}</td>
+              <td className="py-2 px-4 border-b">{task?.isCompleted ? 'Completed' : 'Pending'}</td>
+              <td className="py-2 px-4 border-b">{moment(task?.dueDate).format('LL')}</td>
+              <td className="py-2 px-4 border-b flex gap-2">
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                  onClick={() => {setTaskData(task);setViewTask(true)}}
+                  >
+                  View
+                </button>
+              </td>
             </tr>
           ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map(row => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()} className="hover:bg-gray-50">
-                {row.cells.map(cell => (
-                  <td {...cell.getCellProps()} className="py-2 px-4 border-b">
-                    {cell.render('Cell')}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
         </tbody>
       </table>
-
-      {/* Pagination Controls */}
-      <div className="mt-4 flex items-center justify-between">
-        <button
-          className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-        >
-          Previous
-        </button>
-        <div>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>
-        </div>
-        <button
-          className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-        >
-          Next
-        </button>
-      </div>
-
-      <div className="mt-2">
-        <label>
-          Go to page:{' '}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              gotoPage(page);
-            }}
-            className="border p-1 rounded"
-            style={{ width: '50px' }}
-          />
-        </label>
-      </div>
-
-      <div className="mt-2">
-        <select
-          value={pageSize}
-          onChange={e => setPageSize(Number(e.target.value))}
-          className="border p-2 rounded"
-        >
-          {[5, 10, 20, 50].map(pageSize => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [userName,setUserName] = useState('user');
   useEffect(()=>{
     const currentRefreshToken =  localStorage.getItem('refresh_token');
-    console.log('d',currentRefreshToken);
     if(currentRefreshToken !== null){
         setRefreshToken(currentRefreshToken);
         setUserName(localStorage.getItem('user_name') || 'user');
