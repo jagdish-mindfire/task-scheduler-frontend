@@ -82,21 +82,21 @@ export default function Login() {
       />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <div className="text-center m-6 text-xl font-bold">
-            Welcome To Task Scheduler
-          </div>
+        <h2 className="mt-0 mb-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Task Scheduler
+          </h2>
           <img
             alt="Mindfire"
             src="https://www.mindfiresolutions.com/home-assets/images/logo.webp"
             className="mx-auto h-10 w-auto"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-2 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
-          <h4 className="text-red-500 text-center mt-5">{errorMessage}</h4>
+          <h4 className="text-red-500  font-bold text-center mt-1">{errorMessage}</h4>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
           <form action="#" method="POST" className="space-y-6">
             <div>
               <label
