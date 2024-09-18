@@ -26,7 +26,7 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
 
     return (
         <>
-            <div className="p-4 text-center">
+            <div className="text-center p-4">
                 <ViewTask open={viewTask} setOpen={setViewTask} taskData={taskData} />
                 <AddTask open={showAddTask} setOpen={setShowAddTask} />
                 <div className="flex flex-wrap items-center justify-between">
@@ -40,25 +40,25 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
                 </div>
 
                 {/* Responsive table */}
-                <div className="w-full">
-                    <table className="table-auto w-full bg-white border border-gray-300">
+                <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white border border-gray-300">
                         <thead>
                             <tr className="bg-gray-100 text-left">
-                                <th className="py-2 sm:px-4 px-1 border-b text-sm">Task Name</th>
-                                <th className="py-2 sm:px-4 px-1 border-b text-sm">Description</th>
-                                <th className="py-2 sm:px-4 px-1 border-b text-sm">Status</th>
-                                <th className="py-2 sm:px-4 px-1 border-b text-sm">Due Date</th>
-                                <th className="py-2 sm:px-4 px-1 border-b text-sm">Actions</th>
+                                <th className="py-2 px-4 border-b">Task Name</th>
+                                <th className="py-2 px-4 border-b">Description</th>
+                                <th className="py-2 px-4 border-b">Status</th>
+                                <th className="py-2 px-4 border-b">Due Date</th>
+                                <th className="py-2 px-4 border-b">Actions</th>
                             </tr>
                         </thead>
                         <tbody className='text-left'>
                             {taskList?.map((task, index) => (
                                 <tr key={index} className={task?.isCompleted ? 'bg-green-50 hover:bg-green-100' : 'hover:bg-gray-50'}>
-                                    <td className="py-2 sm:px-4 px-2 border-b text-sm">{task?.title}</td>
-                                    <td className="py-2 sm:px-4 px-2 border-b text-sm">{task?.description}</td>
-                                    <td className="py-2 sm:px-4 px-2 border-b text-sm">{task?.isCompleted ? 'Completed' : 'Pending'}</td>
-                                    <td className="py-2 sm:px-4 px-2 border-b text-sm">{moment(task?.dueDate).format('LL')}</td>
-                                    <td className="py-2 sm:px-4 px-2 border-b text-sm flex gap-2">
+                                    <td className="py-2 px-4 border-b">{task?.title}</td>
+                                    <td className="py-2 px-4 border-b">{task?.description}</td>
+                                    <td className="py-2 px-4 border-b">{task?.isCompleted ? 'Completed' : 'Pending'}</td>
+                                    <td className="py-2 px-4 border-b">{moment(task?.dueDate).format('LL')}</td>
+                                    <td className="py-2 px-4 border-b flex gap-2">
                                         <button
                                             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                                             onClick={() => { setTaskData(task); setViewTask(true); }}
@@ -70,7 +70,7 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
                             ))}
                             {taskList?.length === 0 && (
                                 <tr>
-                                    <td colSpan="5" className="py-2 sm:px-4 px-2 text-center font-bold">
+                                    <td colSpan="5" className="py-2 px-4 text-center font-bold">
                                         Click on Add Task to create your first task
                                     </td>
                                 </tr>
