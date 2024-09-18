@@ -4,6 +4,7 @@ import ViewTask from './ViewTask';
 import AddTask from './AddTask';
 import useCallAPI from '../hooks/useCallAPI';
 import { TaskContext } from '../context/TaskContext';
+// import { HiEye, HiEyeOff } from "react-icons/hi";
 
 const TasksTable = ({ tasks, onComplete, onEdit }) => {
     const [viewTask, setViewTask] = useState(false);
@@ -33,7 +34,7 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
                     <h2 className="text-2xl font-bold mb-4">Tasks List</h2>
                     <button
                         onClick={() => setShowAddTask(true)}
-                        className="p-3 m-3 rounded-md bg-green-400 font-semibold text-gray-900 hover:bg-green-500"
+                        className="p-3 m-3 bg-green-400 font-semibold rounded-full text-gray-900 hover:bg-green-500"
                     >
                         Add Task
                     </button>
@@ -60,7 +61,7 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
                                     <td className="py-2 px-4 border-b">{moment(task?.dueDate).format('LL')}</td>
                                     <td className="py-2 px-4 border-b flex gap-2">
                                         <button
-                                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                                            className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
                                             onClick={() => { setTaskData(task); setViewTask(true); }}
                                         >
                                             View

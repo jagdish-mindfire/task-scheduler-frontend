@@ -45,14 +45,14 @@ export default function ViewTask({open, setOpen,taskData}) {
               </div>
             </div>
             <hr />
-            <div className={(taskData?.isCompleted ? "bg-green-50" :"bg-blue-50")+ " px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6"}>
+            <div className={(taskData?.isCompleted ? "bg-green-50" :"bg-blue-50")+ " flex items-center space-x-4 justify-end p-4"}>
               {taskData?.isCompleted ? <></> :
                 <>
               <button
                 type="button"
                 data-autofocus
                 onClick={() => {updateTask(taskData?._id,{is_completed:1});setOpen(false);}}
-                className="mt-3  ml-3 inline-flex w-full justify-center rounded-md bg-green-400 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-green-600 hover:bg-green-500 sm:mt-0 sm:w-auto"
+                className="rounded-md bg-green-400 px-5 py-2  text-sm font-semibold text-gray-900 shadow-sm  hover:bg-green-500"
                 >
                 Mark Completed
               </button>
@@ -60,7 +60,7 @@ export default function ViewTask({open, setOpen,taskData}) {
                 type="button"
                 data-autofocus
                 onClick={() => {setOpen(false);setShowEditModel(true)}}
-                className="ml-3 mt-3 inline-flex w-full justify-center rounded-md bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-blue-400 hover:bg-blue-500 sm:mt-0 sm:w-auto"
+                className="rounded-md bg-blue-400 px-5 py-2  text-sm font-semibold text-gray-900 shadow-sm  hover:bg-bue-500"
                 >
                 Edit
               </button>
@@ -69,7 +69,7 @@ export default function ViewTask({open, setOpen,taskData}) {
               <button
                 type="button"
                 onClick={() => {deleteTask(taskData?._id);setOpen(false)}}
-                className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                className="rounded-md bg-red-400 px-5 py-2  text-sm font-semibold text-gray-900 shadow-sm  hover:bg-red-500"
                 >
                 Delete
             </button>

@@ -1,8 +1,5 @@
-import { useEffect, useState,useContext } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-// import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-import moment from 'moment'
-import useCallAPI from '../hooks/useCallAPI';
+import { useEffect, useState,useContext } from 'react';
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 import { TaskContext } from '../context/TaskContext';
 export default function AddTask({open, setOpen}) {
   const [newTask,setNewTask] = useState({title:'',description:'',due_date:''});
@@ -49,25 +46,24 @@ export default function AddTask({open, setOpen}) {
             <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
                
-                <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                <div className="mt-3 text-left sm:ml-4 sm:mt-0 sm:text-left lg:w-full w-72 sm:w-full md:w-full">
                   <DialogTitle as="h2" className="mb-7 text-base font-semibold leading-6 text-gray-900">
                    Add Task
                   </DialogTitle>
             
-<div style={{width:'380px'}}>
-
-                <label class="block">
-                    <span class="text-gray-700">Title</span><span className="text-red-700">*</span>
+  <div className='flex flex-col space-y-5'>
+                <label className="block ">
+                    <span className="text-gray-700">Title</span><span className="text-red-700">*</span>
                     <input onChange={handleChange} value={newTask?.title} name='title' type="text" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" placeholder=""/>
                 </label>
 
-                <label class="block">
-                    <span class="text-gray-700">Descriptoin</span><span className="text-red-700">*</span>
+                <label className="block">
+                    <span className="text-gray-700">Descriptoin</span><span className="text-red-700">*</span>
                     <textarea defaultValue={newTask?.description} onChange={handleChange} name='description' class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="3"></textarea>
                 </label>
 
-                <label class="block">
-                    <span class="text-gray-700">Due Date</span><span className="text-red-700">*</span>
+                <label className="block">
+                    <span className="text-gray-700">Due Date</span><span className="text-red-700">*</span>
                     <input  onChange={handleChange} value={newTask?.due_date} name='due_date' type="date" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"/>
                 </label>
 

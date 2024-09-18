@@ -43,20 +43,19 @@ export default function EditTask({open, setOpen,passedTaskData}) {
             <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
                
-                <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                <div className="mt-3 text-left sm:ml-4 sm:mt-0 sm:text-left lg:w-full md:w-full w-72">
                   <DialogTitle as="h2" className="mb-7 text-base font-semibold leading-6 text-gray-900">
                    Add Task
                   </DialogTitle>
             
-<div style={{width:'380px'}}>
-
+<div className='flex flex-col space-y-5' >
                 <label class="block">
                     <span class="text-gray-700">Title</span><span className="text-red-700">*</span>
                     <input onChange={handleChange} value={newTask?.title} name='title' type="text" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" placeholder=""/>
                 </label>
 
                 <label class="block">
-                    <span class="text-gray-700">Descriptoin</span><span className="text-red-700">*</span>
+                    <span class="text-gray-700">Description</span><span className="text-red-700">*</span>
                     <textarea defaultValue={newTask?.description} onChange={handleChange} name='description' class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="3"></textarea>
                 </label>
 
@@ -64,7 +63,6 @@ export default function EditTask({open, setOpen,passedTaskData}) {
                     <span class="text-gray-700">Due Date</span><span className="text-red-700">*</span>
                     <input  onChange={handleChange} value={newTask?.due_date} name='due_date' type="date" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"/>
                 </label>
-
 </div>
               
                 </div>
