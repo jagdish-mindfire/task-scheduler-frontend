@@ -5,10 +5,22 @@ import axios from "axios";
 export default function Signup() {
     const [data,setData] = useState({email:'',name:'',password:''});
     const [errorMessage,setErrorMessage] = useState(null);
+    const [isValidEmail, setIsValidEmail] = useState(true);
+    const [isValidPassword, setIsValidPassword] = useState(true);
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+    const [isValidName, setIsValidName] = useState(true);
+
+
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        if(!buttonDisabled){
+          if(data?.name?.length ===0 ){
+            setIsValidName(false);
+            return;
+          }
         const apiUrl = import.meta.env.VITE_API_URL;
         try {
           const response = await axios.post(apiUrl+'/auth/signup',{email:data?.email,password:data?.password,name:data?.name});
@@ -18,8 +30,38 @@ export default function Signup() {
           // console.log(error.response.data);
           setErrorMessage(error?.response?.data?.message)
         }
+      }
     }
 
+    useEffect(() => {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  
+      if (data?.email?.length === 0 || emailRegex.test(data?.email)) {
+        setIsValidEmail(true);
+      } else {
+        setIsValidEmail(false);
+      }
+  
+      if (data?.password?.length === 0 || data?.password?.length >= 8) {
+        setIsValidPassword(true);
+      } else {
+        setIsValidPassword(false);
+      }
+
+      if(data?.name?.length > 0){
+        setIsValidName(true);
+      }
+
+      if (
+        data?.password?.length === 0 ||
+        !isValidPassword ||
+        data?.email?.length === 0 ||
+        !isValidEmail || data?.name?.length === 0 ) {
+        setButtonDisabled(true);
+      } else {
+        setButtonDisabled(false);
+      }
+    }, [data]);
 
     return (
       <>
@@ -54,9 +96,16 @@ export default function Signup() {
                     value={data?.email}
                     onChange={(e)=>setData((prev)=>{return {...prev,email:e.target.value}})}
                     autoComplete="email"
-                    className="block w-full rounded-md border-0 py-1.5 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className={(!isValidEmail
+                      ? "ring-red-700 focus:ring-red-700"
+                      : "focus:ring-indigo-600 ring-gray-300") + " block w-full rounded-md border-0 py-1.5 p-2 text-gray-900 shadow-sm ring-1 ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"}
                   />
                 </div>
+                {!isValidEmail && (
+                <label className="text-red-700">
+                  Please Enter a valid email address
+                </label>
+              )}
               </div>
               <div>
                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
@@ -71,9 +120,16 @@ export default function Signup() {
                     onChange={(e)=>setData((prev)=>{return {...prev,name:e.target.value}})}
                     required
                     autoComplete="true"
-                    className="block w-full rounded-md border-0 py-1.5 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className={(!isValidName
+                      ? "ring-red-700 focus:ring-red-700"
+                      : "focus:ring-indigo-600 ring-gray-300") + " block w-full rounded-md border-0 py-1.5 p-2 text-gray-900 shadow-sm ring-1 ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"}
                   />
                 </div>
+                {!isValidName  && (
+                <label className="text-red-700">
+                  Please enter a valid name
+                </label>
+              )}
               </div>
   
               <div>
@@ -92,16 +148,28 @@ export default function Signup() {
                     value={data?.password}
                     onChange={(e)=>setData((prev)=>{return {...prev,password:e.target.value}})}
                     autoComplete="current-password"
-                    className="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className={(!isValidPassword
+                      ? "ring-red-700 focus:ring-red-700"
+                      : "focus:ring-indigo-600 ring-gray-300") + " block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"}
                   />
                 </div>
+                {!isValidPassword && (
+                <label className="text-red-700">
+                  Password shoud contains minimun 8 chars
+                </label>
+              )}
               </div>
   
               <div>
                 <button
                   type="submit"
                   onClick={handleSubmit}
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  disabled={buttonDisabled}
+                  className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                    buttonDisabled
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
+                  }`}
                 >
                   Sign Up
                 </button>
