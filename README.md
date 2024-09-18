@@ -1,6 +1,6 @@
-# Task Scheduler Backend
+# Task Scheduler Frontend
 
-This is the backend of the Task Scheduling App, built with Node.js and Express. It handles user authentication, task creation, editing, deletion, and notifications for tasks.
+This is the frontend of the Task Scheduling App, built with Vite and ReactJs. It handles user authentication, task creation, editing, deletion, and notifications for tasks.
 
 ## Deployed Link 
 ```bash
