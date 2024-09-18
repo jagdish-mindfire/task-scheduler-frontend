@@ -28,7 +28,7 @@ export default function Signup() {
         } catch (error) {
           console.log(error);
           // console.log(error.response.data);
-          setErrorMessage(error?.response?.data?.message)
+          setErrorMessage(error?.response?.data?.message || "Something went wrong please try again")
         }
       }
     }
@@ -78,7 +78,7 @@ export default function Signup() {
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Sign up to use Task Scheduler
             </h2>
-            <h3 className="mt-3 text-red-600 "></h3>
+            <h2 className="mt-3 text-red-600 text-center ">{errorMessage}</h2>
           </div>
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
