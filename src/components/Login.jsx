@@ -34,7 +34,7 @@ export default function Login() {
 
     if (
       password?.length === 0 ||
-      !isValidPassword ||
+      password?.length < 8 ||
       email?.length === 0 ||
       !isValidEmail
     ) {

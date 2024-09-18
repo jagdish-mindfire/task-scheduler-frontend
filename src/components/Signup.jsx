@@ -54,7 +54,7 @@ export default function Signup() {
 
       if (
         data?.password?.length === 0 ||
-        !isValidPassword ||
+        data?.password?.length < 8 ||
         data?.email?.length === 0 ||
         !isValidEmail || data?.name?.length === 0 ) {
         setButtonDisabled(true);
