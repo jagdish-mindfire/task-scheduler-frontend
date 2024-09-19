@@ -10,6 +10,8 @@ import Dashboard from './components/Dashboard.jsx';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import axios from 'axios';
+import { Toaster } from 'react-hot-toast';
+
 
 const checkIfLoggedIn = async () => {
   const currentRefreshToken =  localStorage.getItem('refresh_token');
@@ -92,6 +94,26 @@ createRoot(document.getElementById('root')).render(
       <AuthProvider>
         <TaskProvider>
         <RouterProvider router={router} />
+        <Toaster   position="bottom-right"       toastOptions={{
+    // Define default options
+    className: '',
+    duration: 20000,
+    style: {
+      background: '#363636',
+      color: '#fff',
+    },
+
+    // Default options for specific types
+    success: {
+      duration: 3000,
+      theme: {
+        primary: 'green',
+        secondary: 'black',
+      },
+    },
+  }}
+
+     />
         </TaskProvider>
       </AuthProvider>
   </StrictMode>,
