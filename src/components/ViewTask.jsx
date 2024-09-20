@@ -40,6 +40,11 @@ export default function ViewTask({open, setOpen,taskData}) {
                     <p className="text-sm text-gray-500">
                      Due Date : {moment(taskData?.dueDate).format('lll')}
                     </p>
+                    {taskData?.isCompleted ? 
+                    <p className="text-sm text-gray-500">
+                     Completed At : {moment(taskData?.updatedAt).format('lll')}
+                    </p> : <></>
+                    }
                   </div>
                 </div>
               </div>
