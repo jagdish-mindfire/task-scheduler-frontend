@@ -1,10 +1,12 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import useCallAPI from '../hooks/useCallAPI';
 
 export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
   const [taskList, setTaskList] = useState([]);
+  const [allNotifications,setAllNotifications] = useState([]);
+  const [notificationCount,setNotificationCount] = useState(0);
   const {callAuthAPI} = useCallAPI();
 
   const addTask = async (todo) => {
@@ -32,15 +34,18 @@ export const TaskProvider = ({ children }) => {
   };
 
   const updateTask = async (id,updatedTodo) => {
-    console.log(updatedTodo);
     const response = await callAuthAPI({url:`/task/${id}`, method: 'PATCH', data: updatedTodo});
     setTaskList((prevTasks) =>
       prevTasks.map((task) => (task._id === id ? response?.data?.task : task))
     );
   };
+  
+  useEffect(()=>{
+    setNotificationCount(allNotifications.reduce((acc,notification)=>!notification?.isRead ?  acc + 1 : acc,0));
+  },[allNotifications])
 
   return (
-    <TaskContext.Provider value={{addTask, updateTask,taskList, setTaskList,deleteTask }}>
+    <TaskContext.Provider value={{addTask, updateTask,taskList, setTaskList,deleteTask,allNotifications,setAllNotifications,notificationCount }}>
       {children}
     </TaskContext.Provider>
   );

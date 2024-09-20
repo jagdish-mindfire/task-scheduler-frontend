@@ -17,7 +17,7 @@ export default function EditTask({open, setOpen,passedTaskData}) {
         });
   };
   useEffect(()=>{
-    setNewTask({title:passedTaskData?.title, description:passedTaskData.description, due_date:moment(passedTaskData?.dueDate).format('YYYY-MM-DD')});
+    setNewTask({title:passedTaskData?.title, description:passedTaskData.description, due_date:moment(passedTaskData?.dueDate).format('YYYY-MM-DD hh:mm:ss')});
   },[passedTaskData])
  
   useEffect(()=>{
@@ -61,7 +61,7 @@ export default function EditTask({open, setOpen,passedTaskData}) {
 
                 <label class="block">
                     <span class="text-gray-700">Due Date</span><span className="text-red-700">*</span>
-                    <input  onChange={handleChange} value={newTask?.due_date} name='due_date' type="date" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"/>
+                    <input  onChange={handleChange} value={newTask?.due_date} name='due_date' type="datetime-local" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"/>
                 </label>
 </div>
               

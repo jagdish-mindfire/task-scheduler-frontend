@@ -35,10 +35,10 @@ export default function ViewTask({open, setOpen,taskData}) {
                      {taskData?.description}
                     </p>
                     <p className="text-sm text-gray-500">
-                     Created At : {moment(taskData?.createdAt).format('llll')}
+                     Created At : {moment(taskData?.createdAt).format('lll')}
                     </p>
                     <p className="text-sm text-gray-500">
-                     Due Date : {moment(taskData?.dueDate).format('ll')}
+                     Due Date : {moment(taskData?.dueDate).format('lll')}
                     </p>
                   </div>
                 </div>

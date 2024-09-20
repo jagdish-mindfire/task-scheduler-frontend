@@ -64,7 +64,7 @@ export default function AddTask({open, setOpen}) {
 
                 <label className="block">
                     <span className="text-gray-700">Due Date</span><span className="text-red-700">*</span>
-                    <input  onChange={handleChange} value={newTask?.due_date} name='due_date' type="date" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"/>
+                    <input  onChange={handleChange} value={newTask?.due_date} name='due_date' type="datetime-local" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"/>
                 </label>
 
 </div>

@@ -94,26 +94,7 @@ createRoot(document.getElementById('root')).render(
       <AuthProvider>
         <TaskProvider>
         <RouterProvider router={router} />
-        <Toaster   position="bottom-right"       toastOptions={{
-    // Define default options
-    className: '',
-    duration: 20000,
-    style: {
-      background: '#363636',
-      color: '#fff',
-    },
-
-    // Default options for specific types
-    success: {
-      duration: 3000,
-      theme: {
-        primary: 'green',
-        secondary: 'black',
-      },
-    },
-  }}
-
-     />
+              <Toaster />
         </TaskProvider>
       </AuthProvider>
   </StrictMode>,
