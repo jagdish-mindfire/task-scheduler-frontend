@@ -58,7 +58,7 @@ export default function AddTask({open, setOpen}) {
                 </label>
 
                 <label className="block">
-                    <span className="text-gray-700">Descriptoin</span><span className="text-red-700">*</span>
+                    <span className="text-gray-700">Description</span><span className="text-red-700">*</span>
                     <textarea defaultValue={newTask?.description} onChange={handleChange} name='description' class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="3"></textarea>
                 </label>
 
