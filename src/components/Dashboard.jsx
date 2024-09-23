@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext,useRef } from 'react';
 import moment from 'moment';
+import io from "socket.io-client";
 import ViewTask from './ViewTask';
 import AddTask from './AddTask';
 import useCallAPI from '../hooks/useCallAPI';
@@ -45,7 +46,6 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
         const getAllNotifications = async () => {
             try {
                 const response = await callAuthAPI({ url: '/notification/', method: 'GET' });
-                console.log('not',response?.data);
                 setAllNotifications(response?.data || []);
             } catch (error) {
                 console.log(error);
@@ -54,32 +54,29 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
         getAllNotifications();
     }, []);
 
+  
+
     useEffect(() => {
       const apiUrl =import.meta.env.VITE_API_URL;
       console.log(accessToken);
       if(accessToken){
         try {
-          const eventSource = new EventSource(apiUrl+'/live-notifications?token='+accessToken);
-          eventSource.onmessage = function (event) {
-            const tasks = JSON.parse(event.data);
+          const newSocket = io(apiUrl + '?token='+accessToken);
+
+          console.log("socket connection establish");
+
+
+          newSocket.on("notification", (response) => {
+            console.log('data from socket',response);
+
+            const tasks = response?.data;
             tasks.map(task=>notify(task?.title,task?.dueDate,task?.notificationType));
             setAllNotifications((prev)=>{
               return [...tasks,...prev];
             });
             playNotificationSound();
 
-            // Handle notification logic (show alert, update UI, etc.)
-        };
-    
-        eventSource.onerror = function (err) {
-            console.error('EventSource failed:', err);
-            eventSource.close(); // Close the connection on error
-        };
-    
-        return () => {
-            eventSource.close(); // Cleanup the eventSource on unmount
-        };
-          
+          });          
         } catch (error) {
           console.error(error);
         }
