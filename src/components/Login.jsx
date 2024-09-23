@@ -157,7 +157,7 @@ export default function Login() {
               </div>
               {!isValidPassword && (
                 <label className="text-red-700">
-                  Password shoud contains minimun 8 chars
+                 Password should contain minimum 8 chars
                 </label>
               )}
             </div>
