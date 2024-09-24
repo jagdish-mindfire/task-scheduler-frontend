@@ -54,17 +54,17 @@ export default function AddTask({open, setOpen}) {
   <div className='flex flex-col space-y-5'>
                 <label className="block ">
                     <span className="text-gray-700">Title</span><span className="text-red-700">*</span>
-                    <input onChange={handleChange} value={newTask?.title} name='title' type="text" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" placeholder=""/>
+                    <input data-testid={"addtask_title"} onChange={handleChange} value={newTask?.title} name='title' type="text" className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" placeholder=""/>
                 </label>
 
                 <label className="block">
                     <span className="text-gray-700">Description</span><span className="text-red-700">*</span>
-                    <textarea defaultValue={newTask?.description} onChange={handleChange} name='description' class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="3"></textarea>
+                    <textarea data-testid={"addtask_description"} defaultValue={newTask?.description} onChange={handleChange} name='description' className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="3"></textarea>
                 </label>
 
                 <label className="block">
                     <span className="text-gray-700">Due Date</span><span className="text-red-700">*</span>
-                    <input  onChange={handleChange} value={newTask?.due_date} name='due_date' type="datetime-local" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"/>
+                    <input data-testid={"addtask_due_date"} onChange={handleChange} value={newTask?.due_date} name='due_date' type="datetime-local" className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"/>
                 </label>
 
 </div>
@@ -74,6 +74,7 @@ export default function AddTask({open, setOpen}) {
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
+                data-testid={"addtask_submit"}
                 type="button"
                 data-autofocus
                 disabled={buttonDisbled}

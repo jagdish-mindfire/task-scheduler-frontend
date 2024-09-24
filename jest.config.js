@@ -2,8 +2,8 @@
   transform: {
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
-  testEnvironment: 'jsdom',
   collectCoverage: true, // Enable coverage collection
+  setupFiles: ['./jest.setup.js'], 
   collectCoverageFrom: [
     'src/**/*.{js,jsx}', // Specify the files from which coverage info should be collected
     '!src/**/*.test.{js,jsx}', // Exclude test files
@@ -20,4 +20,7 @@
       statements: 80,
     },
   },
+  // testEnvironment: 'jsdom',
+  testEnvironment: "jest-environment-jsdom",
+  transformIgnorePatterns: ['<rootDir>/node_modules/'],
 };
