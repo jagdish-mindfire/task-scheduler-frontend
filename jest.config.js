@@ -5,7 +5,7 @@
   collectCoverage: true, // Enable coverage collection
   setupFiles: ['./jest.setup.js'], 
   collectCoverageFrom: [
-    'src/**/*.{js,jsx}', // Specify the files from which coverage info should be collected
+    'src/components/*.{js,jsx}', // Specify the files from which coverage info should be collected
     '!src/**/*.test.{js,jsx}', // Exclude test files
     '!src/serviceWorker.js', // Exclude service workers if needed
     '!src/index.js', // Exclude entry point files like index.js

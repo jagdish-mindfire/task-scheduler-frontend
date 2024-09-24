@@ -55,6 +55,7 @@ export default function ViewTask({open, setOpen,taskData}) {
                 <>
               <button
                 type="button"
+                data-testid={"mark_complete"}
                 data-autofocus
                 onClick={() => {updateTask(taskData?._id,{is_completed:1});setOpen(false);}}
                 className="rounded-md bg-green-400 px-5 py-2  text-sm font-semibold text-gray-900 shadow-sm  hover:bg-green-500"
@@ -63,6 +64,7 @@ export default function ViewTask({open, setOpen,taskData}) {
               </button>
               <button
                 type="button"
+                data-testid={"edit"}
                 data-autofocus
                 onClick={() => {setOpen(false);setShowEditModel(true)}}
                 className="rounded-md bg-blue-400 px-5 py-2  text-sm font-semibold text-gray-900 shadow-sm  hover:bg-bue-500"
@@ -73,6 +75,7 @@ export default function ViewTask({open, setOpen,taskData}) {
             }
               <button
                 type="button"
+                data-testid={"delete"}
                 onClick={() => {deleteTask(taskData?._id);setOpen(false)}}
                 className="rounded-md bg-red-400 px-5 py-2  text-sm font-semibold text-gray-900 shadow-sm  hover:bg-red-500"
                 >

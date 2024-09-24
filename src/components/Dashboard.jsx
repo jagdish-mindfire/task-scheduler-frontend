@@ -168,12 +168,12 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
                                     <td className="py-2 px-4 border-b font-bold">{task?.title}           
                                       {
                                         task?.isCompleted ? 
-                                        <span class="bg-green-800 text-white text-xs font-medium h-6 p-1 ml-3 rounded dark:bg-red-900 dark:text-red-300">Completed</span>
+                                        <span className="bg-green-800 text-white text-xs font-medium h-6 p-1 ml-3 rounded dark:bg-red-900 dark:text-red-300">Completed</span>
                                         :
                                         (
                                         new Date() - new Date(task?.dueDate) > 0 ? 
-                                        <span class="bg-pink-700 text-white text-xs font-medium h-6 p-1 ml-3 rounded dark:bg-red-900 dark:text-red-300">Over Due</span>
-                                        : <span class="bg-blue-500 text-white text-xs font-medium h-6 p-1 ml-3 rounded dark:bg-red-900 dark:text-red-300">Pending</span>
+                                        <span className="bg-pink-700 text-white text-xs font-medium h-6 p-1 ml-3 rounded dark:bg-red-900 dark:text-red-300">Over Due</span>
+                                        : <span className="bg-blue-500 text-white text-xs font-medium h-6 p-1 ml-3 rounded dark:bg-red-900 dark:text-red-300">Pending</span>
                                       )
                                       }
                                       </td>

@@ -17,7 +17,7 @@ export default function EditTask({open, setOpen,passedTaskData}) {
         });
   };
   useEffect(()=>{
-    setNewTask({title:passedTaskData?.title, description:passedTaskData.description, due_date:moment(passedTaskData?.dueDate).format('YYYY-MM-DD hh:mm:ss')});
+    setNewTask({title:passedTaskData?.title, description:passedTaskData?.description, due_date:moment(passedTaskData?.dueDate).format('YYYY-MM-DD hh:mm:ss')});
   },[passedTaskData])
  
   useEffect(()=>{
@@ -49,19 +49,19 @@ export default function EditTask({open, setOpen,passedTaskData}) {
                   </DialogTitle>
             
 <div className='flex flex-col space-y-5' >
-                <label class="block">
-                    <span class="text-gray-700">Title</span><span className="text-red-700">*</span>
-                    <input onChange={handleChange} value={newTask?.title} name='title' type="text" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" placeholder=""/>
+                <label className="block">
+                    <span className="text-gray-700">Title</span><span className="text-red-700">*</span>
+                    <input data-testid={"edittask_title"} onChange={handleChange} value={newTask?.title} name='title' type="text" className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" placeholder=""/>
                 </label>
 
-                <label class="block">
-                    <span class="text-gray-700">Description</span><span className="text-red-700">*</span>
-                    <textarea defaultValue={newTask?.description} onChange={handleChange} name='description' class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="3"></textarea>
+                <label className="block">
+                    <span className="text-gray-700">Description</span><span className="text-red-700">*</span>
+                    <textarea data-testid={"edittask_description"} defaultValue={newTask?.description} onChange={handleChange} name='description' className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" rows="3"></textarea>
                 </label>
 
-                <label class="block">
-                    <span class="text-gray-700">Due Date</span><span className="text-red-700">*</span>
-                    <input  onChange={handleChange} value={newTask?.due_date} name='due_date' type="datetime-local" class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"/>
+                <label className="block">
+                    <span className="text-gray-700">Due Date</span><span className="text-red-700">*</span>
+                    <input data-testid={"edittask_due_date"} onChange={handleChange} value={newTask?.due_date} name='due_date' type="datetime-local" className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"/>
                 </label>
 </div>
               
@@ -72,6 +72,7 @@ export default function EditTask({open, setOpen,passedTaskData}) {
               <button
                 type="button"
                 data-autofocus
+                data-testid={"edittask_submit"}
                 disabled={buttonDisbled}
                 onClick={() => {updateTask(passedTaskData?._id,newTask);setOpen(false)}}
                 className="inline-flex w-full justify-center rounded-md bg-green-400 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-green-600 hover:bg-green-500 sm:mt-0 sm:w-auto"

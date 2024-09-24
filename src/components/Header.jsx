@@ -101,7 +101,7 @@ export default function Header() {
             <Menu as="div" className="relative ml-3">
               <div>
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                  <button
+                  <span
                     type="button"
                     className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
@@ -115,7 +115,7 @@ export default function Header() {
                         {notificationCount}
                       </span>
                     )}
-                  </button>
+                  </span>
                 </MenuButton>
               </div>
 
@@ -124,14 +124,14 @@ export default function Header() {
   className="absolute right-0 z-10 mt-2 w-72 max-h-64 overflow-y-auto origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
 >
   {/* Fixed "Clear All" Button */}
-  {notificationCount > 0 && (
-    <div className="sticky top-0 bg-white z-50">
-      <button
+  {notificationCount <= 0 && (
+    <div className="sticky top-0 bg-red-500 z-50 text-center p-1">
+      <span data-testid="clear_all_notifications"
       onClick={(e)=>{ e.stopPropagation();clearAllNotifications()}}
-        className="w-full bg-red-500 text-white py-2 text-center font-bold rounded"
+        className="w-full text-white py-2 text-center font-bold rounded"
       >
         Clear All Notifications
-      </button>
+      </span>
     </div>
   )}
 
@@ -142,12 +142,13 @@ export default function Header() {
       <div className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 border border-gray-300 m-1 rounded relative">
         
         {/* Cross Icon to clear individual notification */}
-        <button
+        <lable
+          data-testid="clear_notification"
           onClick={(e) =>{  e.stopPropagation();clearNotification(notification._id)} }
           className="absolute top-1 right-2 text-gray-500 hover:text-red-600"
         >
           &times; {/* Cross icon */}
-        </button>
+        </lable>
         
         <span className={(notification?.notificationType === "overdue" ? "text-red-600 " : "text-black ") + "font-bold"}>
           {notification?.notificationType === 'overdue' ? (
@@ -193,6 +194,7 @@ export default function Header() {
               
                 <MenuItem>
                   <a
+                    data-testid="logout_btn"
                     onClick={logout}
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                   >

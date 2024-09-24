@@ -4,12 +4,12 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 
 // To Test
-import AddTask from "../components/AddTask";
+import EditTask from "../components/EditTask";
 import { TaskContext } from "../context/TaskContext";
 
 // Mock Context
 const mockTaskContext = {
-  addTask: jest.fn(),
+  edittask: jest.fn(),
   updateTask: jest.fn(),
   taskList: [],
   setTaskList: jest.fn(),
@@ -19,10 +19,10 @@ const mockTaskContext = {
   notificationCount: 3,
 };
 
-describe("AddTask Component", () => {
+describe("EditTask Component", () => {
   const component = (
     <TaskContext.Provider value={mockTaskContext}>
-      <AddTask open={true} setOpen={() => console.log("hi")} />
+      <EditTask open={true} setOpen={() => console.log("hi")} />
     </TaskContext.Provider>
   );
 
@@ -36,10 +36,9 @@ describe("AddTask Component", () => {
 
     const { getByTestId } = render(component);
 
-    const title = getByTestId("addtask_title");
-    const description = getByTestId("addtask_description");
-    const due_date = getByTestId("addtask_due_date");
-    const submitBtn = getByTestId("addtask_submit");
+    const title = getByTestId("edittask_title");
+    const description = getByTestId("edittask_description");
+    const due_date = getByTestId("edittask_due_date");
 
     fireEvent.change(title, {
       target: { value: "Complete the frontend testing" },
@@ -56,10 +55,10 @@ describe("AddTask Component", () => {
 
     const { getByTestId } = render(component);
 
-    const title = getByTestId("addtask_title");
-    const description = getByTestId("addtask_description");
-    const due_date = getByTestId("addtask_due_date");
-    const submitBtn = getByTestId("addtask_submit");
+    const title = getByTestId("edittask_title");
+    const description = getByTestId("edittask_description");
+    const due_date = getByTestId("edittask_due_date");
+    const submitBtn = getByTestId("edittask_submit");
 
     fireEvent.change(title, {
       target: { value: "Complete the frontend testing" },
@@ -77,7 +76,7 @@ describe("AddTask Component", () => {
     
     const { getByTestId } = render(component);
 
-    const submitBtn = getByTestId("addtask_submit");
+    const submitBtn = getByTestId("edittask_submit");
 
     
     fireEvent.click(submitBtn);
