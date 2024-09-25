@@ -88,15 +88,18 @@ describe("Header Component", () => {
     const clearAllNotificatoinButotn = getByTestId("clear_all_notifications");
     fireEvent.click(clearAllNotificatoinButotn);
   });
-  
 
-  
-  // test("Successfully clicked on Signout", () => {
-  //   const {getByTestId} = render(component);
-  //   const logoutButton = getByTestId("logout_btn");
-  //   fireEvent.click(logoutButton);
-  
-  // });
-
+  test("Case when there is no notifications ", () => {
+    mockTaskContext.notificationCount = 0;
+    const {getByTestId} = render(  <TaskContext.Provider value={mockTaskContext}>
+      <AuthContext.Provider value={mockAuthContext}>
+        <Header />
+    </AuthContext.Provider>
+  </TaskContext.Provider>
+ );
+    const bellIcon = getByTestId("bell_icon");
+    fireEvent.click(bellIcon);
+   
+  });
 
 });
