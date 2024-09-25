@@ -27,11 +27,6 @@ export default function Header() {
   const clearNotification = async (notificationId) => {
     try {
       const response = await callAuthAPI({url:'/notification/clear/' ,method: 'POST',data:{notificationIds:[notificationId]}});
-
-      // const newNoti = allNotifications.filter((item)=>{
-      //   return item._id !== notificationId
-      // });
-      // console.log(newNoti);
       setAllNotifications((prev=>{
        return  prev.filter(noti=>{
           return noti._id !== notificationId
@@ -107,7 +102,7 @@ export default function Header() {
                   >
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">View notifications</span>
-                    <BellIcon aria-hidden="true" className="h-6 w-6" />
+                    <BellIcon aria-hidden="true"  data-testid="bell_icon" className="h-6 w-6" />
 
                     {/* Notification Badge */}
                     {notificationCount > 0 && (
@@ -124,7 +119,7 @@ export default function Header() {
   className="absolute right-0 z-10 mt-2 w-72 max-h-64 overflow-y-auto origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
 >
   {/* Fixed "Clear All" Button */}
-  {notificationCount <= 0 && (
+  {notificationCount > 0 && (
     <div className="sticky top-0 bg-red-500 z-50 text-center p-1">
       <span data-testid="clear_all_notifications"
       onClick={(e)=>{ e.stopPropagation();clearAllNotifications()}}

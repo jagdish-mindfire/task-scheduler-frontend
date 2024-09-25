@@ -1,9 +1,4 @@
-// Imports
-import React from "react";
-
 import { render, fireEvent } from "@testing-library/react";
-
-// To Test
 import EditTask from "../components/EditTask";
 import { TaskContext } from "../context/TaskContext";
 

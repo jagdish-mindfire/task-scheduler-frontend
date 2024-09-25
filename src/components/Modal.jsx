@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { redirect } from 'react-router-dom'
-export default function Modal({open, setOpen,title,description,fn}) {
+export default function Modal({open, setOpen,title,description}) {
 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
@@ -33,6 +31,7 @@ export default function Modal({open, setOpen,title,description,fn}) {
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
+                data-testid="close_btn"
                 type="button"
                 onClick={()=>setOpen(false)}
                 className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"

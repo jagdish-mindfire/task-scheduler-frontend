@@ -107,6 +107,7 @@ export default function Login() {
               </label>
               <div className="mt-2">
                 <input
+                  data-testid="email"
                   id="email"
                   name="email"
                   type="email"
@@ -140,6 +141,7 @@ export default function Login() {
               </div>
               <div className="mt-2">
                 <input
+                  data-testid="password"
                   id="password"
                   name="password"
                   type="password"
@@ -164,6 +166,7 @@ export default function Login() {
 
             <div>
               <button
+                data-testid="submit_login"
                 onClick={handleSubmit}
                 disabled={buttonDisabled}
                 className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${

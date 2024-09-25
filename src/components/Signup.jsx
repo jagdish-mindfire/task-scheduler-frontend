@@ -17,10 +17,10 @@ export default function Signup() {
     const handleSubmit = async (e)=>{
         e.preventDefault();
         if(!buttonDisabled){
-          if(data?.name?.length ===0 ){
-            setIsValidName(false);
-            return;
-          }
+          // if(data?.name?.length ===0 ){
+          //   setIsValidName(false);
+          //   return;
+          // }
         const apiUrl = import.meta.env.VITE_API_URL;
         try {
           const response = await axios.post(apiUrl+'/auth/signup',{email:data?.email,password:data?.password,name:data?.name});
@@ -89,6 +89,7 @@ export default function Signup() {
                 </label>
                 <div className="mt-1">
                   <input
+                    data-testid="email"
                     id="email"
                     name="email"
                     type="email"
@@ -113,6 +114,7 @@ export default function Signup() {
                 </label>
                 <div className="mt-1">
                   <input
+                    data-testid="name"
                     id="name"
                     name="name"
                     type="text"
@@ -141,6 +143,7 @@ export default function Signup() {
                 </div>
                 <div className="mt-1">
                   <input
+                    data-testid="password"
                     id="password"
                     name="password"
                     type="password"
@@ -163,6 +166,7 @@ export default function Signup() {
               <div>
                 <button
                   type="submit"
+                  data-testid="submit_signup"
                   onClick={handleSubmit}
                   disabled={buttonDisabled}
                   className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${

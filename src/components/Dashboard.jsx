@@ -11,7 +11,7 @@ import { TiArrowUnsorted } from "react-icons/ti";
 
 import { toast } from 'react-hot-toast';
 
-const TasksTable = ({ tasks, onComplete, onEdit }) => {
+const TasksTable = () => {
     const [viewTask, setViewTask] = useState(false);
     const [taskData, setTaskData] = useState({});
     const [showAddTask, setShowAddTask] = useState(false);
@@ -58,16 +58,11 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
 
     useEffect(() => {
       const apiUrl =import.meta.env.VITE_API_URL;
-      console.log(accessToken);
       if(accessToken){
         try {
           const newSocket = io(apiUrl + '?token='+accessToken);
 
-          console.log("socket connection establish");
-
-
           newSocket.on("notification", (response) => {
-            console.log('data from socket',response);
 
             const tasks = response?.data;
             tasks.map(task=>notify(task?.title,task?.dueDate,task?.notificationType));
@@ -90,8 +85,6 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
         setSortingType(cuurectSortingType === 'asc'? 'desc' : 'asc');
         await getAllTasks(cuurectSortingType === 'asc'? 'desc' : 'asc');
         callingSortingAPI.current = false;
-      }else{
-        console.log('Already sorting');
       }
     };
 
@@ -141,6 +134,7 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
                 <div className="flex flex-wrap items-center justify-between">
                     <h2 className="text-2xl font-bold mb-4">Tasks List</h2>
                     <button
+                        data-testid={"addtask_btn"}
                         onClick={() => setShowAddTask(true)}
                         className="p-3 m-3 bg-green-400 font-semibold rounded-full text-gray-900 hover:bg-green-500"
                     >
@@ -156,8 +150,8 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
                                 <th className="py-2 px-4 border-b">Task Name</th>
                                 <th className="py-2 px-4 border-b">Description</th>
                                 
-                                <a>
-                                <th className="py-2 px-4 border-b inline-flex cursor-pointer" onClick={sortTasks}>Due Date <TiArrowUnsorted /></th></a>
+                                
+                                <th className="py-2 px-4 border-b inline-flex cursor-pointer" data-testid={"sort_tasks"} onClick={sortTasks}><a>Due Date </a><TiArrowUnsorted /></th>
                                 <th className="py-2 px-4 border-b">Actions</th>
     
                             </tr>
@@ -181,6 +175,7 @@ const TasksTable = ({ tasks, onComplete, onEdit }) => {
                                     <td className="py-2 px-4 border-b">{moment(task?.dueDate).format('LLL')}</td>
                                     <td className="py-2 px-4 border-b flex gap-2">
                                         <button
+                                              data-testid={"view_task"}
                                             className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
                                             onClick={() => { setTaskData(task); setViewTask(true); }}
                                         >

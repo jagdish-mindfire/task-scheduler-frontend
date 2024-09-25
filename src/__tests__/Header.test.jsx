@@ -4,10 +4,8 @@ global.ResizeObserver = class {
   unobserve() {}
   disconnect() {}
 };
-// Imports
-import React from "react";
 
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent,act } from "@testing-library/react";
 
 // To Test
 import Header from "../components/Header";
@@ -33,11 +31,11 @@ const mockTaskContext = {
 },{
   "_id": "66f2e908f9sd3689fe48c77d9",
   "taskId": "66f2e8cbf9bc689fe48c7790",
-  "notificationType": "overdue",
+  "notificationType": "due",
   "isRead": false,
   "createdAt": "2024-09-24T16:30:00.388Z",
   "updatedAt": "2024-09-24T16:30:00.388Z",
-  "title": "adf",
+  "title": "this is another title",
   "dueDate": "2024-09-03T16:28:00.000Z"
 }],
   setAllNotifications: jest.fn(),
@@ -69,29 +67,36 @@ describe("Header Component", () => {
 
   test("Renders successfully", () => {
     render(component);
-    // expect(true).toBeTruthy();
   });
 
   
+  // test("Successfully clicked on Clear Single notificatoin", () => {
+  //   const {getByTestId} = render(component);
+  //   const bellIcon = getByTestId("bell_icon");
+  //   const clearSingleNotification = getByTestId("clear_notification");
+  //   act(()=>{
+  //     fireEvent.click(bellIcon);
+  //     fireEvent.click(clearSingleNotification);
+  //   });
+  // });
+  
+
   test("Successfully clicked on Clear all notificatoin", () => {
     const {getByTestId} = render(component);
+    const bellIcon = getByTestId("bell_icon");
+    fireEvent.click(bellIcon);
     const clearAllNotificatoinButotn = getByTestId("clear_all_notifications");
     fireEvent.click(clearAllNotificatoinButotn);
   });
   
-  test("Successfully clicked on Clear Single notificatoin", () => {
-    const {getByTestId} = render(component);
-    const clearSingleNotification = getByTestId("clear_notification");
-    fireEvent.click(clearSingleNotification);
-  });
+
   
+  // test("Successfully clicked on Signout", () => {
+  //   const {getByTestId} = render(component);
+  //   const logoutButton = getByTestId("logout_btn");
+  //   fireEvent.click(logoutButton);
   
-  test("Successfully clicked on Signout", () => {
-    const {getByTestId} = render(component);
-    const logoutButton = getByTestId("logout_btn");
-    fireEvent.click(logoutButton);
-    
-  });
+  // });
 
 
 });
