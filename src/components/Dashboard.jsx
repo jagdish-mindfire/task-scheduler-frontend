@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useContext,useRef } from 'react';
 import moment from 'moment';
 import io from "socket.io-client";
+import { TiArrowUnsorted } from "react-icons/ti";
 import ViewTask from './ViewTask';
 import AddTask from './AddTask';
 import useCallAPI from '../hooks/useCallAPI';
 import { TaskContext } from '../context/TaskContext';
 import { AuthContext } from '../context/AuthContext';
-// import { HiEye, HiEyeOff } from "react-icons/hi";
-import { TiArrowUnsorted } from "react-icons/ti";
 
 import { toast } from 'react-hot-toast';
 
-const TasksTable = () => {
+const Dashboard = () => {
     const [viewTask, setViewTask] = useState(false);
     const [taskData, setTaskData] = useState({});
     const [showAddTask, setShowAddTask] = useState(false);
@@ -201,4 +200,4 @@ const TasksTable = () => {
     );
 };
 
-export default TasksTable;
+export default Dashboard;

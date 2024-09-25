@@ -11,7 +11,9 @@ import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
-
+import { AuthProvider } from './context/AuthContext.jsx';
+import { TaskProvider } from './context/TaskContext.jsx';
+import './index.css';
 
 const checkIfLoggedIn = async () => {
   const currentRefreshToken =  localStorage.getItem('refresh_token');
@@ -78,16 +80,6 @@ const router = createBrowserRouter([
     element: <><Header/><Dashboard /><Footer/></> ,
   },
 ]);
-
-
-
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext.jsx';
-import { TaskProvider } from './context/TaskContext.jsx';
-import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

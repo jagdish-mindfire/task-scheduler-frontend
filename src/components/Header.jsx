@@ -15,10 +15,6 @@ import { TaskContext } from "../context/TaskContext";
 
 const navigation = [{ name: "Dashboard", href: "#", current: true }];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function Header() {
   const { logout, callAuthAPI } = useCallAPI();
 

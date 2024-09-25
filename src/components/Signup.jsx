@@ -17,17 +17,12 @@ export default function Signup() {
     const handleSubmit = async (e)=>{
         e.preventDefault();
         if(!buttonDisabled){
-          // if(data?.name?.length ===0 ){
-          //   setIsValidName(false);
-          //   return;
-          // }
         const apiUrl = import.meta.env.VITE_API_URL;
         try {
           const response = await axios.post(apiUrl+'/auth/signup',{email:data?.email,password:data?.password,name:data?.name});
           navigate("/login",{ state: { showSuccess:true } });
         } catch (error) {
           console.log(error);
-          // console.log(error.response.data);
           setErrorMessage(error?.response?.data?.message || "Something went wrong please try again")
         }
       }

@@ -1,6 +1,5 @@
 import { useState,useContext } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-// import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import moment from 'moment';
 import { TaskContext } from '../context/TaskContext';
 import EditTask from './EditTask';

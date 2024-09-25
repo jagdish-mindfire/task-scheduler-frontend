@@ -1,7 +1,6 @@
 import { useEffect, useState,useContext } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-// import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import moment from 'moment';
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { TaskContext } from '../context/TaskContext';
 export default function EditTask({open, setOpen,passedTaskData}) {
   const [newTask,setNewTask] = useState({title:'',description:'',due_date:''});
