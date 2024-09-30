@@ -59,7 +59,8 @@ export default function Login() {
         login(refreshToken, name);
         navigate("/dashboard");
       } catch (error) {
-        console.log(error.response.data);
+        console.log(error)
+        // console.log(error.response.data);
         setErrorMessage(error?.response?.data?.message);
       }
     }

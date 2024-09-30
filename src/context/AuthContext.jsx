@@ -25,6 +25,9 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(true);
     };
 
+    const logout = () =>{
+      setIsAuthenticated(false);
+    }
 
 
   return (
