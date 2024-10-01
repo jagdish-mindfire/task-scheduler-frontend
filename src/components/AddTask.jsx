@@ -7,7 +7,7 @@ export default function AddTask({open, setOpen}) {
   const {addTask} = useContext(TaskContext);
 
   const handleChange = async (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target; 
         setNewTask({
           ...newTask,
           [name]: value,
