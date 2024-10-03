@@ -92,7 +92,7 @@ describe("EditTask Component", () => {
     expect(submitBtn).toBeTruthy();
     
     fireEvent.click(submitBtn);
-    // expect(mockTaskContext.updateTask).toHaveBeenCalledTimes(0);
+    expect(mockTaskContext.updateTask).toHaveBeenCalled();
   });
 
 });

@@ -15,6 +15,9 @@ export default function EditTask({open, setOpen,passedTaskData}) {
           [name]: value,
         });
   };
+  const handleUpdatetask = async (e) => {
+
+  };
   useEffect(()=>{
     setNewTask({title:passedTaskData?.title, description:passedTaskData?.description, due_date:moment(passedTaskData?.dueDate).format('YYYY-MM-DD hh:mm:ss')});
   },[passedTaskData])

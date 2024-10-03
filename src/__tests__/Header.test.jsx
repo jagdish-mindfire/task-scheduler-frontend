@@ -84,9 +84,14 @@ describe("Header Component", () => {
   test("Successfully clicked on Clear all notificatoin", () => {
     const {getByTestId} = render(component);
     const bellIcon = getByTestId("bell_icon");
+    expect(bellIcon).toBeTruthy();
+
     fireEvent.click(bellIcon);
     const clearAllNotificatoinButotn = getByTestId("clear_all_notifications");
+    expect(clearAllNotificatoinButotn).toBeTruthy();
+    
     fireEvent.click(clearAllNotificatoinButotn);
+    // expect(mockTaskContext.updateTask).toHaveBeenCalled();
   });
 
   test("Case when there is no notifications ", () => {

@@ -68,7 +68,11 @@ describe("Dashboard Component", () => {
     const { getByTestId } = render(component);
 
     const addTaskButton = getByTestId("addtask_btn");
+    expect(addTaskButton).toBeTruthy();
+
     fireEvent.click(addTaskButton);
+    // expect(mockTaskContext.addTask).toHaveBeenCalled();
+
   });
 
   test("Clicking on Sort task", () => {

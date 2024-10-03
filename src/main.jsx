@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
-import Dashboard from './components/Dashboard.jsx';
+import Dashboard from './components/Dashboard/Dashboard.jsx';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import axios from 'axios';
