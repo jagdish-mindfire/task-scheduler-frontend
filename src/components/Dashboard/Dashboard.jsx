@@ -31,12 +31,6 @@ const Dashboard = () => {
             console.log(error);
         }
     };
-    
-    function playNotificationSound() {
-      const sound = document.getElementById("notificationSound");
-      sound.currentTime = 0;
-      sound.play(); 
-  }
 
     useEffect(() => {
         getAllTasks(sortingType);
@@ -69,7 +63,6 @@ const Dashboard = () => {
             setAllNotifications((prev)=>{
               return [...tasks,...prev];
             });
-            playNotificationSound();
 
           });          
         } catch (error) {
@@ -128,7 +121,6 @@ const Dashboard = () => {
     return (
         <>
             <div className="text-center p-4 mb-12">
-            <audio id="notificationSound" src="./bell.mp3" preload="auto"></audio>
                 {/* View Task Modal */}
                 <ViewTask open={viewTask} setOpen={setViewTask} taskData={taskData} />
                 {/* Add Task Modal */}
