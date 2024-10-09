@@ -9,12 +9,12 @@ import ShowTaskNotification from "../utils/ShowTaskNotification";
 
 const useNotification = () => {
     const { callAuthAPI } = useCallAPI();
-    const { allNotifications, notificationCount, setAllNotifications } = useContext(TaskContext);
+    const { allNotifications, setAllNotifications } = useContext(TaskContext);
     const { accessToken } = useContext(AuthContext);
 
     const fetchAllNotifications = async () => {
         try {
-            const response = await callAuthAPI({ url: '/notification/', method: 'GET' });
+            const response = await callAuthAPI({ url: '/notifications/', method: 'GET' });
             setAllNotifications(response?.data || []);
             console.log('All Notifications fetched:', response?.data);
         } catch (error) {
@@ -46,7 +46,7 @@ const useNotification = () => {
     const clearNotification = async (notificationId) => {
       try {
         await callAuthAPI({
-          url: "/notification/clear/",
+          url: "/notifications/clear/",
           method: "POST",
           data: { notificationIds: [notificationId] },
         });
@@ -63,7 +63,7 @@ const useNotification = () => {
     const clearAllNotifications = async (notificationId) => {
       try {
         await callAuthAPI({
-          url: "/notification/clear/",
+          url: "/notifications/clear/",
           method: "POST",
           data: {
             notificationIds: [...allNotifications.map((noti) => noti._id)],

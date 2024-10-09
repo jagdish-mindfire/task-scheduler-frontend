@@ -12,7 +12,7 @@ export const TaskProvider = ({ children }) => {
   const addTask = async (todo) => {
     try {
       
-      const response = await callAuthAPI({url:'/task/create', 
+      const response = await callAuthAPI({url:'/tasks/create', 
         method: 'POST',
         data:todo,
       });
@@ -25,7 +25,7 @@ export const TaskProvider = ({ children }) => {
   
   const deleteTask = async (id) => {
     try {
-      await callAuthAPI({url:`/task/${id}`, method: 'DELETE'});
+      await callAuthAPI({url:`/tasks/${id}`, method: 'DELETE'});
       setTaskList((prevTasks)=>prevTasks.filter(task=>task._id !== id));
     } catch (error) {
       console.log(error);
@@ -34,7 +34,7 @@ export const TaskProvider = ({ children }) => {
   };
 
   const updateTask = async (id,updatedTodo) => {
-    const response = await callAuthAPI({url:`/task/${id}`, method: 'PATCH', data: updatedTodo});
+    const response = await callAuthAPI({url:`/tasks/${id}`, method: 'PATCH', data: updatedTodo});
     setTaskList((prevTasks) =>
       prevTasks.map((task) => (task._id === id ? response?.data?.task : task))
     );

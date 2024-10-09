@@ -24,7 +24,7 @@ const useTask = () => {
 
       const getAllTasks = async (sortingType) => {
         try {
-            const response = await callAuthAPI({ url: `/task/?sort=${sortingType}`, method: 'GET' });
+            const response = await callAuthAPI({ url: `/tasks/?sort=${sortingType}`, method: 'GET' });
             setTaskList(response?.data);
         } catch (error) {
             console.log(error);
