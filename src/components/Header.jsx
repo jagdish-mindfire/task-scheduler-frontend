@@ -9,48 +9,21 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import useCallAPI from "../hooks/useCallAPI";
-import { useEffect, useState, useContext } from "react";
-import moment from "moment";
+import {useContext } from "react";
 import { TaskContext } from "../context/TaskContext";
-
+import CONSTANTS_STRING from "../constants/strings";
+import useNotification from "../hooks/useNotification";
+import NotificationCard from "./NotificationCard";
 const navigation = [{ name: "Dashboard", href: "#", current: true }];
 
 export default function Header() {
-  const { logout, callAuthAPI } = useCallAPI();
+  const { logout } = useCallAPI();
 
-  const { allNotifications, notificationCount, setAllNotifications } =
+  const { allNotifications, notificationCount } =
     useContext(TaskContext);
-  const clearNotification = async (notificationId) => {
-    try {
-      const response = await callAuthAPI({
-        url: "/notification/clear/",
-        method: "POST",
-        data: { notificationIds: [notificationId] },
-      });
-      setAllNotifications((prev) => {
-        return prev.filter((noti) => {
-          return noti._id !== notificationId;
-        });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {clearNotification,clearAllNotifications} = useNotification();
 
-  const clearAllNotifications = async (notificationId) => {
-    try {
-      const response = await callAuthAPI({
-        url: "/notification/clear/",
-        method: "POST",
-        data: {
-          notificationIds: [...allNotifications.map((noti) => noti._id)],
-        },
-      });
-      setAllNotifications([]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   return (
     <Disclosure as="nav" className="bg-gray-400">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -59,7 +32,6 @@ export default function Header() {
             {/* Mobile menu button*/}
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-black bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span className="absolute -inset-0.5" />
-              <span className="sr-only">Open main menu</span>
               <Bars3Icon
                 aria-hidden="true"
                 className="block h-6 w-6 group-data-[open]:hidden"
@@ -104,7 +76,7 @@ export default function Header() {
                     className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
                     <span className="absolute -inset-1.5" />
-                    <span className="sr-only">View notifications</span>
+                    <span className="sr-only">{CONSTANTS_STRING.VIEW_NOTIFICATIONS}</span>
                     <BellIcon
                       aria-hidden="true"
                       data-testid="bell_icon"
@@ -137,7 +109,7 @@ export default function Header() {
                       }}
                       className="w-full text-white py-2 text-center font-bold rounded"
                     >
-                      Clear All Notifications
+                      {CONSTANTS_STRING.CLEAR_ALL_NOTIFICATIONS}
                     </span>
                   </div>
                 )}
@@ -145,57 +117,14 @@ export default function Header() {
                 {/* Notification Items */}
                 {allNotifications.map((notification) => (
                   <MenuItem key={notification._id} className="relative">
-                    <div className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 border border-gray-300 m-1 rounded relative">
-                      {/* Cross Icon to clear individual notification */}
-                      <lable
-                        data-testid="clear_notification"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          clearNotification(notification._id);
-                        }}
-                        className="absolute top-1 right-2 text-gray-500 hover:text-red-600"
-                      >
-                        &times; {/* Cross icon */}
-                      </lable>
-
-                      <span
-                        className={
-                          (notification?.notificationType === "overdue"
-                            ? "text-red-600 "
-                            : "text-black ") + "font-bold"
-                        }
-                      >
-                        {notification?.notificationType === "overdue" ? (
-                          <span>
-                            {" "}
-                            You missed the deadline for{" "}
-                            <b>{notification?.title}</b>. Complete it as soon as
-                            possible.{" "}
-                          </span>
-                        ) : (
-                          <span>
-                            {" "}
-                            The deadline for <b>{notification?.title}</b> is
-                            approaching. You have less than an hour to complete
-                            it.{" "}
-                          </span>
-                        )}
-                      </span>
-
-                      <div>
-                        <span>
-                          Due Date:{" "}
-                          {moment(notification?.dueDate).format("lll")}
-                        </span>
-                      </div>
-                    </div>
+                    <NotificationCard notification={notification} clearNotification={clearNotification}/>
                   </MenuItem>
                 ))}
 
                 {/* Message when there are no notifications */}
                 {notificationCount === 0 && (
                   <div className="block px-4 py-2 text-sm text-gray-700 font-bold m-1 rounded">
-                    There are no notifications
+                    {CONSTANTS_STRING.NO_NOTIFICATIONS}
                   </div>
                 )}
               </MenuItems>
@@ -205,7 +134,6 @@ export default function Header() {
               <div>
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span className="absolute -inset-1.5" />
-                  <span className="sr-only">Open user menu</span>
                   <img
                     alt=""
                     src="./profile.png"
@@ -223,7 +151,7 @@ export default function Header() {
                     onClick={logout}
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                   >
-                    Sign out
+                  {CONSTANTS_STRING.SIGN_OUT}
                   </a>
                 </MenuItem>
               </MenuItems>

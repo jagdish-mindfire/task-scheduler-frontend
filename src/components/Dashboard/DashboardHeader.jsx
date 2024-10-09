@@ -1,4 +1,4 @@
-export default function DashboardHeader () {
+export default function DashboardHeader ({setShowAddTask}) {
     return ( <div className="flex flex-wrap items-center justify-between">
         <h2 className="text-2xl font-bold mb-4">Tasks List</h2>
         <button
