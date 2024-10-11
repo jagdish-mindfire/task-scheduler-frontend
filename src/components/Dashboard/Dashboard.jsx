@@ -6,6 +6,8 @@ import DashboardHeader from './DashboardHeader';
 import TasksTable from './TasksTable';
 import useNotification from '../../hooks/useNotification';
 import useTask from '../../hooks/useTask';
+import Header from "../Header.jsx";
+import Footer from "../Footer.jsx";
 
 const Dashboard = () => {
     const [viewTask, setViewTask] = useState(false);
@@ -21,7 +23,8 @@ const Dashboard = () => {
     },[]);
 
     return (
-        <>
+        <>       
+        <Header />
             <div className="text-center p-4 mb-12">
                 {/* View Task Modal */}
                 <ViewTask open={viewTask} setOpen={setViewTask} taskData={taskData} />
@@ -30,6 +33,7 @@ const Dashboard = () => {
                 <DashboardHeader setShowAddTask={setShowAddTask}/>
                 <TasksTable taskList={taskList} setTaskData={setTaskData} setViewTask={setViewTask} sortTasks={sortTasks}/>
             </div>
+            <Footer />
         </>
     );
 };
