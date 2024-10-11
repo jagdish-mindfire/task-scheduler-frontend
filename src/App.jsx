@@ -5,7 +5,7 @@ import { TaskProvider } from "./context/TaskContext.jsx";
 import AuthMiddleware from "./routes/middleware/AuthMiddleware.jsx";
 import RedirectIfLoggedInMiddleware from "./routes/middleware/RedirectIfLoggedInMiddleware.jsx";
 import { authRoutes, protectedRoutes } from "./routes/allRoute.jsx";
-import NotFound from "./components/NotFound.jsx";
+import NotFound from "./pages/NotFound/NotFound.jsx";
 import "./index.css";
 
 const App = () => {

@@ -22,7 +22,8 @@ async function getAccessToken({setAccessToken,refreshToken,setRefreshToken,setIs
         setRefreshToken(null);
         localStorage.removeItem('refresh_token');
         setIsAuthenticated(false);
-        window.location.replace('/login');
+        console.log('token is null')
+        // window.location.replace('/login');
     } else {
         setAccessToken(token);
     }

@@ -11,7 +11,6 @@ export const TaskProvider = ({ children }) => {
 
   const addTask = async (todo) => {
     try {
-      
       const response = await callAuthAPI({url:'/tasks/create', 
         method: 'POST',
         data:todo,
@@ -39,6 +38,7 @@ export const TaskProvider = ({ children }) => {
       prevTasks.map((task) => (task._id === id ? response?.data?.task : task))
     );
   };
+  
   
   useEffect(()=>{
     setNotificationCount(allNotifications.reduce((acc,notification)=>!notification?.isRead ?  acc + 1 : acc,0));

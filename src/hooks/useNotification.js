@@ -5,18 +5,18 @@ import { TaskContext } from "../context/TaskContext";
 import { AuthContext } from '../context/AuthContext';
 import io from "socket.io-client";
 import ShowTaskNotification from "../utils/ShowTaskNotification";
-
+import { axiosClient } from "../api/apiConfig";
+import { FetchAllNotifications,ClearNotifications } from "../services/notificationService";
 
 const useNotification = () => {
-    const { callAuthAPI } = useCallAPI();
+    // const { callAuthAPI } = useCallAPI();
     const { allNotifications, setAllNotifications } = useContext(TaskContext);
     const { accessToken } = useContext(AuthContext);
 
     const fetchAllNotifications = async () => {
         try {
-            const response = await callAuthAPI({ url: '/notifications/', method: 'GET' });
-            setAllNotifications(response?.data || []);
-            console.log('All Notifications fetched:', response?.data);
+            const notifications = await FetchAllNotifications();
+            setAllNotifications(notifications || []);
         } catch (error) {
             console.log(error);
         }
@@ -45,11 +45,7 @@ const useNotification = () => {
 
     const clearNotification = async (notificationId) => {
       try {
-        await callAuthAPI({
-          url: "/notifications/clear/",
-          method: "POST",
-          data: { notificationIds: [notificationId] },
-        });
+        await ClearNotifications([notificationId]);
         setAllNotifications((prev) => {
           return prev.filter((noti) => {
             return noti._id !== notificationId;
@@ -60,15 +56,9 @@ const useNotification = () => {
       }
     };
   
-    const clearAllNotifications = async (notificationId) => {
+    const clearAllNotifications = async () => {
       try {
-        await callAuthAPI({
-          url: "/notifications/clear/",
-          method: "POST",
-          data: {
-            notificationIds: [...allNotifications.map((noti) => noti._id)],
-          },
-        });
+        await ClearNotifications([...allNotifications.map((noti) => noti._id)])
         setAllNotifications([]);
       } catch (error) {
         console.log(error);

@@ -1,18 +1,23 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import CONSTANTS_STRING from "../constants/strings";
+import { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import signupAPI from "../api/signupAPI";
-export default function Signup() {
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import Modal from "../../components/Common/Modal";
+import CONSTANTS_STRING from "../../constants/strings";
+
+import {UserLogin} from "../../services/authService";
+
+export default function Login() {
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const schema = z.object({
     email: z.string().email(),
     password: z.string().min(8),
-    name: z.string().min(3),
   });
+  
   const {
     register,
     handleSubmit,
@@ -20,25 +25,34 @@ export default function Signup() {
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(schema) });
 
-  const navigate = useNavigate();
-
-  const onSubmit = async ({ email, name, password }) => {
+  const onSubmit = async ({ email, password }) => {
     try {
-      const response = await signupAPI({ email, name, password });
-      navigate("/login", { state: { showSuccess: true } });
+      await UserLogin({ email, password });
+      navigate("/dashboard");
     } catch (error) {
-      setError("root", {
-        message:
-          error?.response?.data?.message ||
-          CONSTANTS_STRING.SOMETHING_WENT_WRONG,
-      });
+      console.log(error);
+      setError("root", { message: error?.response?.data?.message });
     }
   };
+
+  useEffect(() => {
+    if (location?.state?.showSuccess) {
+      setShowModal(true);
+    }
+  }, []);
   return (
     <>
+      <Modal
+        open={showModal}
+        setOpen={setShowModal}
+        title={"Success"}
+        description={
+          "your account created Successfully,Please Login to proceed"
+        }
+      />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-0 mb-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             {CONSTANTS_STRING.APP_TITLE}
           </h2>
           <img
@@ -46,15 +60,15 @@ export default function Signup() {
             src="https://www.mindfiresolutions.com/home-assets/images/logo.webp"
             className="mx-auto h-10 w-auto"
           />
-          <h2 className="mt-0 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            {CONSTANTS_STRING.SIGN_UP_TO_USE_APP}
+          <h2 className="mt-2 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            {CONSTANTS_STRING.LOGIN_TO_YOUR_ACCOUNT}
           </h2>
-          <h2 className="mt-1 text-red-600 font-bold text-center ">
+          <h4 className="text-red-500  font-bold text-center mt-1">
             {errors?.root?.message}
-          </h2>
+          </h4>
         </div>
 
-        <div className="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
           <form
             action="#"
             method="POST"
@@ -68,48 +82,22 @@ export default function Signup() {
               >
                 {CONSTANTS_STRING.EMAIL}
               </label>
-              <div className="mt-1">
+              <div className="mt-2">
                 <input
-                  data-testid="email"
                   {...register("email")}
+                  data-testid="email"
                   required
                   autoComplete="email"
                   className={
                     (errors.email
-                      ? "ring-red-700 focus:ring-red-700"
-                      : "focus:ring-indigo-600 ring-gray-300") +
+                      ? " ring-red-700 focus:ring-red-700 "
+                      : "ring-gray-300 focus:ring-indigo-600") +
                     " block w-full rounded-md border-0 py-1.5 p-2 text-gray-900 shadow-sm ring-1 ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
                   }
                 />
               </div>
               {errors.email && (
                 <label className="text-red-700">{errors.email.message}</label>
-              )}
-            </div>
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                {CONSTANTS_STRING.NAME}
-              </label>
-              <div className="mt-1">
-                <input
-                  data-testid="name"
-                  type="text"
-                  {...register("name")}
-                  required
-                  autoComplete="true"
-                  className={
-                    (errors.name
-                      ? "ring-red-700 focus:ring-red-700"
-                      : "focus:ring-indigo-600 ring-gray-300") +
-                    " block w-full rounded-md border-0 py-1.5 p-2 text-gray-900 shadow-sm ring-1 ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
-                  }
-                />
-              </div>
-              {errors.name && (
-                <label className="text-red-700">{errors.name.message}</label>
               )}
             </div>
 
@@ -122,10 +110,10 @@ export default function Signup() {
                   {CONSTANTS_STRING.PASSWORD}
                 </label>
               </div>
-              <div className="mt-1">
+              <div className="mt-2">
                 <input
-                  data-testid="password"
                   {...register("password")}
+                  data-testid="password"
                   type="password"
                   required
                   autoComplete="current-password"
@@ -133,7 +121,7 @@ export default function Signup() {
                     (errors.password
                       ? "ring-red-700 focus:ring-red-700"
                       : "focus:ring-indigo-600 ring-gray-300") +
-                    " block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
+                    "block w-full rounded-md border-0 py-1.5 p-2 text-gray-900 shadow-sm ring-1 ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
                   }
                 />
               </div>
@@ -147,7 +135,7 @@ export default function Signup() {
             <div>
               <button
                 type="submit"
-                data-testid="submit_signup"
+                data-testid="submit_login"
                 disabled={isSubmitting}
                 className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
                   isSubmitting
@@ -155,20 +143,18 @@ export default function Signup() {
                     : "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
                 }`}
               >
-                {isSubmitting
-                  ? CONSTANTS_STRING.LOADING
-                  : CONSTANTS_STRING.SIGNUP}
+                {isSubmitting ? "Loading..." : "Sign in"}
               </button>
             </div>
           </form>
 
-          <p className="mt-5 text-center text-sm text-gray-500">
-            {CONSTANTS_STRING.ALREADY_HAVE_AN_ACCOUNT}{" "}
+          <p className="mt-10 text-center text-sm text-gray-500">
+            {CONSTANTS_STRING.DONT_HAVE_ACCOUNT}{" "}
             <Link
-              to="/login"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              to="/signup"
+              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 "
             >
-              {CONSTANTS_STRING.SIGNIN}
+              {CONSTANTS_STRING.SIGNUP}
             </Link>
           </p>
         </div>

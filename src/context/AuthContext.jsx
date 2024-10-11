@@ -6,16 +6,16 @@ export const AuthProvider = ({ children }) => {
   const [refreshToken,setRefreshToken] = useState(null);
   const [accessToken,setAccessToken] = useState(null);
   const [userName,setUserName] = useState('user');
-  useEffect(()=>{
-    const currentRefreshToken =  localStorage.getItem('refresh_token');
-    if(currentRefreshToken !== null){
-        setRefreshToken(currentRefreshToken);
-        setUserName(localStorage.getItem('user_name') || 'user');
-        setIsAuthenticated(true);
-    }else{
-        setIsAuthenticated(false);
-    }
-  },[]);
+  // useEffect(()=>{
+  //   const currentRefreshToken =  localStorage.getItem('refresh_token');
+  //   if(currentRefreshToken !== null){
+  //       setRefreshToken(currentRefreshToken);
+  //       setUserName(localStorage.getItem('user_name') || 'user');
+  //       setIsAuthenticated(true);
+  //   }else{
+  //       setIsAuthenticated(false);
+  //   }
+  // },[]);
 
   const login = (refreshToken,name) => {
     localStorage.setItem('refresh_token', refreshToken);

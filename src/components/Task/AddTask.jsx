@@ -1,7 +1,7 @@
 import { useEffect, useState,useContext } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
-import { TaskContext } from '../context/TaskContext';
-export default function AddTask({open, setOpen}) {
+import { TaskContext } from '../../context/TaskContext';
+export default function AddTask({taskOperations,setTaskOperations}) {
   const [newTask,setNewTask] = useState({title:'',description:'',due_date:''});
   const [buttonDisbled,setButtonDisbled] = useState(true);
   const {addTask} = useContext(TaskContext);
@@ -13,10 +13,13 @@ export default function AddTask({open, setOpen}) {
           [name]: value,
         });
   };
+  const handleCloseModal = () => {
+    setTaskOperations({...taskOperations,showAddTask:false});
+  }
   const createNewTask = async ()=>{
     if(newTask?.title?.length > 0 && newTask?.description?.length && newTask?.due_date?.length > 0){
         await addTask(newTask);
-        setOpen(false);
+        setTaskOperations({...taskOperations,showAddTask:false})
     }else{
         console.log('some fields are missing');
         console.log(newTask);
@@ -31,7 +34,7 @@ export default function AddTask({open, setOpen}) {
     }
   },[newTask]);
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-10">
+    <Dialog open={taskOperations.showAddTask} onClose={handleCloseModal} className="relative z-10">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"

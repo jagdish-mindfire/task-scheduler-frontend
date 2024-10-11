@@ -22,6 +22,22 @@ const CONSTANTS_STRING = {
     SOMETHING_WENT_WRONG : "Something went wrong please try again",
     LOADING:"Loading...",
     ALREADY_HAVE_AN_ACCOUNT : "Already Got an account ?",
-    SIGNIN : "Sign In"
+    SIGNIN : "Sign In",
+
+    //View
+    CREATED_AT:"Created At",
+    DUE_DATE  : "Due Date",
+    COMPLETED_AT : "Completed At",
+    MARK_COMPLETE : "Mark Completed",
+    EDIT : "Edit",
+    DELETE : "Delete",
+
+    //Edit
+    UPDATE_TASK : "Update Task",
+    TITLE:"Title",
+    DESCRIPTION:"Description",
+    
+
+
 };
 export default CONSTANTS_STRING;

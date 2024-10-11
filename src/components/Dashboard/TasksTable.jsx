@@ -1,6 +1,6 @@
 import moment from "moment";
 import { TiArrowUnsorted } from "react-icons/ti";
-export default function TasksTable  ({taskList,setTaskData,setViewTask,sortTasks}) {
+export default function TasksTable  ({taskList,sortTasks,taskOperations,setTaskOperations}) {
     
     return ( <div className="overflow-x-auto rounded">
         <table className="min-w-full bg-white border border-gray-300 ">
@@ -8,8 +8,6 @@ export default function TasksTable  ({taskList,setTaskData,setViewTask,sortTasks
                 <tr className="text-left bg-green-300 ">
                     <th className="py-2 px-4 border-b">Task Name</th>
                     <th className="py-2 px-4 border-b">Description</th>
-                    
-                    
                     <th className="py-2 px-4 border-b inline-flex cursor-pointer" data-testid={"sort_tasks"} onClick={sortTasks}><a>Due Date </a><TiArrowUnsorted /></th>
                     <th className="py-2 px-4 border-b">Actions</th>
 
@@ -17,7 +15,7 @@ export default function TasksTable  ({taskList,setTaskData,setViewTask,sortTasks
             </thead>
             <tbody className='text-left'>
                 {taskList?.map((task, index) => (
-                    <tr key={index}  onClick={() => { setTaskData(task); setViewTask(true) }} className={task?.isCompleted ? 'bg-green-50 hover:bg-green-100' :' hover:bg-gray-50' }>
+                    <tr key={index}  onClick={() => {setTaskOperations({...taskOperations,showViewTask:true,taskData:task}); }} className={task?.isCompleted ? 'bg-green-50 hover:bg-green-100' :' hover:bg-gray-50' }>
                         <td className="py-2 px-4 border-b font-bold">{task?.title}           
                           {
                             task?.isCompleted ? 
@@ -36,7 +34,6 @@ export default function TasksTable  ({taskList,setTaskData,setViewTask,sortTasks
                             <button
                                   data-testid={"view_task"}
                                 className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
-                                onClick={() => { setTaskData(task); setViewTask(true); }}
                             >
                                 View
                             </button>

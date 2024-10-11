@@ -8,12 +8,12 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import useCallAPI from "../hooks/useCallAPI";
+import useCallAPI from "../../hooks/useCallAPI";
 import {useContext } from "react";
-import { TaskContext } from "../context/TaskContext";
-import CONSTANTS_STRING from "../constants/strings";
-import useNotification from "../hooks/useNotification";
-import NotificationCard from "./NotificationCard";
+import { TaskContext } from "../../context/TaskContext";
+import CONSTANTS_STRING from "../../constants/strings";
+import useNotification from "../../hooks/useNotification";
+import NotificationCard from "../Notification/NotificationCard";
 const navigation = [{ name: "Dashboard", href: "#", current: true }];
 
 export default function Header() {

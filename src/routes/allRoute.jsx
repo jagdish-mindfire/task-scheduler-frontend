@@ -1,9 +1,7 @@
 
-import Signup from "../components/Signup";
-import Login from "../components/Login";
-import Dashboard from "../components/Dashboard/Dashboard";
-
-
+import Signup from "../pages/Authentication/Signup";
+import Login from "../pages/Authentication/Login";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 const authRoutes = [
     { path: "/", element: <Login /> },
