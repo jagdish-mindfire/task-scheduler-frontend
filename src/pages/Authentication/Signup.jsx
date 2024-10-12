@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import CONSTANTS_STRING from "../../constants/strings";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import signupAPI from "../../api/signupAPI";
 import { UserSignup } from "../../services/authService";
+import { ShowErrorToast } from "../../services/toastService";
 
 export default function Signup() {
   const schema = z.object({
@@ -16,7 +16,7 @@ export default function Signup() {
   const {
     register,
     handleSubmit,
-    setError,
+
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(schema) });
 
@@ -27,18 +27,15 @@ export default function Signup() {
       await UserSignup({ email, name, password });
       navigate("/login", { state: { showSuccess: true } });
     } catch (error) {
-      setError("root", {
-        message:
-          error?.response?.data?.message ||
-          CONSTANTS_STRING.SOMETHING_WENT_WRONG,
-      });
+      ShowErrorToast(error?.response?.data?.message ||
+        CONSTANTS_STRING.SOMETHING_WENT_WRONG);
     }
   };
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm mb-3">
+          <h2 className=" mb-2 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             {CONSTANTS_STRING.APP_TITLE}
           </h2>
           <img
@@ -46,15 +43,12 @@ export default function Signup() {
             src="https://www.mindfiresolutions.com/home-assets/images/logo.webp"
             className="mx-auto h-10 w-auto"
           />
-          <h2 className="mt-0 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-3 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             {CONSTANTS_STRING.SIGN_UP_TO_USE_APP}
-          </h2>
-          <h2 className="mt-1 text-red-600 font-bold text-center ">
-            {errors?.root?.message}
           </h2>
         </div>
 
-        <div className="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
           <form
             action="#"
             method="POST"
@@ -152,7 +146,7 @@ export default function Signup() {
                 className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
                   isSubmitting
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
+                    : "bg-slate-900 hover:bg-slate-950 focus-visible:outline-slate-950"
                 }`}
               >
                 {isSubmitting
@@ -166,7 +160,7 @@ export default function Signup() {
             {CONSTANTS_STRING.ALREADY_HAVE_AN_ACCOUNT}{" "}
             <Link
               to="/login"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              className="font-semibold leading-6 text-slate-800 hover:text-slate-950"
             >
               {CONSTANTS_STRING.SIGNIN}
             </Link>

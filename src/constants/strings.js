@@ -37,7 +37,24 @@ const CONSTANTS_STRING = {
     TITLE:"Title",
     DESCRIPTION:"Description",
     
+    ADD_TASK : "Add Task",
 
+    ARE_YOU_SURE_TO_DELETE:"Are you sure you want to delete this task",
+    DELETE : 'Delete',
+    CANCEL : 'Cancel',
+
+    DELETE_SUCCESS : "Task deleted successfully",
+    TASK_CREATE_SUCCESS : "Task created successfully",
+    MARKED_AS_COMPLETE : "Congratulations on completion of task",
+    TASK_UPDATED_SUCCESS : "Task updated successfully",
+
+    TASK_NAME:"Task",
+    ACTIONS : "Actions",
+    CREATE_FIRST_TASK : "Click on Add Task to create your first task",
+    VIEW : "View",
 
 };
+
+export const nevigationMenu = [{ name: "Dashboard", href: "#", current: true }];
+
 export default CONSTANTS_STRING;

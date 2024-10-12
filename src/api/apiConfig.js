@@ -29,19 +29,15 @@ axiosClient.interceptors.response.use(function (response) {
 
 // Request Interceptor to Add Authorization Token
 axiosClient.interceptors.request.use(async function (config) {
-    console.log('running this interceptor');
     const refreshToken = GetLocalAsString(LocalKeys.REFRESH_TOKEN);
     let accessToken = GetLocalAsString(LocalKeys.ACCESS_TOKEN);
-    console.log('access token: ' + accessToken);
     if(!accessToken || (JSON.parse(atob(accessToken.split('.')[1]))).exp * 1000 < new Date().getTime() ){
         try {
-            console.log('before refresh token')
             let { data } = await axios.post(API_URL + '/auth/token', {refresh_token:refreshToken});
             accessToken =  data?.access_token;
             SetLocalAsString(LocalKeys.ACCESS_TOKEN,accessToken);
-            console.log('after refresh token')
         } catch (error) {
-            console.log('cant get accesstoken from rt');
+            console.log(error);
         }
 
     }

@@ -11,7 +11,6 @@ class appApi {
                 params: params
             }
         }
-        console.log(params)
         return axiosClient.get(url, params);
     };
 

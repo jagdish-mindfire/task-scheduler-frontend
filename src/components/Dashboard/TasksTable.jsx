@@ -1,21 +1,21 @@
 import moment from "moment";
 import { TiArrowUnsorted } from "react-icons/ti";
+import CONSTANTS_STRING from "../../constants/strings";
 export default function TasksTable  ({taskList,sortTasks,taskOperations,setTaskOperations}) {
     
     return ( <div className="overflow-x-auto rounded">
         <table className="min-w-full bg-white border border-gray-300 ">
             <thead>
-                <tr className="text-left bg-green-300 ">
-                    <th className="py-2 px-4 border-b">Task Name</th>
-                    <th className="py-2 px-4 border-b">Description</th>
-                    <th className="py-2 px-4 border-b inline-flex cursor-pointer" data-testid={"sort_tasks"} onClick={sortTasks}><a>Due Date </a><TiArrowUnsorted /></th>
-                    <th className="py-2 px-4 border-b">Actions</th>
-
+                <tr className="text-left bg-gray-500 text-zinc-50">
+                    <th className="py-2 px-4 border-b">{CONSTANTS_STRING.TASK_NAME}</th>
+                    <th className="py-2 px-4 border-b">{CONSTANTS_STRING.DESCRIPTION}</th>
+                    <th className="py-2 px-4 border-b inline-flex cursor-pointer" data-testid={"sort_tasks"} onClick={sortTasks}><a>{CONSTANTS_STRING.DUE_DATE} </a><TiArrowUnsorted /></th>
+                    <th className="py-2 px-4 border-b">{CONSTANTS_STRING.ACTIONS}</th>
                 </tr>
             </thead>
             <tbody className='text-left'>
                 {taskList?.map((task, index) => (
-                    <tr key={index}  onClick={() => {setTaskOperations({...taskOperations,showViewTask:true,taskData:task}); }} className={task?.isCompleted ? 'bg-green-50 hover:bg-green-100' :' hover:bg-gray-50' }>
+                    <tr key={index}  onClick={() => {setTaskOperations({...taskOperations,showViewTask:true,taskData:task}); }} className='hover:bg-gray-50'>
                         <td className="py-2 px-4 border-b font-bold">{task?.title}           
                           {
                             task?.isCompleted ? 
@@ -33,19 +33,17 @@ export default function TasksTable  ({taskList,sortTasks,taskOperations,setTaskO
                         <td className="py-2 px-4 border-b flex gap-2">
                             <button
                                   data-testid={"view_task"}
-                                className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
+                                className="bg-zinc-700 text-white px-4 py-2 rounded-full hover:bg-zinc-900"
                             >
-                                View
+                                 {CONSTANTS_STRING.VIEW}
                             </button>
-                  
-
                         </td>
                     </tr>
                 ))}
                 {taskList?.length === 0 && (
                     <tr>
                         <td colSpan="5" className="py-2 px-4 text-center font-bold">
-                            Click on Add Task to create your first task
+                           {CONSTANTS_STRING.CREATE_FIRST_TASK}
                         </td>
                     </tr>
                 )}

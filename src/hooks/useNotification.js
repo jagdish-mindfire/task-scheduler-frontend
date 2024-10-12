@@ -1,15 +1,11 @@
 
-import { useContext, useEffect } from "react";
-import useCallAPI from './useCallAPI';
+import { useContext } from "react";
 import { TaskContext } from "../context/TaskContext";
 import { AuthContext } from '../context/AuthContext';
-import io from "socket.io-client";
-import ShowTaskNotification from "../utils/ShowTaskNotification";
-import { axiosClient } from "../api/apiConfig";
+// import ShowTaskNotification from "../utils/ShowTaskNotification";
 import { FetchAllNotifications,ClearNotifications } from "../services/notificationService";
 
 const useNotification = () => {
-    // const { callAuthAPI } = useCallAPI();
     const { allNotifications, setAllNotifications } = useContext(TaskContext);
     const { accessToken } = useContext(AuthContext);
 
@@ -18,6 +14,7 @@ const useNotification = () => {
             const notifications = await FetchAllNotifications();
             setAllNotifications(notifications || []);
         } catch (error) {
+            console.log('here is error');
             console.log(error);
         }
     };

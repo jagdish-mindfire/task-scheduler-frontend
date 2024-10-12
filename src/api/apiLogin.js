@@ -37,12 +37,10 @@ class authApi {
             data: {email:payload?.email, name:payload?.name,password:payload?.password}
           };
 
-        console.log(requestOptions);
         return axiosApi(SIGNUP_URL, requestOptions);
     };
 
     login = async (payload) => {
-        console.log(payload);
         RemoveLocal(LocalKeys.REFRESH_TOKEN);
         
         const requestOptions = {
@@ -50,8 +48,6 @@ class authApi {
             data: {email:payload?.email, password:payload?.password}
           };
 
-
-        console.log(requestOptions);
         return axiosApi(LOGIN_URL, requestOptions);
     };
 
@@ -62,12 +58,11 @@ class authApi {
     logout = async () => {
         const refreshToken = GetLocalAsString(LocalKeys.REFRESH_TOKEN);
         RemoveLocal(LocalKeys.REFRESH_TOKEN);
+        RemoveLocal(LocalKeys.ACCESS_TOKEN);
         const requestOptions = {
             method: "POST",
             data: {refresh_token:refreshToken},
         };
-
-        console.log(requestOptions);
         return axiosApi(LOGOUT_URL, requestOptions);
     }
 

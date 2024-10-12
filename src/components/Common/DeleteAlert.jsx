@@ -1,5 +1,6 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-export default function Modal({open, setOpen,title,description}) {
+import CONSTANTS_STRING from '../../constants/strings'
+export default function DeleteAlert({open, setOpen,confirmCallback,cancelCallback,taskTitle}) {
 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
@@ -19,11 +20,11 @@ export default function Modal({open, setOpen,title,description}) {
                
                 <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                   <DialogTitle as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                   {title}
+                   {CONSTANTS_STRING.ARE_YOU_SURE_TO_DELETE}
                   </DialogTitle>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                    {description}
+                    "{taskTitle}"
                     </p>
                   </div>
                 </div>
@@ -31,12 +32,21 @@ export default function Modal({open, setOpen,title,description}) {
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
-                data-testid="close_btn"
+                data-testid="cancel_btn"
                 type="button"
-                onClick={()=>setOpen(false)}
-                className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
+                onClick={cancelCallback}
+                className="inline-flex w-full justify-center rounded-md bg-zinc-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-zinc-700 sm:ml-3 sm:w-auto"
               >
-                Okay
+                {CONSTANTS_STRING.CANCEL}
+              </button>
+
+              <button
+                data-testid="delete_btn"
+                type="button"
+                onClick={confirmCallback}
+                className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+              >
+                {CONSTANTS_STRING.DELETE}
               </button>
             </div>
           </DialogPanel>

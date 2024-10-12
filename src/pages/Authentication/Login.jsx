@@ -1,12 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect} from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useNavigate, useLocation } from "react-router-dom";
 import Modal from "../../components/Common/Modal";
-import CONSTANTS_STRING from "../../constants/strings";
-
 import {UserLogin} from "../../services/authService";
+import { ShowErrorToast } from "../../services/toastService";
+
+import CONSTANTS_STRING from "../../constants/strings";
 
 export default function Login() {
   const [showModal, setShowModal] = useState(false);
@@ -30,8 +31,7 @@ export default function Login() {
       await UserLogin({ email, password });
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
-      setError("root", { message: error?.response?.data?.message });
+      ShowErrorToast(error?.response?.data?.message);
     }
   };
 
@@ -63,9 +63,6 @@ export default function Login() {
           <h2 className="mt-2 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             {CONSTANTS_STRING.LOGIN_TO_YOUR_ACCOUNT}
           </h2>
-          <h4 className="text-red-500  font-bold text-center mt-1">
-            {errors?.root?.message}
-          </h4>
         </div>
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -140,19 +137,19 @@ export default function Login() {
                 className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
                   isSubmitting
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
+                    : "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
                 }`}
               >
-                {isSubmitting ? "Loading..." : "Sign in"}
+                {isSubmitting ? CONSTANTS_STRING.LOADING: CONSTANTS_STRING.SIGNIN}
               </button>
             </div>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
+          <p className="mt-10 text-center text-sm text-Slate-900">
             {CONSTANTS_STRING.DONT_HAVE_ACCOUNT}{" "}
             <Link
               to="/signup"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 "
+              className="font-semibold leading-6 text-grey-600 hover:text-grey-500 "
             >
               {CONSTANTS_STRING.SIGNUP}
             </Link>
