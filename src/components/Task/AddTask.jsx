@@ -1,23 +1,26 @@
+import { useContext } from 'react';
 import TaskForm from './TaskForm';
 import CONSTANTS_STRING from '../../constants/strings';
 import useTask from '../../hooks/useTask';
 import {ShowAddTaskToast} from '../../services/toastService';
+import { TaskModelStates } from '../../context/TaskModelStates';
 
-export default function AddTask({taskOperations,setTaskOperations}) {
+export default function AddTask() {
 
   const {addTask} = useTask();
+  const {modelStates,updateModelStates} = useContext(TaskModelStates);
   
   const handleCloseModal = () => {
-    setTaskOperations({...taskOperations,showAddTask:false});
+    updateModelStates({showAddTask:false});
   }
   const createNewTask = async (data)=>{
     await addTask(data);
-    setTaskOperations({...taskOperations,showAddTask:false});
+    updateModelStates({showAddTask:false});
     ShowAddTaskToast();
   }
 
   return (
-    <TaskForm open={taskOperations.showAddTask}  formtTitle={CONSTANTS_STRING.ADD_TASK} onSubmit={createNewTask} handleCloseModal={handleCloseModal} />
+    <TaskForm open={modelStates.showAddTask}  formtTitle={CONSTANTS_STRING.ADD_TASK} onSubmit={createNewTask} handleCloseModal={handleCloseModal} />
   ) 
  
 }

@@ -10,13 +10,9 @@ const IsLoggedIn = async () => {
       let { data } = await axios.post(apiUrl + "/auth/token", {
         refresh_token: currentRefreshToken,
       });
-      console.log('from middleware');
-      console.log(data);
       token = data.access_token;
-    
       return token;
     } catch (error) {
-      console.log(error);
       return false;
     }
 };

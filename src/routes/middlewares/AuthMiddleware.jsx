@@ -6,6 +6,7 @@ import Loader from "../../components/Common/Loader";
 const AuthMiddleware = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const unProtectedAllowedRoutes = ['/login','/signup'];
   
   useEffect(() => {
     const checkLogin = async () => {
@@ -27,10 +28,14 @@ const AuthMiddleware = (props) => {
     <>
       {isLoading ? (
         <Loader />
-      ) : isAuthenticated ? (
+      ) : isAuthenticated ? ( 
+        props.path == '/dashboard' ? 
         <React.Fragment>{props.children}</React.Fragment>
-      ) : (
-        <Navigate to="/login" />
+        : <Navigate to="/dashboard" />
+      ) : ( 
+        unProtectedAllowedRoutes.indexOf(props.path) !== -1 ?
+        <React.Fragment>{props.children}</React.Fragment>
+         : <Navigate to="/login" />
       )}
     </>
   );

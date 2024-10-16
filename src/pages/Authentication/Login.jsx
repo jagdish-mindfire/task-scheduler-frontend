@@ -1,5 +1,5 @@
 import { useState, useEffect} from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,7 +11,6 @@ import CONSTANTS_STRING from "../../constants/strings";
 
 export default function Login() {
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
 
   const schema = z.object({
@@ -29,7 +28,7 @@ export default function Login() {
   const onSubmit = async ({ email, password }) => {
     try {
       await UserLogin({ email, password });
-      navigate("/dashboard");
+      window.location.replace('/dashboard')
     } catch (error) {
       ShowErrorToast(error?.response?.data?.message);
     }

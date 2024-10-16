@@ -1,7 +1,6 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import CONSTANTS_STRING from '../../constants/strings'
 export default function DeleteAlert({open, setOpen,confirmCallback,cancelCallback,taskTitle}) {
-
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop

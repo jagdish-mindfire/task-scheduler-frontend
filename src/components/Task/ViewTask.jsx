@@ -1,38 +1,49 @@
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import moment from 'moment';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import useTask from '../../hooks/useTask';
 import CONSTANTS_STRING from '../../constants/strings';
 import DeleteAlert from '../Common/DeleteAlert';
 import { ShowTaskDeleteToast,ShowTaskCompletionToast } from '../../services/toastService';
-export default function ViewTask({taskOperations,setTaskOperations}) {
+import { TaskModelStates } from '../../context/TaskModelStates';
+
+export default function ViewTask() {
  
     const {updateTask,deleteTask} = useTask();
-    const [showDeleteModal,setShowDeleteModal] = useState(false);
+
+    const {modelStates,updateModelStates,taskData} = useContext(TaskModelStates);
 
     const handleCloseModal = () => {
-      setTaskOperations({...taskOperations,showViewTask:false});
+      updateModelStates({showViewTask:false});
+    };
+
+    const handleEditTask = () =>{
+      updateModelStates({showViewTask:false,showEditTask:true});
     };
 
     const handleDeleteTask = () => {
-      deleteTask(taskOperations?.taskData?._id);
+      deleteTask(taskData?._id);
       handleCloseModal();
-      setShowDeleteModal(false);
+      handleCloseDeleteAlert();
       ShowTaskDeleteToast();
     };
     
     const hanldeMarkComplete = () => {
-      updateTask(taskOperations?.taskData?._id,{is_completed:1});
+      updateTask(taskData?._id,{is_completed:1});
       handleCloseModal();
       ShowTaskCompletionToast();
     };
+
+    const handleCloseDeleteAlert = () => {
+      updateModelStates({showDeleteConfirmation:false});
+    }
   return (
     <>
-    <DeleteAlert taskTitle={taskOperations?.taskData?.title} open={showDeleteModal} setOpen={setShowDeleteModal} confirmCallback={handleDeleteTask} cancelCallback={()=>{setShowDeleteModal(false);setTaskOperations({...taskOperations,showViewTask:true})}} />
-    <Dialog open={taskOperations.showViewTask} onClose={handleCloseModal} className="relative z-10 ">
+    <DeleteAlert taskTitle={taskData?.title} open={modelStates.showDeleteConfirmation} setOpen={handleCloseDeleteAlert} confirmCallback={handleDeleteTask} cancelCallback={()=>updateModelStates({showDeleteConfirmation:false,showViewTask:true})} />
+    <Dialog open={modelStates?.showViewTask} onClose={handleCloseModal} className="relative z-10 ">
       <DialogBackdrop
         transition
-        className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+        className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"  
       />
 
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto ">
@@ -46,21 +57,21 @@ export default function ViewTask({taskOperations,setTaskOperations}) {
                
                 <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                   <DialogTitle as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                    {taskOperations?.taskData?.title}
+                    {taskData?.title}
                   </DialogTitle>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                     {taskOperations?.taskData?.description}
+                     {taskData?.description}
                     </p>
                     <p className="text-sm text-gray-500">
-                   {CONSTANTS_STRING.CREATED_AT}: {moment(taskOperations?.taskData?.createdAt).format('lll')}
+                   {CONSTANTS_STRING.CREATED_AT}: {moment(taskData?.createdAt).format('lll')}
                     </p>
                     <p className="text-sm text-gray-500">
-                    {CONSTANTS_STRING.DUE_DATE}: {moment(taskOperations?.taskData?.dueDate).format('lll')}
+                    {CONSTANTS_STRING.DUE_DATE}: {moment(taskData?.dueDate).format('ll')}
                     </p>
-                    {taskOperations?.taskData?.isCompleted ? 
+                    {taskData?.isCompleted ? 
                     <p className="text-sm text-gray-500">
-                     {CONSTANTS_STRING.COMPLETED_AT} : {moment(taskOperations?.taskData?.updatedAt).format('lll')}
+                     {CONSTANTS_STRING.COMPLETED_AT} : {moment(taskData?.updatedAt).format('lll')}
                     </p> : <></>
                     }
                   </div>
@@ -69,7 +80,7 @@ export default function ViewTask({taskOperations,setTaskOperations}) {
             </div>
             <hr />
             <div className="flex items-center space-x-4 justify-end p-4">
-              {taskOperations?.taskData?.isCompleted ? <></> :
+              {taskData?.isCompleted ? <></> :
                 <>
               <button
                 type="button"
@@ -84,7 +95,7 @@ export default function ViewTask({taskOperations,setTaskOperations}) {
                 type="button"
                 data-testid={"edit"}
                 data-autofocus
-                onClick={() => {setTaskOperations({...taskOperations,showViewTask:false,showEditTask:true})}}
+                onClick={handleEditTask}
                 className="rounded-md bg-blue-400 px-5 py-2  text-sm font-semibold text-gray-900 shadow-sm  hover:bg-bue-500"
                 >
                 {CONSTANTS_STRING.EDIT}
@@ -94,7 +105,7 @@ export default function ViewTask({taskOperations,setTaskOperations}) {
               <button
                 type="button"
                 data-testid={"delete"}
-                onClick={() => {setTaskOperations({...taskOperations,showViewTask:false});setShowDeleteModal(true)}}
+                onClick={() => {updateModelStates({showViewTask:false,showDeleteConfirmation:true})}}
                 className="rounded-md bg-red-600 px-5 py-2  text-sm font-semibold text-zinc-50 shadow-sm  hover:bg-red-700"
                 >
                 {CONSTANTS_STRING.DELETE}

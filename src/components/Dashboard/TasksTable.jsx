@@ -1,8 +1,20 @@
+
+import { useContext } from "react";
 import moment from "moment";
 import { TiArrowUnsorted } from "react-icons/ti";
 import CONSTANTS_STRING from "../../constants/strings";
-export default function TasksTable  ({taskList,sortTasks,taskOperations,setTaskOperations}) {
-    
+import { TaskModelStates } from '../../context/TaskModelStates';
+import { TaskContext } from "../../context/TaskContext.jsx";
+import useTask from "../../hooks/useTask.js";
+export default function TasksTable  () {
+    const { taskList } = useContext(TaskContext);
+    const { sortTasks } = useTask();
+
+    const {updateModelStates,setTaskData} = useContext(TaskModelStates);
+    const hanldeViewTask = (task) =>{
+        setTaskData(task);
+        updateModelStates({showViewTask: true});
+    }
     return ( <div className="overflow-x-auto rounded">
         <table className="min-w-full bg-white border border-gray-300 ">
             <thead>
@@ -15,7 +27,7 @@ export default function TasksTable  ({taskList,sortTasks,taskOperations,setTaskO
             </thead>
             <tbody className='text-left'>
                 {taskList?.map((task, index) => (
-                    <tr key={index}  onClick={() => {setTaskOperations({...taskOperations,showViewTask:true,taskData:task}); }} className='hover:bg-gray-50'>
+                    <tr key={index}  onClick={() => hanldeViewTask(task)} className='hover:bg-gray-50'>
                         <td className="py-2 px-4 border-b font-bold">{task?.title}           
                           {
                             task?.isCompleted ? 
@@ -29,7 +41,7 @@ export default function TasksTable  ({taskList,sortTasks,taskOperations,setTaskO
                           }
                           </td>
                         <td className="py-2 px-4 border-b">{task?.description}</td>
-                        <td className="py-2 px-4 border-b">{moment(task?.dueDate).format('LLL')}</td>
+                        <td className="py-2 px-4 border-b">{moment(task?.dueDate).format('ll')}</td>
                         <td className="py-2 px-4 border-b flex gap-2">
                             <button
                                   data-testid={"view_task"}

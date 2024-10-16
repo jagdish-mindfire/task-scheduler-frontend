@@ -16,9 +16,7 @@ export default function TaskForm({ formtTitle,onSubmit,defaultValues, handleClos
   const schema = z.object({
     title: z.string().min(2),
     description: z.string().min(2),
-    due_date: z.string().refine((val) => !isNaN(new Date(val).getTime()), {
-      message: "Invalid due date",
-    }),
+    due_date: z.string().refine((val) => !isNaN(new Date(val).getTime()), {message: "Invalid due date"}),
   });
 
   const {
@@ -39,7 +37,7 @@ export default function TaskForm({ formtTitle,onSubmit,defaultValues, handleClos
         title: defaultValues.title || '',
         description: defaultValues.description || '',
         due_date: moment(defaultValues.dueDate).format(
-          "YYYY-MM-DD hh:mm:ss"
+          "YYYY-MM-DD"
         ),
       });
     }
@@ -140,7 +138,7 @@ export default function TaskForm({ formtTitle,onSubmit,defaultValues, handleClos
                         <input
                           data-testid={"edittask_due_date"}
                           {...register("due_date")}
-                          type="datetime-local"
+                          type="date"
                           className={
                             (errors.due_date
                               ? " ring-red-700 focus:ring-red-700 "
