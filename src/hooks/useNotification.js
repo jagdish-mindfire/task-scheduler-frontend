@@ -1,13 +1,11 @@
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { TaskContext } from "../context/TaskContext";
-import { AuthContext } from '../context/AuthContext';
-// import ShowTaskNotification from "../utils/ShowTaskNotification";
 import { FetchAllNotifications,ClearNotifications } from "../services/notificationService";
+import { ShowNotificationToast } from "../services/toastService";
 
 const useNotification = () => {
     const { allNotifications, setAllNotifications } = useContext(TaskContext);
-    const { accessToken } = useContext(AuthContext);
 
     const fetchAllNotifications = async () => {
         try {
@@ -19,26 +17,18 @@ const useNotification = () => {
         }
     };
     
+    const addNotification = async (notification) => {
+        setAllNotifications((prev)=>{
+          return [notification,...prev];
+        });
+    };
 
-    // useEffect(() => {
-    //     const apiUrl =import.meta.env.VITE_API_URL;
-    //     if(accessToken){
-    //       try {
-    //         const newSocket = io(apiUrl + '?token='+accessToken);
-  
-    //         newSocket.on("notification", (response) => {
-    //           const tasks = response?.data;
-    //           tasks.map(task=>ShowTaskNotification(task?.title,task?.dueDate,task?.notificationType));
-    //           setAllNotifications((prev)=>{
-    //             return [...tasks,...prev];
-    //           });
-  
-    //         });          
-    //       } catch (error) {
-    //         console.error(error);
-    //       }
-    //     }
-    //   },[accessToken]);
+    // useEffect(()=>{
+    //   ShowNotificationToast({type:'due'});
+    // },[]);
+    // const updateNotification = (data)=> {
+
+    // };
 
     const clearNotification = async (notificationId) => {
       try {

@@ -39,7 +39,41 @@ export const ShowTaskUpdateToast = () => {
 };
 
 export const ShowErrorToast = (errorMessage) => {
-    toast.error(errorMessage, errorSettings);
-  };
-  
-  
+  toast.error(errorMessage, errorSettings);
+};
+
+export const ShowNotificationToast = ({type,data}) => {
+ let jsxForToast = null;
+ if(type === 'overdue'){
+    jsxForToast =  <div>
+    <h4 className="toast-title">Task is Overdue</h4>
+    <p className="toast-description">
+      Task is already overdue, please complete !
+    </p>
+    <span className="toast-date">{new Date().toLocaleString()}</span>
+  </div> 
+ }else{
+    jsxForToast =  <div>
+    <h4 className="toast-title">Task Reminder</h4>
+    <p className="toast-description">
+      Don't forget to complete your task before due date!
+    </p>
+  </div> 
+ }
+
+
+  toast.info(
+    jsxForToast
+   ,
+    {
+      position: "top-right",
+      autoClose: 10000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    }
+  );
+};
