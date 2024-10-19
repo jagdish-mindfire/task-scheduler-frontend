@@ -3,23 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation } from '@tanstack/react-query';
 import CONSTANTS_STRING from "../../constants/strings";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userSignup } from "../../api/apiLogin";
 import { ShowErrorToast } from "../../services/toastService";
 import InputField from "../../components/Common/InputField";
-
+import { signupSchema } from "../../validation-schema/schema";
 export default function Signup() {
-  const schema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8),
-    name: z.string().min(3),
-  });
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(schema) });
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(signupSchema) });
 
   const navigate = useNavigate();
 
@@ -91,14 +86,14 @@ export default function Signup() {
                 <button
                   type="submit"
                   data-testid="submit_signup"
-                  disabled={isSubmitting}
+                  disabled={signupMutation.isPending}
                   className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                    isSubmitting
+                    signupMutation.isPending
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-slate-900 hover:bg-slate-950 focus-visible:outline-slate-950"
                   }`}
                 >
-                  {isSubmitting ? CONSTANTS_STRING.LOADING : CONSTANTS_STRING.SIGNUP}
+                  {signupMutation.isPending ? CONSTANTS_STRING.LOADING : CONSTANTS_STRING.SIGNUP}
                 </button>
               </div>
             </form>

@@ -6,9 +6,10 @@ import {
   UpdateTask,
   DeleteTask,
 } from "../services/taskService";
+import { ShowErrorToast } from "../services/toastService";
 
 const useTask = () => {
-  const { setTaskList, taskList } = useContext(TaskContext);
+  const { setTaskList, taskList,setTaskLoader } = useContext(TaskContext);
   const callingSortingAPI = useRef(false);
   const [sortingType, setSortingType] = useState("asc");
 
@@ -24,10 +25,14 @@ const useTask = () => {
 
   const getAllTasks = async (sortingType) => {
     try {
+      setTaskList(true);
       const tasks = await FetchAllTasks(sortingType);
       setTaskList(tasks);
     } catch (error) {
       console.error(error);
+      ShowErrorToast(error?.response?.data?.message || error?.message);
+    }finally{
+      setTaskLoader(false);
     }
   };
 
@@ -36,6 +41,7 @@ const useTask = () => {
       const response = await CreateNewTask(task);
       setTaskList([...taskList, response.task]);
     } catch (error) {
+      ShowErrorToast(error?.response?.data?.message || error?.message);
       console.log(error);
     }
   };
@@ -47,6 +53,7 @@ const useTask = () => {
         prevTasks.map((task) => (task._id === id ? response?.task : task))
       );
     } catch (error) {
+      ShowErrorToast(error?.response?.data?.message || error?.message);
       console.log(error);
     }
   };
@@ -55,6 +62,7 @@ const useTask = () => {
       await DeleteTask(id);
       setTaskList((prevTasks) => prevTasks.filter((task) => task._id !== id));
     } catch (error) {
+      ShowErrorToast(error?.response?.data?.message || error?.message);
       console.log(error);
     }
   };

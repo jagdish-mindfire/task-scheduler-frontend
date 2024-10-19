@@ -1,7 +1,6 @@
 import { useState, useEffect} from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from '@tanstack/react-query';
 import Modal from "../../components/Common/Modal";
@@ -9,22 +8,19 @@ import { ShowErrorToast } from "../../services/toastService";
 import InputField from "../../components/Common/InputField";
 import { userLogin } from "../../api/apiLogin";
 import CONSTANTS_STRING from "../../constants/strings";
-
+import { loginSchema } from "../../validation-schema/schema";
 export default function Login() {
   const [showModal, setShowModal] = useState(false);
   const location = useLocation();
-  const schema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8),
-  });
+
   
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(schema) });
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(loginSchema) });
 
-
+  
   const loginMutation = useMutation({
     mutationFn: (credentials) => userLogin(credentials),
     onSuccess: () => {
@@ -97,14 +93,14 @@ export default function Login() {
                 <button
                   type="submit"
                   data-testid="submit_login"
-                  disabled={isSubmitting}
+                  disabled={loginMutation.isPending}
                   className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                    isSubmitting
+                    loginMutation.isPending
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
                   }`}
                 >
-                  {isSubmitting ? CONSTANTS_STRING.LOADING : CONSTANTS_STRING.SIGNIN}
+                  {loginMutation.isPending ? CONSTANTS_STRING.LOADING : CONSTANTS_STRING.SIGNIN}
                 </button>
               </div>
             </form>

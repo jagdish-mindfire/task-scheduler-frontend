@@ -6,8 +6,10 @@ import CONSTANTS_STRING from "../../constants/strings";
 import { TaskModelStates } from '../../context/TaskModelStates';
 import { TaskContext } from "../../context/TaskContext.jsx";
 import useTask from "../../hooks/useTask.js";
+import Loader from '../Common/Loader.jsx';
+
 export default function TasksTable  () {
-    const { taskList } = useContext(TaskContext);
+    const { taskList,taskLoader } = useContext(TaskContext);
     const { sortTasks } = useTask();
 
     const {updateModelStates,setTaskData} = useContext(TaskModelStates);
@@ -16,6 +18,7 @@ export default function TasksTable  () {
         updateModelStates({showViewTask: true});
     }
     return ( <div className="overflow-x-auto rounded">
+        
         <table className="min-w-full bg-white border border-gray-300 ">
             <thead>
                 <tr className="text-left bg-gray-500 text-zinc-50">
@@ -25,6 +28,8 @@ export default function TasksTable  () {
                     <th className="py-2 px-4 border-b">{CONSTANTS_STRING.ACTIONS}</th>
                 </tr>
             </thead>
+            {
+            taskLoader ? <Loader/> :
             <tbody className='text-left'>
                 {taskList?.map((task, index) => (
                     <tr key={index}  onClick={() => hanldeViewTask(task)} className='hover:bg-gray-50'>
@@ -60,6 +65,8 @@ export default function TasksTable  () {
                     </tr>
                 )}
             </tbody>
+            }
         </table>
+      
     </div>);
 };

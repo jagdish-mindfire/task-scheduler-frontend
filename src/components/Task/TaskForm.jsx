@@ -7,26 +7,18 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CONSTANTS_STRING from "../../constants/strings";
 import InputField from "../Common/InputField";
-
+import { taskFormSchema } from "../../validation-schema/schema";
 export default function TaskForm({ formtTitle,onSubmit,defaultValues, handleCloseModal, open }) {
-
-  const schema = z.object({
-    title: z.string().min(2),
-    description: z.string().min(2),
-    due_date: z.string().refine((val) => !isNaN(new Date(val).getTime()), {message: "Invalid due date"}),
-  });
 
   const {
     register,
     handleSubmit,
-    setError,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(schema),defaultValues: {
+  } = useForm({ resolver: zodResolver(taskFormSchema),defaultValues: {
     title: '',
     description:'',
     due_date:  '',
