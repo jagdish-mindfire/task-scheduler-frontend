@@ -11,15 +11,17 @@ import EditTask from "../../components/Task/EditTask";
 import socket,{setupSocketListeners} from "../../services/socketService.js";
 const Dashboard = () => {
   
-  const { fetchAllNotifications } = useNotification();
+  const { fetchAllNotifications,handleIncomingNotification } = useNotification();
   const { getAllTasks } = useTask();
 
   useEffect(() => {
     fetchAllNotifications();
     getAllTasks();
-    setupSocketListeners();
   }, []);
 
+  useEffect(()=>{
+    setupSocketListeners(handleIncomingNotification);
+  },[socket])
   return (
     <>
       <Header />

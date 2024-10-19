@@ -16,7 +16,7 @@ const useTask = () => {
     if (!callingSortingAPI.current) {
       callingSortingAPI.current = true;
       const cuurectSortingType = sortingType;
-      setSortingType(cuurectSortingType === "asc" ? "desc" : "asc");
+      setSortingType(prev=>prev === "asc" ? "desc" : "asc");
       await getAllTasks(cuurectSortingType === "asc" ? "desc" : "asc");
       callingSortingAPI.current = false;
     }

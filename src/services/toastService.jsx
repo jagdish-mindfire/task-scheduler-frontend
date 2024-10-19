@@ -1,5 +1,6 @@
 import CONSTANTS_STRING from "../constants/strings";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 const successSettings = {
   position: "top-right",
@@ -46,17 +47,14 @@ export const ShowNotificationToast = ({type,data}) => {
  let jsxForToast = null;
  if(type === 'overdue'){
     jsxForToast =  <div>
-    <h4 className="toast-title">Task is Overdue</h4>
-    <p className="toast-description">
-      Task is already overdue, please complete !
-    </p>
-    <span className="toast-date">{new Date().toLocaleString()}</span>
+    <h4 className="toast-title">{data?.title} Task is Overdue</h4>
+    <span>Due Date was {moment(data?.dueDate).format('ll')}</span>
   </div> 
  }else{
     jsxForToast =  <div>
-    <h4 className="toast-title">Task Reminder</h4>
+    <h4 className="toast-title">{data?.title} Reminder</h4>
     <p className="toast-description">
-      Don't forget to complete your task before due date!
+      Don't forget to complete your task before {moment(data?.dueDate).format('ll')} !
     </p>
   </div> 
  }

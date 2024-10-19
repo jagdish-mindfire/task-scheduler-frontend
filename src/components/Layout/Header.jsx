@@ -9,18 +9,16 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import CONSTANTS_STRING,{nevigationMenu} from "../../constants/strings";
-import {UserLogout} from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import NotificationCard from "../Notification/NotificationCard";
-
+import { userLogout } from "../../api/apiLogin";
 
 export default function Header() {
   const navigate = useNavigate();
 
   const logout = () => {
-    UserLogout();
+    userLogout();
     navigate("/login");
-
   };
 
   return (

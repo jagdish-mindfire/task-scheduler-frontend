@@ -1,5 +1,4 @@
 import axios from 'axios';
-//import TokenService from "../tokenService";
 import { LocalKeys, SetLocalAsString, RemoveLocal ,GetLocalAsString} from "../services/localStorage";
 
 //apply base url for axios
@@ -16,56 +15,41 @@ export const axiosApi = axios.create({
     }
 });
 
-// intercepting to capture errors
-axiosApi.interceptors.response.use(function (response) {
+export const userLogin = async (payload) => {
+    RemoveLocal(LocalKeys.REFRESH_TOKEN);
+    RemoveLocal(LocalKeys.ACCESS_TOKEN);
+    
+    const requestOptions = {
+        method: "POST",
+        data: {email:payload?.email, password:payload?.password}
+      };
+    const response = await axiosApi(LOGIN_URL, requestOptions);
     const result = response.data ? response.data : response;
     if (result?.refresh_token) {
         const refreshToken = result?.refresh_token;
-        SetLocalAsString(LocalKeys.REFRESH_TOKEN, refreshToken);
+        SetLocalAsString(LocalKeys.REFRESH_TOKEN, refreshToken)
+    }else{
+        RemoveLocal(LocalKeys.REFRESH_TOKEN)
+        throw new Error('Invalid credentials');
     }
     return response;
-}, function (error) {
-    RemoveLocal(LocalKeys.REFRESH_TOKEN)
-    return Promise.reject(error);
-});
+};
 
+export const userSignup = async (payload) => {    
+    const requestOptions = {
+        method: "POST",
+        data: {email:payload?.email, name:payload?.name,password:payload?.password}
+      };
+    return axiosApi(SIGNUP_URL, requestOptions);
+};
 
-class authApi {
-    signup = async (payload) => {    
-        const requestOptions = {
-            method: "POST",
-            data: {email:payload?.email, name:payload?.name,password:payload?.password}
-          };
-
-        return axiosApi(SIGNUP_URL, requestOptions);
+export const userLogout = async () => {
+    const refreshToken = GetLocalAsString(LocalKeys.REFRESH_TOKEN);
+    RemoveLocal(LocalKeys.REFRESH_TOKEN);
+    RemoveLocal(LocalKeys.ACCESS_TOKEN);
+    const requestOptions = {
+        method: "POST",
+        data: {refresh_token:refreshToken},
     };
-
-    login = async (payload) => {
-        RemoveLocal(LocalKeys.REFRESH_TOKEN);
-        
-        const requestOptions = {
-            method: "POST",
-            data: {email:payload?.email, password:payload?.password}
-          };
-
-        return axiosApi(LOGIN_URL, requestOptions);
-    };
-
-    post = async (url, data) => {
-        return axiosApi.post(url, data);
-    };
-
-    logout = async () => {
-        const refreshToken = GetLocalAsString(LocalKeys.REFRESH_TOKEN);
-        RemoveLocal(LocalKeys.REFRESH_TOKEN);
-        RemoveLocal(LocalKeys.ACCESS_TOKEN);
-        const requestOptions = {
-            method: "POST",
-            data: {refresh_token:refreshToken},
-        };
-        return axiosApi(LOGOUT_URL, requestOptions);
-    }
-
+    return axiosApi(LOGOUT_URL, requestOptions);
 }
-
-export { authApi };
