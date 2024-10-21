@@ -30,9 +30,6 @@ export const TaskModelStatesProvider = ({ children }) => {
     }
   };
   
-
-
-
   return (
     <TaskModelStates.Provider value={{modelStates,updateModelStates,taskData,setTaskData}}>
       {children}

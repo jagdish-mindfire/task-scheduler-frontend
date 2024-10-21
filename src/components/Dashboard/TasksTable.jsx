@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import moment from "moment";
 import { TiArrowUnsorted } from "react-icons/ti";
-import CONSTANTS_STRING from "../../constants/strings";
 import { TaskModelStates } from "../../context/TaskModelStates";
 import { TaskContext } from "../../context/TaskContext.jsx";
 import useTask from "../../hooks/useTask.js";
 import Loader from "../Common/Loader.jsx";
+import CONSTANTS_STRING from "../../constants/strings";
 
 export default function TasksTable() {
   const { taskList, taskLoader } = useContext(TaskContext);

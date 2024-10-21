@@ -70,7 +70,7 @@ export default function TaskForm({ formtTitle,onSubmit,defaultValues, handleClos
               <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <button
                   type="submit"
-                  data-testid="edittask_submit"
+                  data-testid="submit_task"
                   className="inline-flex w-full justify-center rounded-md bg-zinc-800 px-3 py-2 text-sm font-semibold text-zinc-50 shadow-sm ring-1 ring-inset ring-zinc-800 hover:bg-zinc-950 sm:mt-0 sm:w-auto"
                 >
                   {formtTitle}
