@@ -7,7 +7,7 @@ const Login = lazy(() => import("../pages/Authentication/Login"));
 const Signup = lazy(() => import("../pages/Authentication/Signup"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const NotFound = lazy(() => import("../pages/NotFound"));
-const AuthMiddleware = lazy(() => import("./middlewares/AuthMiddleware"));
+const ProtectedRouteMiddleware = lazy(() => import("./middlewares/ProtectedRouteMiddleware"));
 
 // Routes configuration
 const routes = [
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     path: route.path,
     element: (
       <Suspense fallback={<Loader />}>
-        <AuthMiddleware path={route.path}>{route.element}</AuthMiddleware>
+        <ProtectedRouteMiddleware path={route.path}>{route.element}</ProtectedRouteMiddleware>
       </Suspense>
     ),
   })),

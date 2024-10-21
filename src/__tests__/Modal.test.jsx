@@ -1,5 +1,5 @@
 import { render, fireEvent } from "@testing-library/react";
-import Modal from "../components/Modal";
+import Modal from "../components/Common/Modal";
 
 
 describe("Singup Component", () => {

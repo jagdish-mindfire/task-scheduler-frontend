@@ -29,6 +29,7 @@ axiosClient.interceptors.response.use(function (response) {
 axiosClient.interceptors.request.use(async function (config) {
     const refreshToken = GetLocalAsString(LocalKeys.REFRESH_TOKEN);
     let accessToken = GetLocalAsString(LocalKeys.ACCESS_TOKEN);
+    // min 2
     if(!accessToken || (JSON.parse(atob(accessToken.split('.')[1]))).exp * 1000 < new Date().getTime() ){
         try {
             let { data } = await axios.post(API_URL + '/auth/token', {refresh_token:refreshToken});

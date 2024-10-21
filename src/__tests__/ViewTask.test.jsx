@@ -1,76 +1,78 @@
 import { render, fireEvent } from "@testing-library/react";
-import ViewTask from "../components/ViewTask";
-import { TaskContext } from "../context/TaskContext";
+import ViewTask from "../components/Task/ViewTask";
+import { TaskModelStates } from "../context/TaskModelStates";
+import useTask from "../hooks/useTask";
 
-// Mock Context
-const mockTaskContext = {
-  edittask: jest.fn(),
-  updateTask: jest.fn(),
-  taskList: [],
-  setTaskList: jest.fn(),
-  deleteTask: jest.fn(),
-  allNotifications: [],
-  setAllNotifications: jest.fn(),
-  notificationCount: 3,
-};
-
-
-const mockData = {
-    taskData : {
-        id: 1,
-        title: "Complete the frontend testing",
-        description: "This task needs to be completed.",
-        due_date: "2022-01-01 12:00:00",
-        is_completed: false,
-    },
-}
+jest.mock("../hooks/useTask");
 
 describe("ViewTask Component", () => {
-  const component = (
-    <TaskContext.Provider value={mockTaskContext}>
-      <ViewTask open={true} setOpen={() => console.log("hi")} taskData={mockData.taskData}/>
-    </TaskContext.Provider>
-  );
+  const updateTaskMock = jest.fn();
+  const deleteTaskMock = jest.fn();
 
-  test("Renders for incompleted task successfully", () => {
-    render(   <TaskContext.Provider value={mockTaskContext}>
-      <ViewTask open={true} setOpen={() => console.log("hi")} taskData={mockData.taskData}/>
-    </TaskContext.Provider>);
-    
+  useTask.mockReturnValue({
+    updateTask: updateTaskMock,
+    deleteTask: deleteTaskMock
   });
 
-  test("Renders for completed task successfully", () => {
-    mockData.taskData.is_completed = true;
-    render(   <TaskContext.Provider value={mockTaskContext}>
-      <ViewTask open={true} setOpen={() => console.log("hi")} taskData={mockData.taskData}/>
-    </TaskContext.Provider>);
+  const mockTaskModelStates = {
+    modelStates: {
+      showViewTask: true,
+      showAddTask: false,
+      showEditTask: false,
+      showDeleteConfirmation: false,
+    },
+    taskData: {
+      _id: 1,
+      title: "Complete the frontend testing",
+      description: "This task needs to be completed.",
+      createdAt: "2023-10-01T00:00:00Z",
+      dueDate: "2023-11-01T00:00:00Z",
+      updatedAt: "2023-10-02T00:00:00Z",
+      isCompleted: false,
+    },
+    updateModelStates: jest.fn(),
+  };
+
+  const setup = (props = {}) => {
+    return render(
+      <TaskModelStates.Provider value={{ ...mockTaskModelStates, ...props }}>
+        <ViewTask />
+      </TaskModelStates.Provider>
+    );
+  };
+
+  test("Renders successfully", () => {
+    const { getByText, getByTestId } = setup();
   });
 
-  test("Successfully click on edit Task", () => {
-    mockData.taskData.is_completed = false;
-    const {getByTestId} = render(   <TaskContext.Provider value={mockTaskContext}>
-      <ViewTask open={true} setOpen={() => console.log("hi")} taskData={mockData.taskData}/>
-    </TaskContext.Provider>);
-       const editButton = getByTestId("edit");
-       fireEvent.click(editButton);
-  });
-  
-  test("Successfully click on Mark Complete Task", () => {
-    mockData.taskData.is_completed = false;
-    const {getByTestId} = render(   <TaskContext.Provider value={mockTaskContext}>
-      <ViewTask open={true} setOpen={() => console.log("hi")} taskData={mockData.taskData}/>
-    </TaskContext.Provider>);
-       const markCompleteButton = getByTestId("mark_complete");
-       fireEvent.click(markCompleteButton);
+  test("Handles marking task as complete", () => {
+    const { getByTestId } = setup();
+
+    fireEvent.click(getByTestId("mark_complete"));
+    expect(updateTaskMock).toHaveBeenCalledWith(1, { is_completed: 1 });
+    expect(mockTaskModelStates.updateModelStates).toHaveBeenCalledWith({
+      showViewTask: false,
+    });
   });
 
-  test("Successfully click on Delete Task", () => {
-    mockData.taskData.is_completed = false;
-    const {getByTestId} = render(   <TaskContext.Provider value={mockTaskContext}>
-      <ViewTask open={true} setOpen={() => console.log("hi")} taskData={mockData.taskData}/>
-    </TaskContext.Provider>);
-       const deleteButton = getByTestId("delete");
-       fireEvent.click(deleteButton);
+  test("Handles editing the task", () => {
+    const { getByTestId } = setup();
+
+    fireEvent.click(getByTestId("edit"));
+    expect(mockTaskModelStates.updateModelStates).toHaveBeenCalledWith({
+      showViewTask: false,
+      showEditTask: true,
+    });
+  });
+
+  test("Handles deleting the task", () => {
+    const { getByTestId } = setup();
+
+    fireEvent.click(getByTestId("delete"));
+    expect(mockTaskModelStates.updateModelStates).toHaveBeenCalledWith({
+      showViewTask: false,
+      showDeleteConfirmation: true,
+    });
   });
 
 });

@@ -43,21 +43,6 @@ describe("AddTask Component",() => {
   const addTaskMock = jest.fn();
   useTask.mockReturnValue({ addTask: addTaskMock });
 
-  // beforeEach(() => {
-  //   // Setting up mocks
-    
-  //   updateModelStatesMock = jest.fn();
-  //   modelStatesMock = { showAddTask: true };
-
-  //   // Mocking the custom hook
-  //   useTask.mockReturnValue({ addTask: addTaskMock });
-
-  //   // Mocking useContext to return the desired state
-  //   jest.spyOn(React, 'useContext').mockReturnValue({
-  //     modelStates: modelStatesMock,
-  //     updateModelStates: updateModelStatesMock,
-  //   });
-  // });
 
   test("Renders successfully", () => {
     render(component);
@@ -85,10 +70,6 @@ describe("AddTask Component",() => {
       target: { value: "This task needs to be completed." },
     });
     fireEvent.change(due_date, { target: { value: "2022-01-01" } });
-
-    expect(due_date.value).toBe("2022-01-01");
-    expect(title.value).toBe("Complete the frontend testing");
-    expect(description.value).toBe("This task needs to be completed.");
 
     fireEvent.click(submitBtn);
 

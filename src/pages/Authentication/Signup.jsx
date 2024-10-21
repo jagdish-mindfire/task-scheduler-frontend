@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useMutation } from '@tanstack/react-query';
 import CONSTANTS_STRING from "../../constants/strings";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userSignup } from "../../api/apiLogin";
-import { ShowErrorToast } from "../../services/toastService";
 import InputField from "../../components/Common/InputField";
 import { signupSchema } from "../../validation-schema/schema";
+import useAuth from "../../hooks/useAuth";
 export default function Signup() {
 
   const {
@@ -16,20 +13,10 @@ export default function Signup() {
     formState: { errors },
   } = useForm({ resolver: zodResolver(signupSchema) });
 
-  const navigate = useNavigate();
-
-  const signupMutation = useMutation({
-    mutationFn: (credentials) => userSignup(credentials),
-    onSuccess: () => {
-      navigate("/login", { state: { showSuccess: true } });
-    },
-    onError: (error) => {
-      ShowErrorToast(error?.response?.data?.message || error?.message);
-    },
-  });
+  const {signupMutation} = useAuth();
 
   const onSubmit = (data) => {
-    signupMutation.mutate(data);
+      signupMutation.mutate(data);
   };
 
   return (

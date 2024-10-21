@@ -60,9 +60,9 @@ export default function TaskForm({ formtTitle,onSubmit,defaultValues, handleClos
                       <hr />
                     </DialogTitle>
                     <div className="flex flex-col space-y-5">
-                      <InputField label={CONSTANTS_STRING.TITLE} register={register} errors={errors} name="title" required />
-                      <InputField label={CONSTANTS_STRING.DESCRIPTION} register={register} errors={errors} name="description" required type="textarea" />
-                      <InputField label={CONSTANTS_STRING.DUE_DATE} register={register} errors={errors} name="due_date" required type="date" />
+                      <InputField label={CONSTANTS_STRING.TITLE} register={register} errors={errors} data-testid="title" name="title" required />
+                      <InputField label={CONSTANTS_STRING.DESCRIPTION} register={register} errors={errors} data-testid="description" name="description" required type="textarea" />
+                      <InputField label={CONSTANTS_STRING.DUE_DATE} register={register} errors={errors} data-testis="due_date" name="due_date" required type="date" />
                     </div>
                   </div>
                 </div>

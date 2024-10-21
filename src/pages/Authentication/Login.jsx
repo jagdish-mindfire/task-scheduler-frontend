@@ -2,37 +2,27 @@ import { useState, useEffect} from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from '@tanstack/react-query';
 import Modal from "../../components/Common/Modal";
-import { ShowErrorToast } from "../../services/toastService";
 import InputField from "../../components/Common/InputField";
-import { userLogin } from "../../api/apiLogin";
 import CONSTANTS_STRING from "../../constants/strings";
 import { loginSchema } from "../../validation-schema/schema";
+import useAuth from "../../hooks/useAuth";
+
 export default function Login() {
   const [showModal, setShowModal] = useState(false);
   const location = useLocation();
 
-  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(loginSchema) });
 
-  
-  const loginMutation = useMutation({
-    mutationFn: (credentials) => userLogin(credentials),
-    onSuccess: () => {
-      window.location.replace('/dashboard');
-    },
-    onError: (error) => {
-      console.log(error);
-      ShowErrorToast(error?.response?.data?.message || error?.message);
-    },
-  });
+  const {loginMutation} = useAuth();
 
   const onSubmit = (data) => {
+    console.log("Submitting data:--", data); // Log the submitted data
+
     loginMutation.mutate(data);
   };
 
