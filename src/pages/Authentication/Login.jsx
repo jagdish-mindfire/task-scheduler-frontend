@@ -99,7 +99,7 @@ export default function Login() {
               {CONSTANTS_STRING.DONT_HAVE_ACCOUNT}{" "}
               <Link
                 to="/signup"
-                className="font-semibold leading-6 text-slate-800 hover:text-slate-950"
+                className="font-semibold leading-6 text-slate-800 hover:text-slate-950 hover:underline"
               >
                 {CONSTANTS_STRING.SIGNUP}
               </Link>

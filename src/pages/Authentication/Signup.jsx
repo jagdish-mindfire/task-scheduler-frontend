@@ -89,7 +89,7 @@ export default function Signup() {
               {CONSTANTS_STRING.ALREADY_HAVE_AN_ACCOUNT}{" "}
               <Link
                 to="/login"
-                className="font-semibold leading-6 text-slate-800 hover:text-slate-950"
+                className="font-semibold leading-6 text-slate-800 hover:text-slate-950 hover:underline"
               >
                 {CONSTANTS_STRING.SIGNIN}
               </Link>

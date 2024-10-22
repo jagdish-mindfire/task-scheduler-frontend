@@ -14,6 +14,7 @@ const useAuth = () => {
       console.log(error);
       ShowErrorToast(error?.response?.data?.message || error?.message);
     },
+    retry: false,  // Disable retry for login mutation
   });
 
   
@@ -25,6 +26,8 @@ const useAuth = () => {
     onError: (error) => {
       ShowErrorToast(error?.response?.data?.message || error?.message);
     },
+    retry: false,  // Disable retry for singup mutation
+
   });
 
   return { loginMutation,signupMutation };
