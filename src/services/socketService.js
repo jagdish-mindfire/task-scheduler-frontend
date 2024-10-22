@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
-import { LocalKeys,GetLocalAsString } from './localStorage';
+import { localKeys,getLocalAsString } from './localStorage';
 
-const socket = io(import.meta.env.VITE_API_URL + '?token='+GetLocalAsString(LocalKeys.ACCESS_TOKEN));
+const socket = io(import.meta.env.VITE_API_URL + '?token='+getLocalAsString(localKeys.ACCESS_TOKEN));
 
 export const setupSocketListeners = (onNotification) => {
   socket.on('notification', ({data}) => { 

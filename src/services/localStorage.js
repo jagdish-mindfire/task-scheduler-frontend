@@ -1,18 +1,18 @@
 
-export const LocalKeys = {
+export const localKeys = {
     REFRESH_TOKEN: "refresh_token",
     ACCESS_TOKEN : "access_token",
 };
 
-export const SetLocalAsString = (key, data) => {
+export const setLocalAsString = (key, data) => {
     localStorage.setItem(key, data);
 }
 
-export const GetLocalAsString = (key) => {
+export const getLocalAsString = (key) => {
     const data = localStorage.getItem(key);
     return data;
 }
 
-export const RemoveLocal = (key) => {
+export const removeLocal = (key) => {
     localStorage.removeItem(key);
 }

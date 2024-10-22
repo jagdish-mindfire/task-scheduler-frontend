@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { GetLocalAsString,LocalKeys,SetLocalAsString } from '../services/localStorage';
+import { getLocalAsString,localKeys,setLocalAsString } from '../services/localStorage';
 
 const IsLoggedIn = async () => {
-    const currentRefreshToken = GetLocalAsString(LocalKeys.REFRESH_TOKEN);
-    const currentAccessToken = GetLocalAsString(LocalKeys.ACCESS_TOKEN);
+    const currentRefreshToken = getLocalAsString(localKeys.REFRESH_TOKEN);
+    const currentAccessToken = getLocalAsString(localKeys.ACCESS_TOKEN);
     const apiUrl = import.meta.env.VITE_API_URL;
    
     let token = null;
@@ -13,10 +13,10 @@ const IsLoggedIn = async () => {
           refresh_token: currentRefreshToken,
         });
         token = data.access_token;
-        SetLocalAsString(LocalKeys.ACCESS_TOKEN,token);
-      }else{
-        return true;
+        setLocalAsString(localKeys.ACCESS_TOKEN,token);
       }
+        return true;
+      
     } catch (error) {
       return false;
     }

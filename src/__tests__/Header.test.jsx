@@ -13,7 +13,6 @@ import useNotification from "../hooks/useNotification";
 
 import { MemoryRouter } from "react-router-dom";
 import { TaskContext } from "../context/TaskContext";
-import { userLogout } from "../api/apiLogin";
 
 jest.mock("../hooks/useNotification");
 

@@ -95,12 +95,4 @@ describe("AddTask Component",() => {
 
   });
 
-  // test("Submitting without values", () => {
-  //   const { getByTestId } = render(component);
-
-  //   const submitBtn = getByTestId("addtask_submit");
-
-  //   fireEvent.click(submitBtn);
-  //   expect(mockTaskContext.addTask).toHaveBeenCalledTimes(0);
-  // });
 });

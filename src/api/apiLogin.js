@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LocalKeys, SetLocalAsString, RemoveLocal ,GetLocalAsString} from "../services/localStorage";
+import { localKeys, setLocalAsString, removeLocal ,getLocalAsString} from "../services/localStorage";
 
 //apply base url for axios
 const API_URL = import.meta.env.VITE_API_URL + "/auth";
@@ -16,8 +16,8 @@ export const axiosApi = axios.create({
 });
 
 export const userLogin = async (payload) => {
-    RemoveLocal(LocalKeys.REFRESH_TOKEN);
-    RemoveLocal(LocalKeys.ACCESS_TOKEN);
+    removeLocal(localKeys.REFRESH_TOKEN);
+    removeLocal(localKeys.ACCESS_TOKEN);
     
     const requestOptions = {
         method: "POST",
@@ -27,9 +27,9 @@ export const userLogin = async (payload) => {
     const result = response.data ? response.data : response;
     if (result?.refresh_token) {
         const refreshToken = result?.refresh_token;
-        SetLocalAsString(LocalKeys.REFRESH_TOKEN, refreshToken)
+        setLocalAsString(localKeys.REFRESH_TOKEN, refreshToken)
     }else{
-        RemoveLocal(LocalKeys.REFRESH_TOKEN)
+        removeLocal(localKeys.REFRESH_TOKEN)
         throw new Error('Invalid credentials');
     }
     return response;
@@ -44,9 +44,9 @@ export const userSignup = async (payload) => {
 };
 
 export const userLogout = async () => {
-    const refreshToken = GetLocalAsString(LocalKeys.REFRESH_TOKEN);
-    RemoveLocal(LocalKeys.REFRESH_TOKEN);
-    RemoveLocal(LocalKeys.ACCESS_TOKEN);
+    const refreshToken = getLocalAsString(localKeys.REFRESH_TOKEN);
+    removeLocal(localKeys.REFRESH_TOKEN);
+    removeLocal(localKeys.ACCESS_TOKEN);
     const requestOptions = {
         method: "POST",
         data: {refresh_token:refreshToken},
