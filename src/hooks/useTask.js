@@ -25,7 +25,7 @@ const useTask = () => {
 
   const getAllTasks = async (sortingType) => {
     try {
-      setTaskList(true);
+      setTaskLoader(true);
       const tasks = await FetchAllTasks(sortingType);
       setTaskList(tasks);
     } catch (error) {
