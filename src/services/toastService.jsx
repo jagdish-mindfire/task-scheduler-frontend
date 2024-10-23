@@ -43,6 +43,10 @@ export const ShowErrorToast = (errorMessage) => {
   toast.error(errorMessage, errorSettings);
 };
 
+export const ShowSuccessToast = (message) => {
+  toast.success(message, successSettings);
+};
+
 export const ShowNotificationToast = ({type,data}) => {
  let jsxForToast = null;
  if(type === 'overdue'){

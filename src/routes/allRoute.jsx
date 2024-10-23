@@ -24,7 +24,8 @@ const router = createBrowserRouter([
     path: route.path,
     element: (
       <Suspense fallback={<Loader />}>
-        <ProtectedRouteMiddleware path={route.path}>{route.element}</ProtectedRouteMiddleware>
+        {/* <ProtectedRouteMiddleware path={route.path}>{route.element}</ProtectedRouteMiddleware> */}
+        <div path={route.path}>{route.element}</div>
       </Suspense>
     ),
   })),

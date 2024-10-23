@@ -10,6 +10,7 @@ import useAuth from "../../hooks/useAuth";
 
 export default function Login() {
   const [showModal, setShowModal] = useState(false);
+
   const location = useLocation();
 
   const {
@@ -18,12 +19,10 @@ export default function Login() {
     formState: { errors },
   } = useForm({ resolver: zodResolver(loginSchema) });
 
-  const {loginMutation} = useAuth();
+  const auth = useAuth();
 
   const onSubmit = (data) => {
-    console.log("Submitting data:--", data); // Log the submitted data
-
-    loginMutation.mutate(data);
+    auth.login(data);
   };
 
   useEffect(() => {
@@ -83,14 +82,14 @@ export default function Login() {
                 <button
                   type="submit"
                   data-testid="submit_login"
-                  disabled={loginMutation.isPending}
+                  disabled={auth.loginLoading}
                   className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                    loginMutation.isPending
+                    auth.loginLoading
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
                   }`}
                 >
-                  {loginMutation.isPending ? CONSTANTS_STRING.LOADING : CONSTANTS_STRING.SIGNIN}
+                  {auth.loginLoading ? CONSTANTS_STRING.LOADING : CONSTANTS_STRING.SIGNIN}
                 </button>
               </div>
             </form>

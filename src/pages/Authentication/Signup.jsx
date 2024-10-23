@@ -13,10 +13,10 @@ export default function Signup() {
     formState: { errors },
   } = useForm({ resolver: zodResolver(signupSchema) });
 
-  const {signupMutation} = useAuth();
+  const auth = useAuth();
 
   const onSubmit = (data) => {
-      signupMutation.mutate(data);
+    auth.signup(data);
   };
 
   return (
@@ -73,14 +73,14 @@ export default function Signup() {
                 <button
                   type="submit"
                   data-testid="submit_signup"
-                  disabled={signupMutation.isPending}
+                  disabled={auth.signupLoading}
                   className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                    signupMutation.isPending
+                    auth.signupLoading
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-slate-900 hover:bg-slate-950 focus-visible:outline-slate-950"
                   }`}
                 >
-                  {signupMutation.isPending ? CONSTANTS_STRING.LOADING : CONSTANTS_STRING.SIGNUP}
+                  {auth.signupLoading ? CONSTANTS_STRING.LOADING : CONSTANTS_STRING.SIGNUP}
                 </button>
               </div>
             </form>

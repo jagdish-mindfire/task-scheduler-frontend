@@ -4,6 +4,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import client from './graphql/client.js'
 import { TaskProvider } from "./context/TaskContext.jsx";
 import { TaskModelStatesProvider } from "./context/TaskModelStates.jsx";
 import { router} from "./routes/allRoute.jsx";
@@ -14,6 +16,7 @@ const queryClient = new QueryClient()
 
 const App = () => {
   return (
+    <ApolloProvider client={client}>
     <QueryClientProvider client={queryClient}>
       <TaskProvider>
         <TaskModelStatesProvider>
@@ -22,6 +25,7 @@ const App = () => {
         </TaskModelStatesProvider>
       </TaskProvider>
     </QueryClientProvider>
+    </ApolloProvider>
   );
 };
 

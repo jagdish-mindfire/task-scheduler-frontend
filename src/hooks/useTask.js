@@ -1,5 +1,7 @@
 import { useState, useContext, useRef } from "react";
 import { TaskContext } from "../context/TaskContext";
+import { useQuery, useMutation } from '@apollo/client';
+import {FETCH_ALL_TASKS_QUERY} from '../graphql/query'
 import {
   FetchAllTasks,
   CreateNewTask,
@@ -7,11 +9,15 @@ import {
   DeleteTask,
 } from "../services/taskService";
 import { ShowErrorToast } from "../services/toastService";
+import client from "../graphql/client";
 
 const useTask = () => {
   const { setTaskList, taskList,setTaskLoader } = useContext(TaskContext);
   const callingSortingAPI = useRef(false);
   const [sortingType, setSortingType] = useState("asc");
+
+  
+
 
   const sortTasks = async () => {
     if (!callingSortingAPI.current) {
@@ -23,18 +29,47 @@ const useTask = () => {
     }
   };
 
-  const getAllTasks = async (sortingType) => {
+  // const getAllTasks = async (sortingType) => {
+  //   try {
+  //     setTaskLoader(true);
+  //     const tasks = await FetchAllTasks(sortingType);
+  //     setTaskList(tasks);
+  //   } catch (error) {
+  //     console.error(error);
+  //     ShowErrorToast(error?.response?.data?.message || error?.message);
+  //   }finally{
+  //     setTaskLoader(false);
+  //   }
+  // };
+
+
+
+  const getAllTasks = async (sortingType="asc") => {
     try {
-      setTaskList(true);
-      const tasks = await FetchAllTasks(sortingType);
-      setTaskList(tasks);
+      setTaskLoader(true);
+      const { data } = await client.query({
+        query: FETCH_ALL_TASKS_QUERY,
+        variables: { sort:sortingType },
+      });
+      console.log(data.getAllTasks);
+      setTaskList(data.getAllTasks || []);
     } catch (error) {
       console.error(error);
-      ShowErrorToast(error?.response?.data?.message || error?.message);
-    }finally{
+      ShowErrorToast(error.message);
+    } finally {
       setTaskLoader(false);
     }
   };
+
+
+  const { data, refetch } = useQuery(FETCH_ALL_TASKS_QUERY, {
+    variables: { sortingType },
+    skip: !sortingType, // Skip if sortingType is not set
+    onCompleted: (data) => {console.log('heeij',data);return setTaskList(data.tasks)},
+    onError: (error) => ShowErrorToast(error.message),
+  });
+
+
 
   const addTask = async (task) => {
     try {
@@ -45,6 +80,7 @@ const useTask = () => {
       console.log(error);
     }
   };
+
   const updateTask = async (id, updatedTask) => {
     try {
       const response = await UpdateTask(id, updatedTask);
@@ -57,6 +93,7 @@ const useTask = () => {
       console.log(error);
     }
   };
+
   const deleteTask = async (id) => {
     try {
       await DeleteTask(id);
@@ -66,6 +103,7 @@ const useTask = () => {
       console.log(error);
     }
   };
+
 
   return { sortTasks, getAllTasks, addTask, deleteTask, updateTask };
 };
