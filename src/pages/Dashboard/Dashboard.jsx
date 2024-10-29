@@ -24,7 +24,7 @@ const Dashboard = () => {
   },[socket])
   return (
     <>
-      <Header />
+  
       <div className="text-center p-4 mb-12">
         {/* Dashboard Header */}
         <DashboardHeader />
@@ -37,7 +37,7 @@ const Dashboard = () => {
         {/* Task Table */}
         <TasksTable />
       </div>
-      <Footer />
+  
     </>
   );
 };

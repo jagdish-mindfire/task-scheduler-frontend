@@ -29,9 +29,10 @@ const AuthMiddleware = (props) => {
       {isLoading ? (
         <Loader />
       ) : isAuthenticated ? ( 
-        props.path == '/dashboard' ? 
+        unProtectedAllowedRoutes.indexOf(props.path) === -1 ?
+        // props.path == '/dashboard' ? 
         <React.Fragment>{props.children}</React.Fragment>
-        : <Navigate to="/dashboard" />
+        : <Navigate to="/dashboard"/>
       ) : ( 
         unProtectedAllowedRoutes.indexOf(props.path) !== -1 ?
         <React.Fragment>{props.children}</React.Fragment>
