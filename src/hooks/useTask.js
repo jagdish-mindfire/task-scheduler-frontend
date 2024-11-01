@@ -6,10 +6,10 @@ import {
   UpdateTask,
   DeleteTask,
 } from "../services/taskService";
-import { ShowErrorToast } from "../services/toastService";
+import { ShowErrorToast,ShowTaskDeleteToast } from "../services/toastService";
 
 const useTask = () => {
-  const { setTaskList, taskList,setTaskLoader } = useContext(TaskContext);
+  const { setTaskList, taskList,setTaskLoader,task,setTask } = useContext(TaskContext);
   const callingSortingAPI = useRef(false);
   const [sortingType, setSortingType] = useState("asc");
 
@@ -52,6 +52,9 @@ const useTask = () => {
       setTaskList((prevTasks) =>
         prevTasks.map((task) => (task._id === id ? response?.task : task))
       );
+      if(task?._id){
+        setTask(response.task);
+      }
     } catch (error) {
       ShowErrorToast(error?.response?.data?.message || error?.message);
       console.log(error);
@@ -61,6 +64,7 @@ const useTask = () => {
     try {
       await DeleteTask(id);
       setTaskList((prevTasks) => prevTasks.filter((task) => task._id !== id));
+      ShowTaskDeleteToast();
     } catch (error) {
       ShowErrorToast(error?.response?.data?.message || error?.message);
       console.log(error);

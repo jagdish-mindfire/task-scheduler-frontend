@@ -1,18 +1,45 @@
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "tailwind-merge";
 import React from "react";
 
-const cn = (...inputs) => twMerge(inputs)
-const Input = React.forwardRef(({ className, ...props }, ref) => {
-    return (
-      <input
-        className={cn(
-          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-          className
-        )}
-        ref={ref}
-        {...props}
-      />
-    )
-  });
+const cn = (...inputs) => twMerge(inputs);
+const Input = React.forwardRef(
+  (
+    {
+      placeholder,
+      required,
+      errors,
+      register,
+      name,
+      className,
+      type = "text",
+      ...props
+    },
+    ref
+  ) => {
+    const inputClasses = errors?.name
+      ? "ring-red-700 focus:ring-red-700"
+      : "ring-gray-300 focus:ring-indigo-600";
 
-  export default Input;
+    return (
+      <>
+        <input
+          data-testid={name}
+          type={type}
+          {...register(name, { required })}
+          id={name}
+          placeholder={placeholder}
+          className={cn("ring-red-700 focus:ring-red-700", className)}
+          ref={ref}
+          name={name}
+          {...register(name)}
+          {...props}
+        />
+        {errors[name] && (
+          <label className="text-red-700">{errors[name].message}</label>
+        )}
+      </>
+    );
+  }
+);
+
+export default Input;

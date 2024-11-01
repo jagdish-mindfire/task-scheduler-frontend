@@ -7,6 +7,7 @@ export const TaskProvider = ({ children }) => {
   const [allNotifications,setAllNotifications] = useState([]);
   const [notificationCount,setNotificationCount] = useState(0);
   const [taskLoader, setTaskLoader] = useState(true);
+  const [task,setTask] = useState({});
 
   
   useEffect(()=>{
@@ -14,7 +15,7 @@ export const TaskProvider = ({ children }) => {
   },[allNotifications])
 
   return (
-    <TaskContext.Provider value={{taskList, setTaskList,allNotifications,setAllNotifications,notificationCount,taskLoader, setTaskLoader }}>
+    <TaskContext.Provider value={{taskList, setTaskList,allNotifications,setAllNotifications,notificationCount,taskLoader, setTaskLoader,task,setTask }}>
       {children}
     </TaskContext.Provider>
   );

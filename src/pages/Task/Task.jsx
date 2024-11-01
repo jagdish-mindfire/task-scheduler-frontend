@@ -126,30 +126,7 @@ const TaskPage = () => {
         </Button>
       </div>
 
-      <div className="flex justify-between items-center mb-4">
-        <Button variant="default" size="sm" className="bg-blue-500 hover:bg-blue-600">
-          <Plus className="w-3 h-3 mr-1" />
-          Add task
-        </Button>
-        <div className="flex space-x-1">
-          <Button variant="outline" size="sm">
-            <Filter className="w-3 h-3 mr-1" />
-            Filter
-          </Button>
-          <Button variant="outline" size="sm">
-            <ArrowUpDown className="w-3 h-3 mr-1" />
-            Sort
-          </Button>
-          <Button variant="outline" size="sm">
-            <Group className="w-3 h-3 mr-1" />
-            Group
-          </Button>
-          <Button variant="outline" size="sm">
-            <MoreHorizontal className="w-3 h-3" />
-            Options
-          </Button>
-        </div>
-      </div>
+      
 
       <div className="bg-white shadow rounded-lg overflow-hidden p-4">
         {renderTaskContent()}

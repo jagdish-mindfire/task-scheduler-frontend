@@ -3,14 +3,14 @@ import { toast } from "react-toastify";
 import moment from "moment";
 
 const successSettings = {
-  position: "top-right",
+  position: "bottom-left",
   autoClose: 3000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
-  theme: "light",
+  theme: "dark",
 };
 
 const errorSettings = {
@@ -21,7 +21,7 @@ const errorSettings = {
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
-  theme: "light",
+  theme: "dark",
 };
 export const ShowTaskDeleteToast = () => {
   toast.success(CONSTANTS_STRING.DELETE_SUCCESS, successSettings);

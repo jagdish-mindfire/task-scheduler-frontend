@@ -14,12 +14,13 @@ import {
   ChevronDown,
 } from "lucide-react";
 import moment from 'moment';
-
+import useTask from '../../hooks/useTask';
 export default function CustomDatePicker({ task }) {
   const [open, setOpen] = useState(false);
   const [selectedDueDate, setSelectedDueDate] = useState(null);
   const calendarRef = useRef(null);
 
+  const { updateTask } = useTask();
   const handleIconClick = () => {
     setOpen(!open);
   };
@@ -42,7 +43,7 @@ export default function CustomDatePicker({ task }) {
   }, [open]);
 
   return (
-    <Box display="flex" alignItems="center">
+    <Box display="flex" alignItems="center"> 
       <span onClick={handleIconClick}>
         {task?.dueDate ? (
           <span className='text-xs'>{moment(task.dueDate).format('ll')}</span>
@@ -57,6 +58,7 @@ export default function CustomDatePicker({ task }) {
             stu
             selected={selectedDueDate || (task?.dueDate ? new Date(task.dueDate) : null)}
             onChange={(newValue) => {
+              updateTask(task._id,{due_date : moment(newValue).format("YYYY-MM-DD")});
               setSelectedDueDate(newValue);
               setOpen(false);
             }}

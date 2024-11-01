@@ -13,11 +13,15 @@ const AppLayout = lazy(()=>import("../AppLayout.jsx"));
 const TaskComponet= lazy(()=>import("../pages/Task/Task.jsx"));
 const Home = lazy(() => import("../pages/Home"));
 
+const NewLogin = lazy(() => import("../pages/Authentication/LoginNew.jsx"));
+const NewSignup = lazy(() => import("../pages/Authentication/SignupNew.jsx"));
 // Routes configuration
 const unProtectedRoutes = [
   { path: "/", element: <Login /> },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
+  { path: "/login-v2", element: <NewLogin /> },
+  { path: "/signup-v2", element: <NewSignup /> },
  
 ];
 

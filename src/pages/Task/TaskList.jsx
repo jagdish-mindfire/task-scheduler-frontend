@@ -1,13 +1,15 @@
-import React, { useState, useRef, useEffect,useContext } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import {
   MoreHorizontal,
   CheckCircle2,
   Circle,
-  Lock,
   ChevronRight,
-  Calendar as CalendarIcon,
   ChevronUp,
   ChevronDown,
+  Plus,
+  Filter,
+  ArrowUpDown,
+  Group
 } from "lucide-react";
 import { Button } from "../../components/Common/Button";
 import TaskDetails from "./TaskDetails";
@@ -18,89 +20,41 @@ import {
 } from "../../components/Common/Popover";
 import useTask from "../../hooks/useTask.js";
 import { TaskContext } from "../../context/TaskContext.jsx";
-
 import DueDateInput from "../../components/Common/DueDateInput";
-import { format, parseISO } from "date-fns";
 
 export default function TaskList() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "this is the new task",
-      completed: true,
-      dueDate: "2023-10-01",
-      project: "Cross-func...",
-      visibility: "My workspace",
-    },
-    {
-      id: 2,
-      title: "Draft project brief",
-      completed: true,
-      dueDate: "2023-10-24",
-      project: "Cross-func...",
-      visibility: "My workspace",
-    },
-    {
-      id: 3,
-      title: "this is another task",
-      completed: false,
-      dueDate: "",
-      project: "",
-      visibility: "Only me",
-    },
-    {
-      id: 4,
-      title: "this is new task",
-      completed: false,
-      dueDate: "",
-      project: "",
-      visibility: "Only me",
-    },
-  ]);
-
-  const [selectedTask, setSelectedTask] = useState(null);
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [editingTitle, setEditingTitle] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
-  const [selectedDueDate, setSelectedDueDate] = useState(false);
+  const [selectedDueDate, setSelectedDueDate] = useState(null);
+  const [isAddingNewTask, setIsAddingNewTask] = useState(false);
   const editInputRef = useRef(null);
 
-  const { taskList, taskLoader } = useContext(TaskContext);
-
-  const { sortTasks,updateTask } = useTask();
+  const { taskList, setTask ,task} = useContext(TaskContext);
+  const { sortTasks, updateTask, addTask } = useTask();
   const updatingRef = useRef(false);
 
-  // const { updateModelStates, setTaskData } = useContext(TaskModelStates);
-
-
   useEffect(() => {
-    if (editingTaskId !== null && editInputRef.current) {
+    if ((editingTaskId !== null || isAddingNewTask) && editInputRef.current) {
       editInputRef.current.focus();
     }
-  }, [editingTaskId]);
+  }, [editingTaskId, isAddingNewTask]);
 
-  console.log(taskList);
   const toggleTaskCompletion = async (task) => {
-    if(!updatingRef.current){
+    if (!updatingRef.current) {
       updatingRef.current = true;
       let updateCompleteStatus = task.isCompleted ? 0 : 1;
-      await updateTask(task._id,{is_completed : updateCompleteStatus});
+      await updateTask(task._id, { is_completed: updateCompleteStatus });
       updatingRef.current = false;
     }
-
-    // setTasks(
-    //   taskList.map((task) =>
-    //     task._id === taskId ? { ...task, isCompleted: !task.isCompleted } : task
-    //   )
-    // );
   };
 
-  const openTaskDetails = (task) => {
-    setSelectedTask(task);
+  const openTaskDetails = (taskDetails) => {
+    setTask(taskDetails);
   };
 
   const closeTaskDetails = () => {
-    setSelectedTask(null);
+    setTask(null);
   };
 
   const startEditingTitle = (taskId, currentTitle) => {
@@ -109,43 +63,75 @@ export default function TaskList() {
   };
 
   const handleTitleEdit = (taskId) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId ? { ...task, title: editingTitle } : task
-      )
-    );
+    if (editingTitle.trim() !== "") {
+      if (taskId === "new") {
+        addTask({ title: editingTitle, dueDate: selectedDueDate });
+      } else {
+        updateTask(taskId, { title: editingTitle });
+      }
+    }
     setEditingTaskId(null);
+    setIsAddingNewTask(false);
+    setEditingTitle("");
+    setSelectedDueDate(null);
   };
 
-  const handleDueDateEdit = (taskId, newDueDate) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              dueDate: newDueDate ? format(newDueDate, "yyyy-MM-dd") : "",
-            }
-          : task
-      )
-    );
+  const handleAddTask = () => {
+    setIsAddingNewTask(true);
+    setEditingTaskId("new");
+    setEditingTitle("");
+    setSelectedDueDate(null);
   };
 
-  useEffect(()=>{
-    console.log('sasdfadfasdf');
-    console.log(taskList);
-  },[taskList])
+  const handleInputBlur = () => {
+    if (editingTaskId === "new") {
+      handleTitleEdit("new");
+    } else if (editingTaskId) {
+      handleTitleEdit(editingTaskId);
+    }
+  };
+
   return (
     <div className="relative">
+      <div className="flex justify-between items-center mb-4">
+        <Button 
+          variant="default" 
+          size="sm" 
+          className="bg-blue-500 hover:bg-blue-600" 
+          onClick={handleAddTask}
+        >
+          <Plus className="w-3 h-3 mr-1" />
+          Add task
+        </Button>
+        <div className="flex space-x-1">
+          <Button variant="outline" size="sm">
+            <Filter className="w-3 h-3 mr-1" />
+            Filter
+          </Button>
+          <Button variant="outline" size="sm">
+            <ArrowUpDown className="w-3 h-3 mr-1" />
+            Sort
+          </Button>
+          <Button variant="outline" size="sm">
+            <Group className="w-3 h-3 mr-1" />
+            Group
+          </Button>
+          <Button variant="outline" size="sm">
+            <MoreHorizontal className="w-3 h-3" />
+            Options
+          </Button>
+        </div>
+      </div>
+
       <table className="w-full">
         <thead>
           <tr className="bg-gray-50 text-left">
-            <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider w-1/2">
               Task name
             </th>
-
             <th
-              className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-              onClick={()=>{}}
+              className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer w-1/4"
+              onClick={sortTasks}
             >
               Due date
               {sortOrder === "asc" ? (
@@ -154,32 +140,72 @@ export default function TaskList() {
                 <ChevronDown className="inline-block w-4 h-4 ml-1" />
               )}
             </th>
-
-            <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider w-1/8">
               Project 
             </th>
-            <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider w-1/8">
               Priority
             </th>
-
           </tr>
         </thead>
         <tbody>
-          {taskList.map((task) => (
-            <tr
-              key={task._id}
-              className="border-t border-gray-200 hover:bg-gray-50 transition-colors duration-150"
-            >
-              <td className="px-4 py-2 whitespace-nowrap">
+          {isAddingNewTask && (
+            <tr className="border-t border-gray-200 hover:bg-gray-50 transition-colors duration-150">
+              <td className="px-4 py-2 whitespace-nowrap hover:border hover:border-black">
                 <div className="flex items-center">
                   <Button
                     variant="ghost"
                     size="sm"
+                    className="mr-1 border-green-700"
+                  >
+                    <Circle className="w-4 h-4 text-gray-300" />
+                  </Button>
+                  <input
+                    ref={editInputRef}
+                    type="text"
+                    value={editingTitle}
+                    onChange={(e) => setEditingTitle(e.target.value)}
+                    onBlur={handleInputBlur}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        handleTitleEdit("new");
+                      }
+                    }}
+                    className="bg-transparent focus:outline-none text-xs w-full"
+                    placeholder="Enter new task title"
+                  />
+                </div>
+              </td>
+              <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-500 hover:border hover:border-black">
+                <DueDateInput
+                  selectedDueDate={selectedDueDate}
+                  setSelectedDueDate={setSelectedDueDate}
+                  task={{ _id: "new" }}
+                />
+              </td>
+              <td className="px-4 py-2 whitespace-nowrap text-xs">
+                {/* Project field for new task */}
+              </td>
+              <td className="px-4 py-2 whitespace-nowrap text-xs">
+                {/* Priority field for new task */}
+              </td>
+            </tr>
+          )}
+          {taskList.map((task) => (
+            <tr
+              key={task._id}
+              className="border-t border-gray-200 hover:bg-gray-50 transition-colors duration-150 "
+            >
+              <td className="hover:border hover:border-black px-4 py-2 whitespace-nowrap ">
+                <div className="flex items-center ">
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     onClick={() => toggleTaskCompletion(task)}
-                    className="mr-1 borber border-green-700"
+                    className="mr-1  border-green-700"
                   >
                     {task.isCompleted ? (
-                      <CheckCircle2 className="w-4 h-4 text-green-500" />
+                      <CheckCircle2 className="w-6 h-4 text-green-500" />
                     ) : (
                       <Circle className="w-4 h-4 text-gray-300" />
                     )}
@@ -190,13 +216,13 @@ export default function TaskList() {
                       type="text"
                       value={editingTitle}
                       onChange={(e) => setEditingTitle(e.target.value)}
-                      onBlur={() => handleTitleEdit(task._id)}
+                      onBlur={handleInputBlur}
                       onKeyPress={(e) => {
                         if (e.key === "Enter") {
                           handleTitleEdit(task._id);
                         }
                       }}
-                      className="bg-transparent focus:outline-none text-xs w-full  "
+                      className="bg-transparent focus:outline-none text-xs w-full"
                     />
                   ) : (
                     <span
@@ -208,7 +234,6 @@ export default function TaskList() {
                       {task.title}
                     </span>
                   )}
-
                   <Button
                     className="ml-auto hover:bg-slate-300"
                     variant="ghost"
@@ -219,30 +244,30 @@ export default function TaskList() {
                   </Button>
                 </div>
               </td>
-              <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-500">
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <div className="cursor-pointer flex items-center">
-                      <DueDateInput selectedDueDate={selectedDueDate} setSelectedDueDate={setSelectedDueDate} task={task}/>
-                    </div>
-                  </PopoverTrigger>
-                </Popover>
+              <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-500 hover:border hover:border-black">
+                <DueDateInput
+                  selectedDueDate={task.dueDate}
+                  setSelectedDueDate={(date) => updateTask(task._id, { dueDate: date })}
+                  task={task}
+                />
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-xs">
                 {task.project && (
-                  <span className="px-2 inline-flex text-xs leading-5 font-semibold  bg-green-100 text-green-800">
-                    {task?.project}
+                  <span className="px-2 inline-flex text-xs leading-5 font-semibold bg-green-100 text-green-800">
+                    {task.project}
                   </span>
                 )}
               </td>
-             
+              <td className="px-4 py-2 whitespace-nowrap text-xs">
+                {/* Add priority content here */}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {selectedTask && (
-        <TaskDetails task={selectedTask} onClose={closeTaskDetails} />
+      {task?._id && (
+        <TaskDetails onClose={closeTaskDetails} />
       )}
     </div>
   );
