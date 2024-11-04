@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState, useEffect } from 'react'
 import { twMerge } from "tailwind-merge"
 import {
@@ -11,6 +9,7 @@ import {
   Share,
   Sliders,
 } from 'lucide-react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Calendar from '../../components/Task/Calendar'
 import Board from '../../components/Task/Board'
 import StringDP from '../../components/Common/StringDP'
@@ -18,16 +17,21 @@ import { Button } from '../../components/Common/Button'
 import TaskList from '../../components/Task/TaskList'
 import useTask from "../../hooks/useTask"
 
-// const cn = (...inputs: string[]) => twMerge(inputs)
-
 export default function Index() {
   const [activeTab, setActiveTab] = useState('list')
   const { getAllTasks } = useTask()
+  const { viewType } = useParams();
+  const navigate = useNavigate();
+
   const cn = (...inputs) => twMerge(inputs);
 
   useEffect(() => {
     getAllTasks()
-  }, [getAllTasks])
+  }, [])
+
+  useEffect(() => {
+    setActiveTab(viewType !== undefined ? viewType.toLowerCase() : "list");
+  }, [viewType]);
 
   const renderTaskContent = () => {
     switch (activeTab) {
@@ -38,7 +42,8 @@ export default function Index() {
       case 'calendar':
         return <Calendar />
       default:
-        return null
+          navigate("/not-found");
+          return;
     }
   }
 
@@ -65,33 +70,36 @@ export default function Index() {
       
       {/* Tabs Section */}
       <div className="flex items-center space-x-1 mb-4 border-b overflow-x-auto">
-        <Button
-          variant="ghost"
-          className={cn("border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4", 
-            activeTab === 'list' ? "border-primary text-primary" : "border-transparent")}
-          onClick={() => setActiveTab('list')}
-        >
-          <List className="w-4 h-4 mr-1 sm:mr-2" />
-          <span className="text-xs sm:text-sm">List</span>
-        </Button>
-        <Button
-          variant="ghost"
-          className={cn("border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4", 
-            activeTab === 'board' ? "border-primary text-primary" : "border-transparent")}
-          onClick={() => setActiveTab('board')}
-        >
-          <LayoutGrid className="w-4 h-4 mr-1 sm:mr-2" />
-          <span className="text-xs sm:text-sm">Board</span>
-        </Button>
-        <Button
-          variant="ghost"
-          className={cn("border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4", 
-            activeTab === 'calendar' ? "border-primary text-primary" : "border-transparent")}
-          onClick={() => setActiveTab('calendar')}
-        >
-          <CalendarIcon className="w-4 h-4 mr-1 sm:mr-2" />
-          <span className="text-xs sm:text-sm">Calendar</span>
-        </Button>
+        <Link to={'/tasks/list'}>
+          <Button
+            variant="ghost"
+            className={cn("border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4", 
+              activeTab === 'list' ? "border-x-4 border-blue-500 text-blue-700" : "border-transparent")}
+          >
+            <List className="w-4 h-4 mr-1 sm:mr-2" />
+            <span className="text-xs sm:text-sm">List</span>
+          </Button>
+        </Link>
+        <Link to={'/tasks/board'}>
+          <Button
+            variant="ghost"
+            className={cn("border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4", 
+              activeTab === 'board' ? "border-x-4 border-blue-500 text-blue-700" : "border-transparent")}
+          >
+            <LayoutGrid className="w-4 h-4 mr-1 sm:mr-2" />
+            <span className="text-xs sm:text-sm">Board</span>
+          </Button>
+        </Link>
+        <Link to={'/tasks/calendar'}>
+          <Button
+            variant="ghost"
+            className={cn("border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4", 
+              activeTab === 'calendar' ? "border-x-4 border-blue-500 text-blue-700" : "border-transparent")}
+          >
+            <CalendarIcon className="w-4 h-4 mr-1 sm:mr-2" />
+            <span className="text-xs sm:text-sm">Calendar</span>
+          </Button>
+        </Link>
         <Button variant="ghost" className="flex items-center px-2 sm:px-4">
           <Plus className="w-4 h-4" />
         </Button>
