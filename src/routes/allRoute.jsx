@@ -9,7 +9,7 @@ const NotFound = lazy(() => import("../pages/NotFound"));
 const ProtectedRouteMiddleware = lazy(() => import("./middlewares/ProtectedRouteMiddleware"));
 const AppLayout = lazy(()=>import("../components/Layout/AppLayout.jsx"));
 const TaskComponet= lazy(()=>import("../pages/Task/Index.jsx"));
-const Home = lazy(() => import("../pages/Home"));
+const Home = lazy(() => import("../pages/Home/Index.jsx"));
 
 const Login = lazy(() => import("../pages/Authentication/Login.jsx"));
 const Signup = lazy(() => import("../pages/Authentication/Signup.jsx"));
