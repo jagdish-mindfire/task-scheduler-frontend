@@ -1,16 +1,18 @@
 import React, { useState, useRef, useContext } from 'react'
 import { ArrowRight, X, ChevronDown, Flag, MessageSquare, UserPlus, Calendar, Plus, Link, Trash2, Check } from 'lucide-react'
-import { Button } from '../../components/Common/Button'
-import { StringDP, apis } from "../../mockAPIs.jsx"
+import { Button } from '../Common/Button.jsx'
+import StringDP from "../Common/StringDP.jsx"
 import moment from "moment"
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import useTask from "../../hooks/useTask.js"
 import { TaskContext } from '../../context/TaskContext.jsx'
+import { UserContext } from '../../context/UserContext.jsx'
 
 const TaskDetails = ({ onClose, onDelete }) => {
   const [isEditingDescription, setIsEditingDescription] = useState(false)
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
+  const {userData} = useContext(UserContext)
   const quillRef = useRef(null)
   
   const { task,setTask } = useContext(TaskContext)
@@ -83,7 +85,7 @@ const TaskDetails = ({ onClose, onDelete }) => {
         <div className="flex items-center">
           <div className="flex items-center flex-1">
             <StringDP />
-            <span className="ml-2 font-semibold">{apis.me.name}</span>
+            <span className="ml-2 font-semibold">{userData?.name}</span>
           </div>
           <Button variant="ghost" size="sm" className="text-blue-500">
             Recently assigned

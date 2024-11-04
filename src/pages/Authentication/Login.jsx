@@ -1,15 +1,18 @@
-import { useState, useEffect} from "react";
-import { Link, useLocation } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Modal from "../../components/Common/Modal";
-import InputField from "../../components/Common/InputField";
-import CONSTANTS_STRING from "../../constants/strings";
-import { loginSchema } from "../../validation-schema/schema";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from "../../components/Common/Button";
+import Input from "../../components/Common/Input";
+import Label from "../../components/Common/Label";
+import { Mail, Lock } from 'lucide-react';
 import useAuth from "../../hooks/useAuth";
+import { Link, useLocation } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { loginSchema } from "../../validation-schema/schema";
 
-export default function Login() {
-  const [showModal, setShowModal] = useState(false);
+export default function LoginPage() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
 
   const {
@@ -22,91 +25,117 @@ export default function Login() {
 
   const onSubmit = (data) => {
     console.log("Submitting data:--", data); // Log the submitted data
-
     loginMutation.mutate(data);
   };
 
-  useEffect(() => {
-    if (location?.state?.showSuccess) {
-      setShowModal(true);
-    }
-  }, []);
   return (
-    <>
-      <Modal
-      open={showModal}
-      setOpen={setShowModal}
-      title={"Success"}
-      description={
-        "Your account was created successfully. Please log in to proceed."
-      }
-    />
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mb-2 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            {CONSTANTS_STRING.APP_TITLE}
-          </h2>
-          <img
-            alt="Mindfire"
-            src="https://www.mindfiresolutions.com/home-assets/images/logo.webp"
-            className="mx-auto h-10 w-auto"
-          />
-          <h2 className="mt-3 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            {CONSTANTS_STRING.LOGIN_TO_YOUR_ACCOUNT}
-          </h2>
-        </div>
-
-        <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-          <div className="rounded-lg border border-gray-300 shadow-lg p-6 bg-white">
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="space-y-6"
-            >
-              <InputField
-                label={CONSTANTS_STRING.EMAIL}
-                type="email"
-                register={register}
-                errors={errors}
-                name="email"
-                required
-              />
-              <InputField
-                label={CONSTANTS_STRING.PASSWORD}
-                type="password"
-                register={register}
-                errors={errors}
-                name="password"
-                required
-              />
-
-              <div>
-                <button
-                  type="submit"
-                  data-testid="submit_login"
-                  disabled={loginMutation.isPending}
-                  className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                    loginMutation.isPending
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
-                  }`}
-                >
-                  {loginMutation.isPending ? CONSTANTS_STRING.LOADING : CONSTANTS_STRING.SIGNIN}
-                </button>
+    <div className="h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 p-2 sm:p-4 lg:p-6 flex items-center justify-center">
+      <div className="w-full max-w-4xl">
+        <div className="relative bg-white rounded-2xl overflow-hidden shadow-2xl flex">
+          {/* Left side - Form */}
+          <div className="w-full lg:w-[45%] p-6 sm:p-8">
+            <div className="w-full max-w-md mx-auto space-y-6">
+              {/* Logo and Title */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-start">
+                  <img src="/logo.png" alt="Schedule Me Logo" className="w-8 h-8" />
+                  <h1 className="ml-2 text-xl font-bold text-gray-900">Schedule Me</h1>
+                </div>
+                <div className="space-y-1">
+                  <h2 className="text-2xl font-bold tracking-tight text-gray-900">Welcome back</h2>
+                  <p className="text-sm text-gray-500">Enter your credentials to access your account</p>
+                </div>
               </div>
-            </form>
 
-            <p className="mt-5 text-center text-sm text-gray-500">
-              {CONSTANTS_STRING.DONT_HAVE_ACCOUNT}{" "}
-              <Link
-                to="/signup"
-                className="font-semibold leading-6 text-slate-800 hover:text-slate-950 hover:underline"
-              >
-                {CONSTANTS_STRING.SIGNUP}
-              </Link>
-            </p>
+              {/* Login Form */}
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <div className="space-y-3">
+                  <div>
+                    <Label htmlFor="email" className="text-xs font-medium text-gray-700">
+                      Email
+                    </Label>
+                    <div className="mt-1 relative">
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Input
+                        id="email"
+                        type="email"
+                        className="pl-10 w-full h-10 bg-gray-50 border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900"
+                        placeholder="Enter your email"
+                        register={register}
+                        errors={errors}
+                        name="email"
+                        required
+                      />
+                    </div>
+                    {errors?.email && (
+                      <label className="text-xs text-red-700 mt-1">{errors.email.message}</label>
+                    )}
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="password" className="text-xs font-medium text-gray-700">
+                        Password
+                      </Label>
+                      <button
+                        type="button"
+                        onClick={() => navigate('/forgot-password')}
+                        className="text-xs font-medium text-gray-600 hover:text-gray-900"
+                      >
+                        Forgot password?
+                      </button>
+                    </div>
+                    <div className="mt-1 relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Input
+                        id="password"
+                        type="password"
+                        required
+                        className="pl-10 w-full h-10 bg-gray-50 border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900"
+                        placeholder="Enter your password"
+                        register={register}
+                        errors={errors}
+                        name="password"
+                      />
+                    </div>
+                    {errors?.password && (
+                      <label className="text-xs text-red-700 mt-1">{errors.password.message}</label>
+                    )}
+                  </div>
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={loginMutation.isPending}
+                  className="w-full h-10 bg-gray-900 hover:bg-gray-800 text-white text-xs font-medium rounded-lg
+                    transition-all duration-150 ease-in-out hover:shadow-lg"
+                >
+                  {loginMutation.isPending ? "Signing in..." : "Sign in"}
+                </Button>
+              </form>
+
+              <p className="text-center text-xs text-gray-500">
+                Don't have an account?{" "}
+                <button
+                  onClick={() => navigate('/signup')}
+                  className="font-medium text-gray-900 hover:text-gray-700"
+                >
+                  Sign up
+                </button>
+              </p>
+            </div>
+          </div>
+
+          {/* Right side - Image */}
+          <div className="hidden lg:block lg:w-[55%] bg-gray-100">
+            <img
+              src="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
+              alt="Productivity"
+              className="w-full h-full object-cover rounded-l-2xl"
+            />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
-};
+}

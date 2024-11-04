@@ -20,7 +20,7 @@ import {
   
 export default function TaskCard({ task, index }) {
   return (
-    <Draggable draggableId={task.id.toString()} index={index}>
+    <Draggable draggableId={task?.id?.toString()} index={index}>
     {(provided) => (
       <div
         ref={provided.innerRef}

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect,useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { twMerge } from "tailwind-merge"
 import {
   ChevronDown,
@@ -6,50 +6,21 @@ import {
   LayoutGrid,
   Calendar as CalendarIcon,
   Plus,
-  Filter,
-  ArrowUpDown,
-  Group,
-  MoreHorizontal,
   Share,
   Sliders,
 } from 'lucide-react'
-import Calendar from './Calendar'
-import Board from './Board'
-import { StringDP } from '../../mockAPIs'
-import { Button } from '../../components/Common/Button'
-import TaskList from './TaskList';
+import Calendar from '../../components/Task/Calendar.jsx'
+import Board from '../../components/Task/Board.jsx'
+import StringDP  from '../../components/Common/StringDP.jsx'
+import { Button } from '../../components/Common/Button.jsx'
+import TaskList from '../../components/Task/TaskList.jsx';
 import useTask from "../../hooks/useTask.js";
 
 const cn = (...inputs) => twMerge(inputs)
 
 
-
-
-
-
-
-const TaskPage = () => {
+const Index = () => {
   const [activeTab, setActiveTab] = useState('list')
-  const [tasks, setTasks] = useState({
-    list: [
-      { id: 1, title: 'this is the new task', completed: true, dueDate: '2023-10-01', project: 'Cross-func...', visibility: 'My workspace' },
-      { id: 2, title: 'Draft project brief', completed: true, dueDate: '2023-10-24', project: 'Cross-func...', visibility: 'My workspace' },
-      { id: 3, title: 'this is another task', completed: false, dueDate: '', project: '', visibility: 'Only me' },
-      { id: 4, title: 'this is new task', completed: false, dueDate: '', project: '', visibility: 'Only me' },
-    ],
-    recentlyAssigned: [
-      { id: 'task-1', title: 'Review project proposal', completed: false, dueDate: '2023-10-15' },
-      { id: 'task-2', title: 'Update team meeting agenda', completed: true, dueDate: '2023-10-16' },
-    ],
-    doToday: [
-      { id: 'task-3', title: 'Prepare presentation slides', completed: false, dueDate: '2023-10-17' },
-      { id: 'task-4', title: 'Send follow-up emails', completed: false, dueDate: '2023-10-17' },
-    ],
-    doLater: [
-      { id: 'task-5', title: 'Research new marketing strategies', completed: false, dueDate: '2023-10-25' },
-      { id: 'task-6', title: 'Plan team building activity', completed: false, dueDate: '2023-10-30' },
-    ],
-  });
   const { getAllTasks } = useTask();
 
   useEffect(() => {
@@ -125,9 +96,6 @@ const TaskPage = () => {
           <Plus className="w-3 h-3" />
         </Button>
       </div>
-
-      
-
       <div className="bg-white shadow rounded-lg overflow-hidden p-4">
         {renderTaskContent()}
       </div>
@@ -135,4 +103,4 @@ const TaskPage = () => {
   )
 }
 
-export default TaskPage
+export default Index

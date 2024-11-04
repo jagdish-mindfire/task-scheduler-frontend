@@ -11,16 +11,16 @@ import {
   ArrowUpDown,
   Group
 } from "lucide-react";
-import { Button } from "../../components/Common/Button";
-import TaskDetails from "./TaskDetails";
+import { Button } from "../Common/Button.jsx";
+import TaskDetails from "./TaskDetails.jsx";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../components/Common/Popover";
+} from "../Common/Popover.jsx";
 import useTask from "../../hooks/useTask.js";
 import { TaskContext } from "../../context/TaskContext.jsx";
-import DueDateInput from "../../components/Common/DueDateInput";
+import DueDateInput from "../Common/DueDateInput.jsx";
 
 export default function TaskList() {
   const [editingTaskId, setEditingTaskId] = useState(null);

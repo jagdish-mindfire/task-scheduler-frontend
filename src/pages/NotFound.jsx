@@ -6,7 +6,7 @@ const NotFound = () => {
           <p className="text-2xl mt-4">Page Not Found</p>
           <p className="text-lg mt-2">The page you are looking for doesn't exist.</p>
           <a
-            href="/login"
+            href="/home"
             className="mt-6 inline-block px-6 py-2 text-black bg-white rounded-md hover:bg-gray-200"
           >
             Go Home
