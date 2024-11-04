@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import {
   MoreHorizontal,
   CheckCircle2,
@@ -9,18 +10,18 @@ import {
   Plus,
   Filter,
   ArrowUpDown,
-  Group
+  Group,
 } from "lucide-react";
-import { Button } from "../../components/Common/Button";
+import { Button } from "../../components/Common/Button.jsx";
 import TaskDetails from "../../components/Task/TaskDetails.jsx";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../components/Common/Popover";
+} from "../../components/Common/Popover.jsx";
 import useTask from "../../hooks/useTask.js";
 import { TaskContext } from "../../context/TaskContext.jsx";
-import DueDateInput from "../../components/Common/DueDateInput";
+import DueDateInput from "../../components/Common/DueDateInput.jsx";
 
 export default function TaskList() {
   const [editingTaskId, setEditingTaskId] = useState(null);
@@ -30,7 +31,7 @@ export default function TaskList() {
   const [isAddingNewTask, setIsAddingNewTask] = useState(false);
   const editInputRef = useRef(null);
 
-  const { taskList, setTask ,task} = useContext(TaskContext);
+  const { taskList, setTask, task } = useContext(TaskContext);
   const { sortTasks, updateTask, addTask } = useTask();
   const updatingRef = useRef(false);
 
@@ -94,10 +95,10 @@ export default function TaskList() {
   return (
     <div className="relative">
       <div className="flex justify-between items-center mb-4">
-        <Button 
-          variant="default" 
-          size="sm" 
-          className="bg-blue-500 hover:bg-blue-600 p-5" 
+        <Button
+          variant="default"
+          size="sm"
+          className="bg-blue-500 hover:bg-blue-600 p-5"
           onClick={handleAddTask}
         >
           <Plus className="w-3 h-3 mr-1" />
@@ -143,7 +144,7 @@ export default function TaskList() {
                 )}
               </th>
               <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider w-1/8">
-                Project 
+                Project
               </th>
               <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider w-1/8">
                 Priority
@@ -236,20 +237,24 @@ export default function TaskList() {
                         {task.title}
                       </span>
                     )}
-                    <Button
-                      className="ml-auto hover:bg-slate-300"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => openTaskDetails(task)}
-                    >
-                      <ChevronRight className="w-3 h-3" />
-                    </Button>
+                    <Link to={`/tasks/list/${task._id}`}>
+                      <Button
+                        className="ml-auto hover:bg-slate-300"
+                        variant="ghost"
+                        size="sm"
+                        // onClick={() => openTaskDetails(task)}
+                      >
+                        <ChevronRight className="w-3 h-3" />
+                      </Button>
+                    </Link>
                   </div>
                 </td>
                 <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-500 hover:border hover:border-black">
                   <DueDateInput
                     selectedDueDate={task.dueDate}
-                    setSelectedDueDate={(date) => updateTask(task._id, { dueDate: date })}
+                    setSelectedDueDate={(date) =>
+                      updateTask(task._id, { dueDate: date })
+                    }
                     task={task}
                   />
                 </td>
@@ -304,10 +309,7 @@ export default function TaskList() {
           </div>
         )}
         {taskList.map((task) => (
-          <div
-            key={task._id}
-            className="border-t border-gray-200 p-4 mb-4"
-          >
+          <div key={task._id} className="border-t border-gray-200 p-4 mb-4">
             <div className="flex items-center mb-2">
               <Button
                 variant="ghost"
@@ -357,7 +359,9 @@ export default function TaskList() {
             <div className="text-xs text-gray-500 mb-1">
               <DueDateInput
                 selectedDueDate={task.dueDate}
-                setSelectedDueDate={(date) => updateTask(task._id, { dueDate: date })}
+                setSelectedDueDate={(date) =>
+                  updateTask(task._id, { dueDate: date })
+                }
                 task={task}
               />
             </div>
@@ -370,9 +374,9 @@ export default function TaskList() {
         ))}
       </div>
 
-      {task?._id && (
+      {/* {task?._id && (
         <TaskDetails onClose={closeTaskDetails} />
-      )}
+      )} */}
     </div>
   );
 }

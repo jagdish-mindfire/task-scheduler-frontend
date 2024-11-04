@@ -12,8 +12,8 @@ export default function TaskColumn({ title, tasks, id }) {
           ref={provided.innerRef}
           className="min-h-[150px]"
         >
-          {tasks.map((task, index) => (
-            <TaskCard key={task.id} task={task} index={index} />
+          {tasks?.map((task, index) => (
+            <TaskCard key={task._id} task={task} index={index}  />
           ))}
           {provided.placeholder}
         </div>

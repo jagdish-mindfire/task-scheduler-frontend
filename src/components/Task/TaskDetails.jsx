@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext ,useEffect} from 'react';
 import { ArrowRight, X, ChevronDown, Flag, MessageSquare, UserPlus, Calendar, Plus, Link, Trash2, Check } from 'lucide-react';
 import { Button } from '../Common/Button.jsx';
 import StringDP from "../Common/StringDP.jsx";
@@ -8,16 +8,23 @@ import 'react-quill/dist/quill.snow.css';
 import useTask from "../../hooks/useTask.js";
 import { TaskContext } from '../../context/TaskContext.jsx';
 import { UserContext } from '../../context/UserContext.jsx';
+import {useParams,useNavigate} from 'react-router-dom';
 
 const TaskDetails = ({ onClose, onDelete }) => {
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const { userData } = useContext(UserContext);
   const quillRef = useRef(null);
-  
+  const {taskId,viewType} =useParams();
+  const navigate = useNavigate();
+
   const { task, setTask } = useContext(TaskContext);
-  const { updateTask, deleteTask } = useTask();
+  const { updateTask, deleteTask,getSingleTask} = useTask();
   const [description, setDescription] = useState(task?.description || "");
+
+  useEffect(()=>{
+    getSingleTask(taskId);
+  },[taskId])
 
   const handleDescriptionClick = () => {
     setIsEditingDescription(true);
@@ -48,10 +55,10 @@ const TaskDetails = ({ onClose, onDelete }) => {
   };
 
   return (
-    <div className="fixed inset-y-0 right-0 w-full md:w-[30rem] bg-white shadow-lg overflow-y-auto">
+    <div className="fixed inset-y-0 right-0 w-full md:w-[30rem] bg-white shadow-lg overflow-y-auto z-50">
       <div className="sticky top-0 bg-white z-10 p-4 border-b flex justify-between items-center">
         <h2 className="text-lg md:text-2xl font-bold truncate">{task.title}</h2>
-        <Button variant="ghost" className="hover:bg-slate-300" size="sm" onClick={onClose}>
+        <Button variant="ghost" className="hover:bg-slate-300" size="sm" onClick={()=>navigate('/tasks/'+viewType)}>
           <ArrowRight className="w-4 h-4" />
         </Button>
       </div>

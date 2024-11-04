@@ -9,6 +9,7 @@ const NotFound = lazy(() => import("../pages/NotFound"));
 const ProtectedRouteMiddleware = lazy(() => import("./middlewares/ProtectedRouteMiddleware"));
 const AppLayout = lazy(()=>import("../components/Layout/AppLayout.jsx"));
 const TaskComponet= lazy(()=>import("../pages/Task/Index.jsx"));
+const TaskDetails = lazy(()=>import("../components/Task/TaskDetails.jsx"));
 const Home = lazy(() => import("../pages/Home/Index.jsx"));
 
 const Login = lazy(() => import("../pages/Authentication/Login.jsx"));
@@ -25,7 +26,15 @@ const protectedRoutes = [
     { path: "/dashboard", element: <Dashboard /> },
     { path: "/tasks", element: <TaskComponet /> },
     { path: "/tasks/:viewType", element: <TaskComponet /> },
-    { path: "/tasks/:viewType/:taskId", element: <TaskComponet /> },
+    {
+      path: "/tasks/:viewType/:taskId",
+      element: (
+        <Suspense fallback={<Loader />}>
+          <TaskComponet /> {/* Display TaskComponent */}
+          <TaskDetails />   {/* Display TaskDetails */}
+        </Suspense>
+      ),
+    },
     { path: "/home", element: <Home /> },
 ]
 

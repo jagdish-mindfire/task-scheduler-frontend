@@ -4,8 +4,13 @@ const api = new appApi();
 const TASK_ENDPOINT = "/tasks";
 const CREATE_TASK_ENDPOINT = TASK_ENDPOINT + "/create";
 
-export const FetchAllTasks = async (sortingType) => {
+export const fetchAllTasks = async (sortingType) => {
   const response = await api.get(TASK_ENDPOINT, { sort: sortingType });
+  return response;
+};
+
+export const fetchTask = async (taskId) => {
+  const response = await api.get(TASK_ENDPOINT + '/' + taskId);
   return response;
 };
 

@@ -17,19 +17,21 @@ import {
     Share,
     Sliders,
   } from 'lucide-react'
-  
+  import { useNavigate } from 'react-router-dom'
 export default function TaskCard({ task, index }) {
+  const navigate = useNavigate();
   return (
-    <Draggable draggableId={task?.id?.toString()} index={index}>
+    <Draggable draggableId={task?._id?.toString()} index={index}>
     {(provided) => (
       <div
+        onClick={()=>navigate('/tasks/board/'+task._id)}
         ref={provided.innerRef}
         {...provided.draggableProps}
         {...provided.dragHandleProps}
         className="bg-white p-2 mb-1 rounded-lg shadow"
       >
         <div className="flex items-center">
-          {task.completed ? (
+          {task.isCompleted ? (
             <CheckCircle2 className="w-4 h-4 text-green-500 mr-1" />
           ) : (
             <Circle className="w-4 h-4 text-gray-300 mr-1" />

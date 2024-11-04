@@ -10,11 +10,11 @@ import {
   Sliders,
 } from 'lucide-react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import Calendar from '../../components/Task/Calendar'
-import Board from '../../components/Task/Board'
+import Calendar from './Calendar'
+import Board from './Board'
 import StringDP from '../../components/Common/StringDP'
 import { Button } from '../../components/Common/Button'
-import TaskList from '../../components/Task/TaskList'
+import TaskList from './TaskList'
 import useTask from "../../hooks/useTask"
 
 export default function Index() {

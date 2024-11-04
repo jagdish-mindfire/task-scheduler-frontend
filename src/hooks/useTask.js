@@ -1,18 +1,23 @@
 import { useState, useContext, useRef } from "react";
 import { TaskContext } from "../context/TaskContext";
 import {
-  FetchAllTasks,
+  fetchAllTasks,
   CreateNewTask,
   UpdateTask,
   DeleteTask,
+  fetchTask,
 } from "../services/taskService";
 import { ShowErrorToast,ShowTaskDeleteToast } from "../services/toastService";
+import { useQueryClient } from "@tanstack/react-query";
+import {useParams,useNavigate} from 'react-router-dom';
+
 
 const useTask = () => {
   const { setTaskList, taskList,setTaskLoader,task,setTask } = useContext(TaskContext);
   const callingSortingAPI = useRef(false);
   const [sortingType, setSortingType] = useState("asc");
-
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const sortTasks = async () => {
     if (!callingSortingAPI.current) {
       callingSortingAPI.current = true;
@@ -26,12 +31,30 @@ const useTask = () => {
   const getAllTasks = async (sortingType) => {
     try {
       setTaskLoader(true);
-      const tasks = await FetchAllTasks(sortingType);
-      setTaskList(tasks);
+      const data = await queryClient.fetchQuery({
+        queryKey: ["allTasks", sortingType], 
+        queryFn: () => fetchAllTasks(sortingType), 
+      });
+      setTaskList(data);
     } catch (error) {
-      console.error(error);
       ShowErrorToast(error?.response?.data?.message || error?.message);
-    }finally{
+    } finally {
+      setTaskLoader(false);
+    }
+  };
+
+  const getSingleTask = async (taskId) => {
+    try {
+      setTaskLoader(true);
+      const data = await queryClient.fetchQuery({
+        queryKey: ["getSingleTask", taskId], 
+        queryFn: () => fetchTask(taskId), 
+      });
+      setTask(data.task);
+    } catch (error) {
+      navigate('/home');
+      ShowErrorToast(error?.response?.data?.message || error?.message);
+    } finally {
       setTaskLoader(false);
     }
   };
@@ -45,6 +68,7 @@ const useTask = () => {
       console.log(error);
     }
   };
+
   const updateTask = async (id, updatedTask) => {
     try {
       const response = await UpdateTask(id, updatedTask);
@@ -60,6 +84,7 @@ const useTask = () => {
       console.log(error);
     }
   };
+  
   const deleteTask = async (id) => {
     try {
       await DeleteTask(id);
@@ -71,6 +96,6 @@ const useTask = () => {
     }
   };
 
-  return { sortTasks, getAllTasks, addTask, deleteTask, updateTask };
+  return { sortTasks, getAllTasks, addTask, deleteTask, updateTask,getSingleTask };
 };
 export default useTask;

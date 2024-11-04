@@ -1,5 +1,4 @@
 import { TailSpin } from "react-loader-spinner";
-import Logo from '../../../public/logo.png';
 
 const Loader = () => {
   return (
