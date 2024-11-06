@@ -22,10 +22,10 @@ const Header = ({ toggleNavbar }) => {
           <Button variant="ghost" size="sm" onClick={toggleNavbar} className="text-white hover:bg-gray-800 md:hidden">
             <Menu className="h-5 w-5" />
           </Button>
-          <Button variant="default" size="sm" className="bg-gray-700 text-white hover:bg-gray-600">
-            <PlusCircle className="mr-2 h-4 w-4" />
-            <span className="hidden sm:inline">Create</span>
-          </Button>
+          {/* <Button variant="default" size="sm" className="bg-gray-700 text-white hover:bg-gray-600"> */}
+            {/* <PlusCircle className="mr-2 h-4 w-4" /> */}
+            {/* <span className="hidden sm:inline">Create</span> */}
+          {/* </Button> */}
         </div>
         <div className="flex-grow max-w-xs sm:max-w-xl mx-2 md:mx-4">
           <Input type="text" placeholder="Search tasks..." className="w-full bg-gray-800 border-gray-700 text-white placeholder-gray-400" />
