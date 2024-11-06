@@ -1,75 +1,36 @@
-# Task Scheduler Frontend
-
-This is the frontend of the Task Scheduling App, built with Vite and ReactJs. It handles user authentication, task creation, editing, deletion, and notifications for tasks.
-
-## Deployed Link 
-```bash
-https://boisterous-frangipane-9f323a.netlify.app/
-```
-
-## Table of Contents
-
-- [Getting Started](#getting-started)
-- [Installation](#installation)
-- [Environment Variables](#environment-variables)
-- [Running the App](#running-the-app)
-- [Functionalities](#functionalities)
-- [API Documentation](#api-Documentation)
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-To get a copy of the project up and running on your local machine, follow the instructions below.
-
-### Clone the Repository
-
-```bash
-git clone git@github.com:jagdish-mindfire/task-scheduler-frontend.git
-```
-Navigate into the cloned repository:
-
-
-```bash
-cd task-scheduler-frontend
-```
-
-## Installation
-Once inside the project directory, run the following command to install all the necessary dependencies:
-
-```bash
-npm install
-```
-## Environment Variables
-Before running the app locally, create a .env file in the root of the project and fill in the required environment variables based on the .env.example file provided.
-
-```bash
-VITE_API_URL=https://task-scheduler-api.chickenkiller.com
-```
-
-## Running the App
-Once inside the project directory, run the following command to install all the necessary dependencies:
-
-To start the developement server locally, use the following command:
+First, run the development server:
 
 ```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-To run build use following command:
-```bash
-npm run build
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-## Functionalities
-* **User Registration :** Users can create a new account.
-* **User Login :** Users can log in using their credentials.
-* **Task Management :**
-  * **Create Task :** Users can create a task with a title, description, and due date.
-  * **Edit Task :** Users can edit tasks they’ve created.
-  * **Delete Task:** Users can delete tasks they no longer need.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Backend Repo
-you can access the backend(apis) used for this frontend by following link
-```bash
-git clone git@github.com:jagdish-mindfire/task-scheduler-backedn.git
-```
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
