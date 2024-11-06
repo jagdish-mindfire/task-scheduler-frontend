@@ -13,7 +13,6 @@ export default function Board() {
         getAllTasks();
     },[])
 
-    console.log('tasklist', taskList)
     const [tasks, setTasks] = useState({});
 
       const onDragEnd = (result) => {
@@ -46,7 +45,6 @@ export default function Board() {
             1 : taskList.filter(task => task.boardColumnId === 1),
             2 : taskList.filter(task => task.boardColumnId === 2),
           }
-          console.log('newTasks', newTasks)
           setTasks(newTasks)
         }
       },[taskList])

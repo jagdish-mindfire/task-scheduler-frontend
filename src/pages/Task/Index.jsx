@@ -16,6 +16,7 @@ import StringDP from '../../components/Common/StringDP'
 import { Button } from '../../components/Common/Button'
 import TaskList from './TaskList'
 import useTask from "../../hooks/useTask"
+import CONSTANT_STRINGS from "../../constants/strings"
 
 export default function Index() {
   const [activeTab, setActiveTab] = useState('list')
@@ -53,10 +54,10 @@ export default function Index() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 space-y-2 sm:space-y-0">
         <div className="flex items-center space-x-2 w-full sm:w-auto">
           <StringDP />
-          <h1 className="text-lg sm:text-xl font-semibold">My tasks</h1>
+          <h1 className="text-lg sm:text-xl font-semibold">{CONSTANT_STRINGS.MY_TASKS}</h1>
           <ChevronDown className="w-4 h-4 ml-auto sm:ml-0" />
         </div>
-        <div className="flex space-x-2 w-full sm:w-auto justify-end">
+        {/* <div className="flex space-x-2 w-full sm:w-auto justify-end">
           <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
             <Share className="w-4 h-4 mr-1 sm:mr-2" />
             <span className="text-xs sm:text-sm">Share</span>
@@ -65,7 +66,7 @@ export default function Index() {
             <Sliders className="w-4 h-4 mr-1 sm:mr-2" />
             <span className="text-xs sm:text-sm">Customize</span>
           </Button>
-        </div>
+        </div> */}
       </div>
       
       {/* Tabs Section */}
@@ -77,7 +78,7 @@ export default function Index() {
               activeTab === 'list' ? "border-x-4 border-blue-500 text-blue-700" : "border-transparent")}
           >
             <List className="w-4 h-4 mr-1 sm:mr-2" />
-            <span className="text-xs sm:text-sm">List</span>
+            <span className="text-xs sm:text-sm">{CONSTANT_STRINGS.LIST}</span>
           </Button>
         </Link>
         <Link to={'/tasks/board'}>
@@ -87,7 +88,7 @@ export default function Index() {
               activeTab === 'board' ? "border-x-4 border-blue-500 text-blue-700" : "border-transparent")}
           >
             <LayoutGrid className="w-4 h-4 mr-1 sm:mr-2" />
-            <span className="text-xs sm:text-sm">Board</span>
+            <span className="text-xs sm:text-sm">{CONSTANT_STRINGS.BOARD}</span>
           </Button>
         </Link>
         <Link to={'/tasks/calendar'}>
@@ -97,7 +98,7 @@ export default function Index() {
               activeTab === 'calendar' ? "border-x-4 border-blue-500 text-blue-700" : "border-transparent")}
           >
             <CalendarIcon className="w-4 h-4 mr-1 sm:mr-2" />
-            <span className="text-xs sm:text-sm">Calendar</span>
+            <span className="text-xs sm:text-sm">{CONSTANT_STRINGS.CALENDAR}</span>
           </Button>
         </Link>
         <Button variant="ghost" className="flex items-center px-2 sm:px-4">

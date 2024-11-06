@@ -1,15 +1,38 @@
 const CONSTANTS_STRING = {
+
     // header
-    VIEW_NOTIFICATIONS : "View notifications",
-    CLEAR_ALL_NOTIFICATIONS : " Clear All Notifications",
-    SIGN_OUT : "Sign out",
-    NO_NOTIFICATIONS:"There are no notifications",
+    PROFILE : 'Profile',
+    SETTINGS : 'Settings',
+    LOGOUT : 'Logout',
+    MY_ACCOUNT : 'My Account',
+
 
     // Footer
-    COPYRIGHT_TEXT : "© 2024 Mindfire Solutions. All Rights Reserved.",
+    COPYRIGHT_TEXT : "© 2024 Schedule Me. All rights reserved.",
+    PRIVACY_POLICY_TEXT : "Privacy Policy",
+    TERMS_OF_SERVICE_TEXT : "Terms of Service",
+
+    // Left Navbar
+    YOUR_WORKSPACE : "Your's Workspace",
+    HOME : "Home",
+    MY_TASKS : "My Tasks",
+    BOARD : "Board",
+    CALENDAR : "Calendar",
+    PROJECTS : "Projects",
+    ADD_PROJECT : "Add Project",
+
+
+    // Task
+    MY_TASKS:"My Tasks",
+    LIST : "List",
+    BOARD : "Board",
+    CALENDAR : "Calendar",
+
+    // Common :
+    APP_TITLE : "Schedule Me",
+
 
     // Login
-    APP_TITLE : "Task Scheduler",
     LOGIN_TO_YOUR_ACCOUNT : "Sign in to your account",
     EMAIL : "Email Address",
     PASSWORD : "Password",

@@ -13,12 +13,6 @@ import {
   Group,
 } from "lucide-react";
 import { Button } from "../../components/Common/Button.jsx";
-import TaskDetails from "../../components/Task/TaskDetails.jsx";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../../components/Common/Popover.jsx";
 import useTask from "../../hooks/useTask.js";
 import { TaskContext } from "../../context/TaskContext.jsx";
 import DueDateInput from "../../components/Common/DueDateInput.jsx";
@@ -52,10 +46,6 @@ export default function TaskList() {
 
   const openTaskDetails = (taskDetails) => {
     setTask(taskDetails);
-  };
-
-  const closeTaskDetails = () => {
-    setTask(null);
   };
 
   const startEditingTitle = (taskId, currentTitle) => {
@@ -105,22 +95,24 @@ export default function TaskList() {
           Add task
         </Button>
         <div className="flex space-x-1">
-          <Button variant="outline" size="sm">
+          {/* <Button variant="outline" size="sm">
             <Filter className="w-3 h-3 mr-1" />
             Filter
-          </Button>
-          <Button variant="outline" size="sm">
+          </Button> */}
+          <Button variant="outline" size="sm" 
+                onClick={sortTasks}
+          >
             <ArrowUpDown className="w-3 h-3 mr-1" />
             Sort
           </Button>
-          <Button variant="outline" size="sm">
+          {/* <Button variant="outline" size="sm">
             <Group className="w-3 h-3 mr-1" />
             Group
           </Button>
           <Button variant="outline" size="sm">
             <MoreHorizontal className="w-3 h-3" />
             Options
-          </Button>
+          </Button> */}
         </div>
       </div>
 
@@ -146,9 +138,9 @@ export default function TaskList() {
               <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider w-1/8">
                 Project
               </th>
-              <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider w-1/8">
+              {/* <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider w-1/8">
                 Priority
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
@@ -373,10 +365,9 @@ export default function TaskList() {
           </div>
         ))}
       </div>
-
-      {/* {task?._id && (
-        <TaskDetails onClose={closeTaskDetails} />
-      )} */}
+        {
+            taskList?.length === 0 && <p className="text-center p-5">Schedule Your first task by clicking on Add task</p>
+        }
     </div>
   );
 }

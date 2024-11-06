@@ -77,13 +77,13 @@ export default function LoginPage() {
                       <Label htmlFor="password" className="text-xs font-medium text-gray-700">
                         Password
                       </Label>
-                      <button
+                      {/* <button
                         type="button"
                         onClick={() => navigate('/forgot-password')}
                         className="text-xs font-medium text-gray-600 hover:text-gray-900"
                       >
                         Forgot password?
-                      </button>
+                      </button> */}
                     </div>
                     <div className="mt-1 relative">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />

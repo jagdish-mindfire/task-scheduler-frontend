@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Home,
   Calendar,
@@ -11,8 +12,9 @@ import {
 } from "lucide-react";
 
 import ScrollArea from "../Common/ScrollArea.jsx";
-import { Link } from "react-router-dom";
 import StringDP from "../Common/StringDP.jsx";
+import CONSTANT_STRING from '../../constants/strings';
+
 
 const LeftNavbar = ({ isOpen }) => {
   return (
@@ -23,7 +25,7 @@ const LeftNavbar = ({ isOpen }) => {
     >
       <div className="p-4">
         <button className="w-full flex items-center justify-start text-white border border-gray-700 hover:bg-gray-800 p-2">
-          <StringDP /> Your's Workspace
+          <StringDP /> {CONSTANT_STRING.YOUR_WORKSPACE}
         </button>
       </div>
       {/* <div className="px-4 mb-4">
@@ -35,29 +37,29 @@ const LeftNavbar = ({ isOpen }) => {
             to="/home"
             className="flex items-center w-full justify-start text-white hover:bg-gray-800 p-2"
           >
-            <Home className="mr-2 h-4 w-4" /> Home
+            <Home className="mr-2 h-4 w-4" /> {CONSTANT_STRING.HOME}
           </Link>
           <Link
             to="/tasks"
             className="flex items-center w-full justify-start text-white hover:bg-gray-800 p-2"
           >
-            <CheckCircle className="mr-2 h-4 w-4" /> My Tasks
+            <CheckCircle className="mr-2 h-4 w-4" />{CONSTANT_STRING.MY_TASKS}
           </Link>
           <Link
             to="/tasks/board"
             className="flex items-center w-full justify-start text-white hover:bg-gray-800 p-2"
           >
-            <LayoutGrid className="mr-2 h-4 w-4" /> Board
+            <LayoutGrid className="mr-2 h-4 w-4" />{CONSTANT_STRING.BOARD} 
           </Link>
           <Link
             to="/tasks/calendar"
             className="flex items-center w-full justify-start text-white hover:bg-gray-800 p-2"
           >
-            <Calendar className="mr-2 h-4 w-4" /> Calendar
+            <Calendar className="mr-2 h-4 w-4" />{CONSTANT_STRING.CALENDAR} 
           </Link>
         </nav>
         <div className="mt-6 px-4">
-          <h3 className="mb-2 text-sm font-semibold text-gray-400">Projects</h3>
+          <h3 className="mb-2 text-sm font-semibold text-gray-400">{CONSTANT_STRING.PROJECTS}</h3>
           <nav className="space-y-1">
             {/* <button className="w-full justify-start text-sm text-white hover:bg-gray-800">
               Marketing Campaign
@@ -66,7 +68,7 @@ const LeftNavbar = ({ isOpen }) => {
         </div>
         <div className="mt-4 px-4">
           <button className="w-full flex items-center justify-start text-sm text-white hover:bg-gray-800 p-2">
-            <PlusCircle className="mr-2 h-4 w-4" /> Add Project
+            <PlusCircle className="mr-2 h-4 w-4" /> {CONSTANT_STRING.ADD_PROJECT}
           </button>
         </div>
       </ScrollArea>
