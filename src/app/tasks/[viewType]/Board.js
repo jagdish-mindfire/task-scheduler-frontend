@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useContext, useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import TaskColumn from "../../components/task/TaskColumn";
@@ -9,16 +7,25 @@ import { TaskContext } from "../../context/TaskContext";
 export default function Board() {
   const { getAllTasks, updateTask } = useTask();
   const { taskList } = useContext(TaskContext);
+  const [tasks, setTasks] = useState({
+    "0": [],
+    "1": [],
+    "2": [],
+  });
 
   useEffect(() => {
     getAllTasks();
   }, []);
 
-  const [tasks, setTasks] = useState({
-    0: [],
-    1: [],
-    2: [],
-  });
+  useEffect(() => {
+    if (taskList.length > 0) {
+      setTasks({
+        "0": taskList.filter((task) => task.boardColumnId === 0),
+        "1": taskList.filter((task) => task.boardColumnId === 1),
+        "2": taskList.filter((task) => task.boardColumnId === 2),
+      });
+    }
+  }, [taskList]);
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -48,22 +55,12 @@ export default function Board() {
     }));
   };
 
-  useEffect(() => {
-    if (taskList.length > 0) {
-      setTasks({
-        0: taskList.filter((task) => task.boardColumnId === 0),
-        1: taskList.filter((task) => task.boardColumnId === 1),
-        2: taskList.filter((task) => task.boardColumnId === 2),
-      });
-    }
-  }, [taskList]);
-
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="flex space-x-2">
-        <TaskColumn title="Recently Assigned" tasks={tasks[0]} id="0" />
-        <TaskColumn title="Do Today" tasks={tasks[1]} id="1" />
-        <TaskColumn title="Do Later" tasks={tasks[2]} id="2" />
+        <TaskColumn title="Recently Assigned" tasks={tasks["0"]} id="0" />
+        <TaskColumn title="Do Today" tasks={tasks["1"]} id="1" />
+        <TaskColumn title="Do Later" tasks={tasks["2"]} id="2" />
       </div>
     </DragDropContext>
   );
