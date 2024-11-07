@@ -8,7 +8,8 @@ export default function UnprotectedLayout({ children }) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <ToastContainer>{children}</ToastContainer>
+        <ToastContainer/>
+        {children}
       </QueryClientProvider>
     </>
   );

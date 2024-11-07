@@ -1,10 +1,10 @@
 "use client"
 import React from 'react';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Mail, Lock } from 'lucide-react';
-import {Image} from 'next/image'
+import Image from 'next/image'
 
 import { Button } from "@/app/components/Common/Button";
 import Input from "@/app/components/Common/Input";
@@ -12,8 +12,10 @@ import Label from "@/app/components/Common/Label";
 import useAuth from '@/app/hooks/useAuth';
 import { loginSchema } from "@/app/validation-schema/schema";
 
+import CONSTANTS_STRING from '../constants/strings';
+
 export default function LoginPage() {
-  // const router = useRouter();
+  const router = useRouter();
 
   const {
     register,
@@ -24,7 +26,6 @@ export default function LoginPage() {
   const { loginMutation } = useAuth();
 
   const onSubmit = (data) => {
-    console.log("Submitting data:--", data); // Log the submitted data
     loginMutation.mutate(data);
   };
 
@@ -38,12 +39,12 @@ export default function LoginPage() {
               {/* Logo and Title */}
               <div className="space-y-4">
                 <div className="flex items-center justify-start">
-                  <Image src="/logo.png" alt="Schedule Me Logo" className="w-8 h-8" />
-                  <h1 className="ml-2 text-xl font-bold text-gray-900">Schedule Me</h1>
+                  <Image src="/logo.png" alt="Schedule Me Logo" className="w-8 h-8" width={30} height={20}/>
+                  <h1 className="ml-2 text-xl font-bold text-gray-900">{CONSTANTS_STRING.APP_TITLE}</h1>
                 </div>
                 <div className="space-y-1">
-                  <h2 className="text-2xl font-bold tracking-tight text-gray-900">Welcome back</h2>
-                  <p className="text-sm text-gray-500">Enter your credentials to access your account</p>
+                  <h2 className="text-2xl font-bold tracking-tight text-gray-900">{CONSTANTS_STRING.WELCOME_BACK}</h2>
+                  <p className="text-sm text-gray-500">{CONSTANTS_STRING.ENTER_CREDENTIALS}</p>
                 </div>
               </div>
 
@@ -52,7 +53,7 @@ export default function LoginPage() {
                 <div className="space-y-3">
                   <div>
                     <Label htmlFor="email" className="text-xs font-medium text-gray-700">
-                      Email
+                    {CONSTANTS_STRING.EMAIL}
                     </Label>
                     <div className="mt-1 relative">
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -71,19 +72,11 @@ export default function LoginPage() {
                       <label className="text-xs text-red-700 mt-1">{errors.email.message}</label>
                     )}
                   </div>
-
                   <div>
                     <div className="flex items-center justify-between">
                       <Label htmlFor="password" className="text-xs font-medium text-gray-700">
-                        Password
+                    {CONSTANTS_STRING.PASSWORD}
                       </Label>
-                      <button
-                        type="button"
-                        // onClick={() => router.push('/forgot-password')}
-                        className="text-xs font-medium text-gray-600 hover:text-gray-900"
-                      >
-                        Forgot password?
-                      </button>
                     </div>
                     <div className="mt-1 relative">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -115,12 +108,13 @@ export default function LoginPage() {
               </form>
 
               <p className="text-center text-xs text-gray-500">
-                Don't have an account?{" "}
+              {CONSTANTS_STRING.DONT_HAVE_ACCOUNT_TEXT}
+              {" "}
                 <button
-                  // onClick={() => router.push('/signup')}
+                  onClick={() => router.push('/signup')}
                   className="font-medium text-gray-900 hover:text-gray-700"
                 >
-                  Sign up
+                    {CONSTANTS_STRING.SIGNUP}
                 </button>
               </p>
             </div>
@@ -132,6 +126,7 @@ export default function LoginPage() {
               src="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
               alt="Productivity"
               className="w-full h-full object-cover rounded-l-2xl"
+              width={300} height={200}
             />
           </div>
         </div>

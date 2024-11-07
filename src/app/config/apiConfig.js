@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getLocalAsString, localKeys, setLocalAsString } from "@/app/services/localStorage";
 
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL ;
 
 
@@ -27,12 +28,11 @@ axiosClient.interceptors.response.use(function (response) {
 
 // Request Interceptor to Add Authorization Token
 axiosClient.interceptors.request.use(async function (config) {
-    const refreshToken = getLocalAsString(localKeys.REFRESH_TOKEN);
     let accessToken = getLocalAsString(localKeys.ACCESS_TOKEN);
     // min 2
     if(!accessToken || (JSON.parse(atob(accessToken.split('.')[1]))).exp * 1000 < new Date().getTime() ){
         try {
-            let { data } = await axios.post(API_URL + '/auth/token', {refresh_token:refreshToken});
+            let { data } = await axios.post('/api/auth/token');
             accessToken =  data?.access_token;
             setLocalAsString(localKeys.ACCESS_TOKEN,accessToken);
         } catch (error) {

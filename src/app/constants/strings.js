@@ -6,16 +6,32 @@ const CONSTANTS_STRING = {
     NO_NOTIFICATIONS:"There are no notifications",
 
     // Footer
-    COPYRIGHT_TEXT : "© 2024 Mindfire Solutions. All Rights Reserved.",
+    COPYRIGHT_TEXT : "© 2024 Schedule Me. All rights reserved.",
+    PRIVACY_POLICY_TEXT : "Privacy Policy",
+    TERMS_OF_SERVICE_TEXT : "Terms of Service",
 
     // Login
-    APP_TITLE : "Task Scheduler",
-    LOGIN_TO_YOUR_ACCOUNT : "Sign in to your account",
-    EMAIL : "Email Address",
+    APP_TITLE : "Schedule Me",
+    WELCOME_BACK : "Welcome back",
+    ENTER_CREDENTIALS: "Enter your credentials to access your account",
+    EMAIL : "Email",
     PASSWORD : "Password",
+    FORGOT_PASSWORD : "Forgot password?",
+    DONT_HAVE_ACCOUNT_TEXT : "Don`t have an account?",
+    SIGNUP : "Sign up",
+
+
+    // Signup
+    CREATE_ACCOUNT : "Create a new account",
+    GET_STARTED_WITH_FREE_ACCOUNT:"Get started with your free account",
+    NAME:"Full Name",
+    CONFIRM_PASSWORD:"Confirm Password",
+    
+
+    
+    LOGIN_TO_YOUR_ACCOUNT : "Sign in to your account",
     DONT_HAVE_ACCOUNT : "Don't have a account ?",
 
-    SIGNUP : "Sign up",
     SIGN_UP_TO_USE_APP : " Sign up to use Task Scheduler",
     NAME:"Name",
 
@@ -23,6 +39,34 @@ const CONSTANTS_STRING = {
     LOADING:"Loading...",
     ALREADY_HAVE_AN_ACCOUNT : "Already Got an account ?",
     SIGNIN : "Sign In",
+
+
+
+    // header
+    PROFILE : 'Profile',
+    SETTINGS : 'Settings',
+    LOGOUT : 'Logout',
+    MY_ACCOUNT : 'My Account',
+
+   // Left Navbar
+   YOUR_WORKSPACE : "Your's Workspace",
+   HOME : "Home",
+   MY_TASKS : "My Tasks",
+   BOARD : "Board",
+   CALENDAR : "Calendar",
+   PROJECTS : "Projects",
+   ADD_PROJECT : "Add Project",
+
+
+   // Task
+   MY_TASKS:"My Tasks",
+   LIST : "List",
+   BOARD : "Board",
+   CALENDAR : "Calendar",
+
+   // Common :
+   APP_TITLE : "Schedule Me",
+
 
     //View
     CREATED_AT:"Created At",
