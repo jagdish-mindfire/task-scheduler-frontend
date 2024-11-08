@@ -14,17 +14,17 @@ export const fetchTask = async (taskId) => {
   return response
 }
 
-export const CreateNewTask = async (task) => {
+export const createNewTask = async (task) => {
   const response = await api.post(CREATE_TASK_ENDPOINT, task)
   return response
 }
 
-export const UpdateTask = async (id, updatedTask) => {
+export const updateTask = async (id, updatedTask) => {
   const response = await api.update(TASK_ENDPOINT + `/${id}`, updatedTask)
   return response
 }
 
-export const DeleteTask = async (id) => {
+export const deleteTask = async (id) => {
   const response = await api.delete(TASK_ENDPOINT + `/${id}`)
   return response
 }

@@ -2,12 +2,12 @@ import { useState, useContext, useRef } from 'react'
 import { TaskContext } from '../context/TaskContext'
 import {
   fetchAllTasks,
-  CreateNewTask,
-  UpdateTask,
-  DeleteTask,
+  createNewTask,
+  updateTask,
+  deleteTask,
   fetchTask,
 } from '../services/taskService'
-import { ShowErrorToast, ShowTaskDeleteToast } from '../services/toastService'
+import { showErrorToast, showTaskDeleteToast } from '../services/toastService'
 import { useQueryClient } from '@tanstack/react-query'
 import { useParams, useNavigate } from 'react-router-dom'
 
@@ -37,7 +37,7 @@ const useTask = () => {
       })
       setTaskList(data)
     } catch (error) {
-      ShowErrorToast(error?.response?.data?.message || error?.message)
+      showErrorToast(error?.response?.data?.message || error?.message)
     } finally {
       setTaskLoader(false)
     }
@@ -53,7 +53,7 @@ const useTask = () => {
       setTask(data.task)
     } catch (error) {
       navigate('/home')
-      ShowErrorToast(error?.response?.data?.message || error?.message)
+      showErrorToast(error?.response?.data?.message || error?.message)
     } finally {
       setTaskLoader(false)
     }
@@ -61,17 +61,17 @@ const useTask = () => {
 
   const addTask = async (task) => {
     try {
-      const response = await CreateNewTask(task)
+      const response = await createNewTask(task)
       setTaskList([...taskList, response.task])
     } catch (error) {
-      ShowErrorToast(error?.response?.data?.message || error?.message)
+      showErrorToast(error?.response?.data?.message || error?.message)
       console.log(error)
     }
   }
 
   const updateTask = async (id, updatedTask) => {
     try {
-      const response = await UpdateTask(id, updatedTask)
+      const response = await updateTask(id, updatedTask)
       console.log(response)
       setTaskList((prevTasks) =>
         prevTasks.map((task) => (task._id === id ? response?.task : task)),
@@ -80,18 +80,18 @@ const useTask = () => {
         setTask(response.task)
       }
     } catch (error) {
-      ShowErrorToast(error?.response?.data?.message || error?.message)
+      showErrorToast(error?.response?.data?.message || error?.message)
       console.log(error)
     }
   }
 
   const deleteTask = async (id) => {
     try {
-      await DeleteTask(id)
+      await deleteTask(id)
       setTaskList((prevTasks) => prevTasks.filter((task) => task._id !== id))
-      ShowTaskDeleteToast()
+      showTaskDeleteToast()
     } catch (error) {
-      ShowErrorToast(error?.response?.data?.message || error?.message)
+      showErrorToast(error?.response?.data?.message || error?.message)
       console.log(error)
     }
   }

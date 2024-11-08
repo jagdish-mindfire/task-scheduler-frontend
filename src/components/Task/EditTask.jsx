@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import useTask from '../../hooks/useTask'
 import TaskForm from './TaskForm'
-import { ShowTaskUpdateToast } from '../../services/toastService'
+import { showTaskUpdateToast } from '../../services/toastService'
 import CONSTANTS_STRING from '../../constants/strings'
 import { TaskModelStates } from '../../context/TaskModelStates'
 export default function EditTask() {
@@ -12,7 +12,7 @@ export default function EditTask() {
   const onSubmit = (data) => {
     updateTask(taskData?._id, data)
     updateModelStates({ showEditTask: false, showViewTask: false })
-    ShowTaskUpdateToast()
+    showTaskUpdateToast()
   }
 
   const handleCloseModal = () => {

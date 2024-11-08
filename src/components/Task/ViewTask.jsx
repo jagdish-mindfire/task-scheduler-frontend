@@ -10,8 +10,8 @@ import useTask from '../../hooks/useTask'
 import CONSTANTS_STRING from '../../constants/strings'
 import DeleteAlert from '../Common/DeleteAlert'
 import {
-  ShowTaskDeleteToast,
-  ShowTaskCompletionToast,
+  showTaskDeleteToast,
+  showTaskCompletionToast,
 } from '../../services/toastService'
 import { TaskModelStates } from '../../context/TaskModelStates'
 
@@ -29,17 +29,17 @@ export default function ViewTask() {
     updateModelStates({ showViewTask: false, showEditTask: true })
   }
 
-  const handleDeleteTask = () => {
+  const handledeleteTask = () => {
     deleteTask(taskData?._id)
     handleCloseModal()
     handleCloseDeleteAlert()
-    ShowTaskDeleteToast()
+    showTaskDeleteToast()
   }
 
   const hanldeMarkComplete = () => {
     updateTask(taskData?._id, { is_completed: 1 })
     handleCloseModal()
-    ShowTaskCompletionToast()
+    showTaskCompletionToast()
   }
 
   const handleCloseDeleteAlert = () => {
@@ -51,7 +51,7 @@ export default function ViewTask() {
         taskTitle={taskData?.title}
         open={modelStates.showDeleteConfirmation}
         setOpen={handleCloseDeleteAlert}
-        confirmCallback={handleDeleteTask}
+        confirmCallback={handledeleteTask}
         cancelCallback={() =>
           updateModelStates({
             showDeleteConfirmation: false,

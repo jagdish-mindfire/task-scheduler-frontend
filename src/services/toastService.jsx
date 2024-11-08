@@ -23,31 +23,31 @@ const errorSettings = {
   progress: undefined,
   theme: 'dark',
 }
-export const ShowTaskDeleteToast = () => {
+export const showTaskDeleteToast = () => {
   toast.success(CONSTANTS_STRING.DELETE_SUCCESS, successSettings)
 }
 
-export const ShowAddTaskToast = () => {
+export const showAddTaskToast = () => {
   toast.success(CONSTANTS_STRING.TASK_CREATE_SUCCESS, successSettings)
 }
 
-export const ShowTaskCompletionToast = () => {
+export const showTaskCompletionToast = () => {
   toast.success(CONSTANTS_STRING.MARKED_AS_COMPLETE, successSettings)
 }
 
-export const ShowTaskUpdateToast = () => {
+export const showTaskUpdateToast = () => {
   toast.success(CONSTANTS_STRING.TASK_UPDATED_SUCCESS, successSettings)
 }
 
-export const ShowErrorToast = (errorMessage) => {
+export const showErrorToast = (errorMessage) => {
   toast.error(errorMessage, errorSettings)
 }
 
-export const ShowSuccessToast = (message) => {
+export const showSuccessToast = (message) => {
   toast.success(message, successSettings)
 }
 
-export const ShowNotificationToast = ({ type, data }) => {
+export const showNotificationToast = ({ type, data }) => {
   let jsxForToast = null
   if (type === 'overdue') {
     jsxForToast = (

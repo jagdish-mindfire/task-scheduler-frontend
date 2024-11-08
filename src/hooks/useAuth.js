@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { ShowErrorToast, ShowSuccessToast } from '../services/toastService'
+import { showErrorToast, showSuccessToast } from '../services/toastService'
 import { userLogin, userSignup } from '../api/apiLogin'
 import { useNavigate,useLocation } from 'react-router-dom'
 
@@ -13,11 +13,11 @@ const useAuth = () => {
       const redirectPath = location.state?.from || '/dashboard'
       navigate(redirectPath,{ replace: true })
 
-      ShowSuccessToast("You're now logged in! Welcome back.")
+      showSuccessToast("You're now logged in! Welcome back.")
     },
     onError: (error) => {
       console.log(error)
-      ShowErrorToast(error?.response?.data?.message || error?.message)
+      showErrorToast(error?.response?.data?.message || error?.message)
     },
     retry: false, // Disable retry for login mutation
   })
@@ -26,10 +26,10 @@ const useAuth = () => {
     mutationFn: (credentials) => userSignup(credentials),
     onSuccess: () => {
       navigate('/login', { state: { showSuccess: true } })
-      ShowSuccessToast('Account Created Successfully,Login to continue')
+      showSuccessToast('Account Created Successfully,Login to continue')
     },
     onError: (error) => {
-      ShowErrorToast(error?.response?.data?.message || error?.message)
+      showErrorToast(error?.response?.data?.message || error?.message)
     },
     retry: false, // Disable retry for singup mutation
   })

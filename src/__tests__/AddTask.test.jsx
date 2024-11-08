@@ -3,7 +3,7 @@ import AddTask from '../components/Task/AddTask'
 import { TaskContext } from '../context/TaskContext'
 import { TaskModelStates } from '../context/TaskModelStates'
 import useTask from '../hooks/useTask'
-import { ShowAddTaskToast } from '../services/toastService'
+import { showAddTaskToast } from '../services/toastService'
 
 jest.mock('../hooks/useTask')
 jest.mock('../services/toastService')
@@ -87,8 +87,8 @@ describe('AddTask Component', () => {
       showAddTask: false,
     })
 
-    // Check if ShowAddTaskToast was called
-    expect(ShowAddTaskToast).toHaveBeenCalled()
+    // Check if showAddTaskToast was called
+    expect(showAddTaskToast).toHaveBeenCalled()
 
     // Optionally log the call history
     console.log(addTaskMock.mock.calls) // This will show you all calls to the function

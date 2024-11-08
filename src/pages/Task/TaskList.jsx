@@ -16,6 +16,7 @@ import { Button } from '../../components/Common/Button.jsx'
 import useTask from '../../hooks/useTask.js'
 import { TaskContext } from '../../context/TaskContext.jsx'
 import DueDateInput from '../../components/Common/DueDateInput.jsx'
+import CONSTANTS_STRING from '../../constants/strings.js'
 
 export default function TaskList() {
   const [editingTaskId, setEditingTaskId] = useState(null)
@@ -112,13 +113,13 @@ export default function TaskList() {
           <thead>
             <tr className="bg-gray-50 text-left">
               <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider w-1/2">
-                Task name
+                {CONSTANTS_STRING.TASK_NAME}
               </th>
               <th
                 className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer w-1/4"
                 onClick={sortTasks}
               >
-                Due date
+                {CONSTANTS_STRING.DUE_DATE}
                 {sortOrder === 'asc' ? (
                   <ChevronUp className="inline-block w-4 h-4 ml-1" />
                 ) : (
@@ -126,7 +127,7 @@ export default function TaskList() {
                 )}
               </th>
               <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider w-1/8">
-                Project
+                {CONSTANTS_STRING.PROJECT}
               </th>
               {/* <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider w-1/8">
                 Priority
@@ -360,7 +361,7 @@ export default function TaskList() {
       </div>
       {taskList?.length === 0 && (
         <p className="text-center p-5">
-          Schedule Your first task by clicking on Add task
+          {CONSTANTS_STRING.EMPTY_TASK_TABLE_TEXT}
         </p>
       )}
     </div>

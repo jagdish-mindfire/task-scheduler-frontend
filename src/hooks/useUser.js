@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { UserContext } from '../context/UserContext'
-import { ShowErrorToast } from '../services/toastService'
+import { showErrorToast } from '../services/toastService'
 import { fetchUserDetails } from '../services/userServices'
 import { useQueryClient } from '@tanstack/react-query'
 
@@ -19,7 +19,7 @@ const useUser = () => {
       setUserData(data)
     } catch (error) {
       // Show error toast if there's an error during the request
-      ShowErrorToast(error?.response?.data?.message || error?.message)
+      showErrorToast(error?.response?.data?.message || error?.message)
     }
   }
 

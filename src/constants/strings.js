@@ -69,8 +69,18 @@ const CONSTANTS_STRING = {
 
   TASK_NAME: 'Task',
   ACTIONS: 'Actions',
-  CREATE_FIRST_TASK: 'Click on Add Task to create your first task',
   VIEW: 'View',
+
+
+  EMPTY_TASK_TABLE_TEXT : "Schedule Your first task by clicking on Add task",
+  TASK_NAME : "Task Name",
+  DUE_DATE : "Due Date",
+  PROJECT : "Project",
+
+  // Not found
+  NOT_FOUND_TITLE: "Page Not Found",
+  NOT_FOUND_TEXT : "The page you are looking for doesn't exist.",
+  GO_BACK_TO_HOME: "Go Back to Home",
 }
 
 export const nevigationMenu = [{ name: 'Dashboard', href: '#', current: true }]
