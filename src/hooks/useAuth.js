@@ -10,9 +10,8 @@ const useAuth = () => {
   const loginMutation = useMutation({
     mutationFn: (credentials) => userLogin(credentials),
     onSuccess: () => {
-      const redirectPath = location.state?.from || '/dashboard'
+      const redirectPath = location.state?.from || '/home'
       navigate(redirectPath,{ replace: true })
-
       showSuccessToast("You're now logged in! Welcome back.")
     },
     onError: (error) => {

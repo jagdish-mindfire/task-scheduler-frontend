@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom'
 import Loader from '../components/Common/Loader'
 
 // Lazy-loaded components
-const Dashboard = lazy(() => import('../pages/Dashboard/Dashboard'))
 const NotFound = lazy(() => import('../pages/NotFound'))
 const ProtectedRouteMiddleware = lazy(
   () => import('./middlewares/ProtectedRouteMiddleware'),
@@ -23,7 +22,6 @@ const unProtectedRoutes = [
 ]
 
 const protectedRoutes = [
-  { path: '/dashboard', element: <Dashboard /> },
   { path: '/tasks', element: <TaskComponet /> },
   { path: '/tasks/:viewType', element: <TaskComponet /> },
   {

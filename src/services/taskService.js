@@ -19,7 +19,7 @@ export const createNewTask = async (task) => {
   return response
 }
 
-export const updateTask = async (id, updatedTask) => {
+export const updateTaskDetails = async (id, updatedTask) => {
   const response = await api.update(TASK_ENDPOINT + `/${id}`, updatedTask)
   return response
 }

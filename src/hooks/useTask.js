@@ -3,7 +3,7 @@ import { TaskContext } from '../context/TaskContext'
 import {
   fetchAllTasks,
   createNewTask,
-  updateTask,
+  updateTaskDetails,
   deleteTask,
   fetchTask,
 } from '../services/taskService'
@@ -71,7 +71,7 @@ const useTask = () => {
 
   const updateTask = async (id, updatedTask) => {
     try {
-      const response = await updateTask(id, updatedTask)
+      const response = await updateTaskDetails(id, updatedTask)
       console.log(response)
       setTaskList((prevTasks) =>
         prevTasks.map((task) => (task._id === id ? response?.task : task)),
