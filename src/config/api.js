@@ -1,4 +1,4 @@
-import { axiosClient } from '../config/apiConfig'
+import { axiosClient } from './apiConfig'
 
 class appApi {
   /**

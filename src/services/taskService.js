@@ -1,4 +1,4 @@
-import { appApi } from '../api/api'
+import { appApi } from '../config/api'
 
 const api = new appApi()
 const TASK_ENDPOINT = '/tasks'

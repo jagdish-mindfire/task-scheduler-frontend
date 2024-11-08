@@ -27,6 +27,9 @@ const CONSTANTS_STRING = {
 
   // Common :
   APP_TITLE: 'Schedule Me',
+  WELCOME_MESSAGE : "Welcome back",
+  ENTER_YOUR_CREDENTIAL_TEXT:"Enter your credentials to access your account",
+  
 
   // Login
   LOGIN_TO_YOUR_ACCOUNT: 'Sign in to your account',
@@ -36,12 +39,17 @@ const CONSTANTS_STRING = {
 
   SIGNUP: 'Sign up',
   SIGN_UP_TO_USE_APP: ' Sign up to use Task Scheduler',
-  NAME: 'Name',
+  NAME: 'Full Name',
+  GET_STARTED_WITH_FREE_ACCOUNT : "Get started with your free account",
 
   SOMETHING_WENT_WRONG: 'Something went wrong please try again',
   LOADING: 'Loading...',
   ALREADY_HAVE_AN_ACCOUNT: 'Already Got an account ?',
   SIGNIN: 'Sign In',
+  LOGIN : 'Log In',
+
+  LOGIN_SUCCESS_MESSAGE : "You're now logged in! Welcome back.",
+  SIGNUP_SUCCESS_MESSAGE : "Account Created Successfully,Login to continue",
 
   //View
   CREATED_AT: 'Created At',

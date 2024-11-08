@@ -3,7 +3,7 @@ import {
   getLocalAsString,
   localKeys,
   setLocalAsString,
-} from '../services/localStorage'
+} from '../utils/localStorage'
 
 const IsLoggedIn = async () => {
   const currentRefreshToken = getLocalAsString(localKeys.REFRESH_TOKEN)

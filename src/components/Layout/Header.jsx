@@ -1,9 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PlusCircle, Menu, Bell } from 'lucide-react'
-import { userLogout } from '../../api/apiLogin'
+import { userLogout } from '../../config/apiLogin'
 import { Button } from '../Common/Button'
-import Input from '../Common/Input'
 import {
   DropdownMenuTrigger,
   DropdownMenu,

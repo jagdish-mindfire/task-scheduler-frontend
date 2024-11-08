@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client'
-import { localKeys, getLocalAsString } from './localStorage'
+import { localKeys, getLocalAsString } from '../utils/localStorage'
 
 const socket = io(
   import.meta.env.VITE_API_URL +

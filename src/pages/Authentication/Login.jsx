@@ -1,19 +1,18 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Button } from '../../components/Common/Button'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { useNavigate,Link } from 'react-router-dom'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Mail, Lock } from 'lucide-react'
+
 import Input from '../../components/Common/Input'
 import Label from '../../components/Common/Label'
-import { Mail, Lock } from 'lucide-react'
 import useAuth from '../../hooks/useAuth'
-import { Link, useLocation } from 'react-router-dom'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
 import { loginSchema } from '../../validation-schema/schema'
+import { Button } from '../../components/Common/Button'
+import CONSTANTS_STRING from '../../constants/strings'
 
 export default function LoginPage() {
   const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(false)
-  const location = useLocation()
 
   const {
     register,
@@ -24,7 +23,6 @@ export default function LoginPage() {
   const { loginMutation } = useAuth()
 
   const onSubmit = (data) => {
-    console.log('Submitting data:--', data) // Log the submitted data
     loginMutation.mutate(data)
   }
 
@@ -44,15 +42,15 @@ export default function LoginPage() {
                     className="w-8 h-8"
                   />
                   <h1 className="ml-2 text-xl font-bold text-gray-900">
-                    Schedule Me
+                    {CONSTANTS_STRING.APP_TITLE}
                   </h1>
                 </div>
                 <div className="space-y-1">
                   <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-                    Welcome back
+                  {CONSTANTS_STRING.WELCOME_MESSAGE}
                   </h2>
                   <p className="text-sm text-gray-500">
-                    Enter your credentials to access your account
+                  {CONSTANTS_STRING.ENTER_YOUR_CREDENTIAL_TEXT}
                   </p>
                 </div>
               </div>
@@ -65,7 +63,7 @@ export default function LoginPage() {
                       htmlFor="email"
                       className="text-xs font-medium text-gray-700"
                     >
-                      Email
+                      {CONSTANTS_STRING.EMAIL}
                     </Label>
                     <div className="mt-1 relative">
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -93,7 +91,7 @@ export default function LoginPage() {
                         htmlFor="password"
                         className="text-xs font-medium text-gray-700"
                       >
-                        Password
+                        {CONSTANTS_STRING.PASSWORD}
                       </Label>
                       {/* <button
                         type="button"
@@ -134,15 +132,17 @@ export default function LoginPage() {
                 </Button>
               </form>
 
-              <p className="text-center text-xs text-gray-500">
-                Don't have an account?{' '}
+              <Link to={"/signup"}>
+              <p className="text-center text-xs text-gray-500 mt-3">
+                {CONSTANTS_STRING.DONT_HAVE_ACCOUNT}{' '}
                 <button
                   onClick={() => navigate('/signup')}
                   className="font-medium text-gray-900 hover:text-gray-700"
                 >
-                  Sign up
+                 {CONSTANTS_STRING.SIGNUP}
                 </button>
               </p>
+              </Link>
             </div>
           </div>
 

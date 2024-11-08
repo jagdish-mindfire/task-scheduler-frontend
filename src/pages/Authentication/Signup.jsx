@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Mail, Lock, User } from 'lucide-react'
+
 import { Button } from '../../components/Common/Button'
 import Input from '../../components/Common/Input'
 import Label from '../../components/Common/Label'
-import { Mail, Lock, User } from 'lucide-react'
-
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { signupSchema } from '../../validation-schema/schema'
 import useAuth from '../../hooks/useAuth'
+import CONSTANTS_STRING from '../../constants/strings'
 
 const SignupPage = () => {
   const navigate = useNavigate()
@@ -20,10 +21,8 @@ const SignupPage = () => {
   } = useForm({ resolver: zodResolver(signupSchema) })
 
   const { signupMutation } = useAuth()
-  console.log(errors)
   const onSubmit = (data) => {
     signupMutation.mutate(data)
-    // console.log("didisignup",data);
   }
 
   return (
@@ -42,15 +41,15 @@ const SignupPage = () => {
                     className="w-6 h-6"
                   />
                   <h1 className="ml-2 text-md font-bold text-gray-900">
-                    Schedule Me
+                    {CONSTANTS_STRING.APP_TITLE}
                   </h1>
                 </div>
                 <div className="space-y-1">
                   <h2 className="text-lg font-bold tracking-tight text-gray-900">
-                    Create account
+                    {CONSTANTS_STRING.SIGN_UP_TO_USE_APP}
                   </h2>
                   <p className="text-xs text-gray-500">
-                    Get started with your free account
+                    {CONSTANTS_STRING.GET_STARTED_WITH_FREE_ACCOUNT}
                   </p>
                 </div>
               </div>
@@ -63,7 +62,8 @@ const SignupPage = () => {
                       htmlFor="name"
                       className="text-[10px] font-medium text-gray-600"
                     >
-                      Full Name
+                      {CONSTANTS_STRING.NAME}
+                      
                     </Label>
                     <div className="mt-1 relative">
                       <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-400" />
@@ -89,7 +89,7 @@ const SignupPage = () => {
                       htmlFor="email"
                       className="text-[10px] font-medium text-gray-600"
                     >
-                      Email
+                      {CONSTANTS_STRING.EMAIL}
                     </Label>
                     <div className="mt-1 relative">
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-400" />
@@ -116,7 +116,7 @@ const SignupPage = () => {
                       htmlFor="password"
                       className="text-[10px] font-medium text-gray-600"
                     >
-                      Password
+                      {CONSTANTS_STRING.PASSWORD}
                     </Label>
                     <div className="mt-1 relative">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-400" />
@@ -178,12 +178,12 @@ const SignupPage = () => {
               </form>
 
               <p className="text-center text-xs text-gray-500">
-                Already have an account?{' '}
+                {CONSTANTS_STRING.ALREADY_HAVE_AN_ACCOUNT}{' '}
                 <button
                   onClick={() => navigate('/login')}
                   className="font-medium text-gray-900 hover:text-gray-700"
                 >
-                  Sign in
+                  {CONSTANTS_STRING.LOGIN}
                 </button>
               </p>
             </div>
