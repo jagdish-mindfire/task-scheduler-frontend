@@ -31,7 +31,7 @@ const Header = ({ toggleNavbar }) => {
             variant="ghost"
             size="sm"
             onClick={toggleNavbar}
-            className="text-white hover:bg-gray-800 md:hidden"
+            className="text-white hover:bg-gray-800"
           >
             <Menu className="h-5 w-5" />
           </Button>

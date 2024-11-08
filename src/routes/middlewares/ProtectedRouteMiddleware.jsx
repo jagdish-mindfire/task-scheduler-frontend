@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import isLoggedIn from '../../utils/isLoggedIn'
 import Loader from '../../components/Common/Loader'
 import useUser from '../../hooks/useUser'
@@ -7,6 +7,7 @@ import useUser from '../../hooks/useUser'
 const AuthMiddleware = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const location = useLocation()
   const unProtectedAllowedRoutes = ['/login', '/signup']
   const { getUserDetails } = useUser()
 
@@ -41,7 +42,7 @@ const AuthMiddleware = (props) => {
       ) : unProtectedAllowedRoutes.indexOf(props.path) !== -1 ? (
         <React.Fragment>{props.children}</React.Fragment>
       ) : (
-        <Navigate to="/login" />
+        <Navigate to="/login"  state={{ from: location.pathname }} replace />
       )}
     </>
   )

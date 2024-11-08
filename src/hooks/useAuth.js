@@ -1,15 +1,17 @@
 import { useMutation } from '@tanstack/react-query'
 import { ShowErrorToast, ShowSuccessToast } from '../services/toastService'
 import { userLogin, userSignup } from '../api/apiLogin'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useLocation } from 'react-router-dom'
 
 const useAuth = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+
   const loginMutation = useMutation({
     mutationFn: (credentials) => userLogin(credentials),
     onSuccess: () => {
-      // window.location.replace("/home");
-      navigate('/home', { state: { showSuccess: true } })
+      const redirectPath = location.state?.from || '/dashboard'
+      navigate(redirectPath,{ replace: true })
 
       ShowSuccessToast("You're now logged in! Welcome back.")
     },
