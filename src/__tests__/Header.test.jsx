@@ -3,18 +3,18 @@ global.ResizeObserver = class {
   observe() {}
   unobserve() {}
   disconnect() {}
-};
+}
 
-import { render, fireEvent, act } from "@testing-library/react";
+import { render, fireEvent, act } from '@testing-library/react'
 
 // To Test
-import Header from "../components/Layout/Header";
-import useNotification from "../hooks/useNotification";
+import Header from '../components/Layout/Header'
+import useNotification from '../hooks/useNotification'
 
-import { MemoryRouter } from "react-router-dom";
-import { TaskContext } from "../context/TaskContext";
+import { MemoryRouter } from 'react-router-dom'
+import { TaskContext } from '../context/TaskContext'
 
-jest.mock("../hooks/useNotification");
+jest.mock('../hooks/useNotification')
 
 const mockTaskContext = {
   taskList: [],
@@ -24,38 +24,37 @@ const mockTaskContext = {
   notificationCount: 3,
   setNotificationCount: jest.fn(),
   taskLoader: false,
-};
+}
 
-describe("Header Component", () => {
+describe('Header Component', () => {
   const component = (
     <MemoryRouter>
       <TaskContext.Provider value={mockTaskContext}>
         <Header />
       </TaskContext.Provider>
     </MemoryRouter>
-  );
+  )
 
-  const clearNotificationMock = jest.fn();
-  const clearAllNotificationsMock = jest.fn();
+  const clearNotificationMock = jest.fn()
+  const clearAllNotificationsMock = jest.fn()
 
   useNotification.mockReturnValue({
     clearNotification: clearNotificationMock,
     clearAllNotifications: clearAllNotificationsMock,
-  });
+  })
 
-  test("Renders successfully", () => {
-    render(component);
-  });
+  test('Renders successfully', () => {
+    render(component)
+  })
 
-  test("Successfully clicked on Clear all notificatoin", () => {
-    const { getByTestId } = render(component);
-    const bellIcon = getByTestId("bell_icon");
+  test('Successfully clicked on Clear all notificatoin', () => {
+    const { getByTestId } = render(component)
+    const bellIcon = getByTestId('bell_icon')
 
-    fireEvent.click(bellIcon);
-    const clearAllNotificatoinButotn = getByTestId("clear_all_notifications");
+    fireEvent.click(bellIcon)
+    const clearAllNotificatoinButotn = getByTestId('clear_all_notifications')
 
-    fireEvent.click(clearAllNotificatoinButotn);
-    expect(clearAllNotificationsMock).toHaveBeenCalled();
-  });
-
-});
+    fireEvent.click(clearAllNotificatoinButotn)
+    expect(clearAllNotificationsMock).toHaveBeenCalled()
+  })
+})

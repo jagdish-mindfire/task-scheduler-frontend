@@ -1,8 +1,7 @@
+import React from 'react'
+import { twMerge } from 'tailwind-merge'
 
-import React from 'react';
-import { twMerge } from "tailwind-merge";
-
-const cn = (...inputs) => twMerge(inputs);
+const cn = (...inputs) => twMerge(inputs)
 const Input = React.forwardRef(
   (
     {
@@ -12,14 +11,14 @@ const Input = React.forwardRef(
       register = null,
       name,
       className,
-      type = "text",
+      type = 'text',
       ...props
     },
-    ref
+    ref,
   ) => {
     const inputClasses = errors?.[name]
-      ? "ring-red-700 focus:ring-red-700"
-      : "ring-gray-300 focus:ring-indigo-600";
+      ? 'ring-red-700 focus:ring-red-700'
+      : 'ring-gray-300 focus:ring-indigo-600'
 
     return (
       <>
@@ -28,15 +27,15 @@ const Input = React.forwardRef(
           type={type}
           id={name}
           placeholder={placeholder}
-          className={cn(inputClasses, "text-xs", className)}
+          className={cn(inputClasses, 'text-xs', className)}
           ref={ref}
           name={name}
           {...(register ? register(name, { required }) : {})}
           {...props}
         />
       </>
-    );
-  }
-);
+    )
+  },
+)
 
-export default Input;
+export default Input

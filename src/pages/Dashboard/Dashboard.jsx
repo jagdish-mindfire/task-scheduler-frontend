@@ -1,30 +1,29 @@
-import React, { useEffect } from "react";
-import ViewTask from "../../components/Task/ViewTask.jsx";
-import AddTask from "../../components/Task/AddTask.jsx";
-import DashboardHeader from "../../components/Dashboard/DashboardHeader.jsx";
-import TasksTable from "../../components/Dashboard/TasksTable.jsx";
-import useNotification from "../../hooks/useNotification.js";
-import useTask from "../../hooks/useTask.js";
-import Header from "../../components/Layout/Header.jsx";
-import Footer from "../../components/Layout/Footer.jsx";
-import EditTask from "../../components/Task/EditTask";
-import socket,{setupSocketListeners} from "../../services/socketService.js";
+import React, { useEffect } from 'react'
+import ViewTask from '../../components/Task/ViewTask.jsx'
+import AddTask from '../../components/Task/AddTask.jsx'
+import DashboardHeader from '../../components/Dashboard/DashboardHeader.jsx'
+import TasksTable from '../../components/Dashboard/TasksTable.jsx'
+import useNotification from '../../hooks/useNotification.js'
+import useTask from '../../hooks/useTask.js'
+import Header from '../../components/Layout/Header.jsx'
+import Footer from '../../components/Layout/Footer.jsx'
+import EditTask from '../../components/Task/EditTask'
+import socket, { setupSocketListeners } from '../../services/socketService.js'
 const Dashboard = () => {
-  
-  const { fetchAllNotifications,handleIncomingNotification } = useNotification();
-  const { getAllTasks } = useTask();
+  const { fetchAllNotifications, handleIncomingNotification } =
+    useNotification()
+  const { getAllTasks } = useTask()
 
   useEffect(() => {
-    fetchAllNotifications();
-    getAllTasks();
-  }, []);
+    fetchAllNotifications()
+    getAllTasks()
+  }, [])
 
-  useEffect(()=>{
-    setupSocketListeners(handleIncomingNotification);
-  },[socket])
+  useEffect(() => {
+    setupSocketListeners(handleIncomingNotification)
+  }, [socket])
   return (
     <>
-  
       <div className="text-center p-4 mb-12">
         {/* Dashboard Header */}
         <DashboardHeader />
@@ -33,13 +32,12 @@ const Dashboard = () => {
         {/* Add Task Modal */}
         <AddTask />
         {/* Edit Task Modal */}
-        <EditTask  />
+        <EditTask />
         {/* Task Table */}
         <TasksTable />
       </div>
-  
     </>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

@@ -1,29 +1,29 @@
-import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
-import { ShowErrorToast } from "../services/toastService";
-import { fetchUserDetails } from "../services/userServices";
-import { useQueryClient } from "@tanstack/react-query";
+import { useContext } from 'react'
+import { UserContext } from '../context/UserContext'
+import { ShowErrorToast } from '../services/toastService'
+import { fetchUserDetails } from '../services/userServices'
+import { useQueryClient } from '@tanstack/react-query'
 
 const useUser = () => {
-  const { setUserData } = useContext(UserContext);
-  const queryClient = useQueryClient();
+  const { setUserData } = useContext(UserContext)
+  const queryClient = useQueryClient()
 
   // Function to trigger the data fetching
   const getUserDetails = async () => {
     try {
       const data = await queryClient.fetchQuery({
-        queryKey: "userDetails",
+        queryKey: 'userDetails',
         queryFn: fetchUserDetails,
-      });
+      })
       // Update the context or state with fetched user data
-      setUserData(data);
+      setUserData(data)
     } catch (error) {
       // Show error toast if there's an error during the request
-      ShowErrorToast(error?.response?.data?.message || error?.message);
+      ShowErrorToast(error?.response?.data?.message || error?.message)
     }
-  };
+  }
 
-  return { getUserDetails };
-};
+  return { getUserDetails }
+}
 
-export default useUser;
+export default useUser

@@ -1,30 +1,30 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "../../components/Common/Button";
-import Input from "../../components/Common/Input";
-import Label from "../../components/Common/Label";
-import { Mail, Lock, User } from "lucide-react";
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button } from '../../components/Common/Button'
+import Input from '../../components/Common/Input'
+import Label from '../../components/Common/Label'
+import { Mail, Lock, User } from 'lucide-react'
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { signupSchema } from "../../validation-schema/schema";
-import useAuth from "../../hooks/useAuth";
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { signupSchema } from '../../validation-schema/schema'
+import useAuth from '../../hooks/useAuth'
 
 const SignupPage = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(signupSchema) });
+  } = useForm({ resolver: zodResolver(signupSchema) })
 
-  const { signupMutation } = useAuth();
+  const { signupMutation } = useAuth()
   console.log(errors)
   const onSubmit = (data) => {
-    signupMutation.mutate(data);
+    signupMutation.mutate(data)
     // console.log("didisignup",data);
-  };
+  }
 
   return (
     <div className="h-screen p-4 bg-gradient-to-br from-gray-50 via-white to-gray-50 flex items-center justify-center overflow-auto">
@@ -69,7 +69,7 @@ const SignupPage = () => {
                       <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-400" />
                       <Input
                         id="name"
-                        required={"true"}
+                        required={'true'}
                         register={register}
                         errors={errors}
                         name="name"
@@ -78,8 +78,10 @@ const SignupPage = () => {
                       />
                     </div>
                     {errors?.name && (
-          <label className="text-xs text-red-700 mt-1">{errors.name.message}</label>
-        )}
+                      <label className="text-xs text-red-700 mt-1">
+                        {errors.name.message}
+                      </label>
+                    )}
                   </div>
 
                   <div>
@@ -95,7 +97,7 @@ const SignupPage = () => {
                         id="email"
                         type="email"
                         name="email"
-                        required={"true"}
+                        required={'true'}
                         errors={errors}
                         register={register}
                         className="pl-8 w-full h-8 bg-gray-50 border-gray-200 rounded-md focus:ring-2 focus:ring-gray-900"
@@ -103,8 +105,10 @@ const SignupPage = () => {
                       />
                     </div>
                     {errors?.email && (
-          <label className="text-xs text-red-700 mt-1">{errors.email.message}</label>
-        )}
+                      <label className="text-xs text-red-700 mt-1">
+                        {errors.email.message}
+                      </label>
+                    )}
                   </div>
 
                   <div>
@@ -120,7 +124,7 @@ const SignupPage = () => {
                         id="password"
                         type="password"
                         name="password"
-                        required={"true"}
+                        required={'true'}
                         errors={errors}
                         register={register}
                         className="pl-8 w-full h-8 bg-gray-50 border-gray-200 rounded-md focus:ring-2 focus:ring-gray-900"
@@ -128,8 +132,10 @@ const SignupPage = () => {
                       />
                     </div>
                     {errors?.password && (
-          <label className="text-xs text-red-700 mt-1">{errors.password.message}</label>
-        )}
+                      <label className="text-xs text-red-700 mt-1">
+                        {errors.password.message}
+                      </label>
+                    )}
                   </div>
 
                   <div>
@@ -141,11 +147,11 @@ const SignupPage = () => {
                     </Label>
                     <div className="mt-1 relative">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 text-gray-400" />
-                      <Input 
+                      <Input
                         id="confirmPassword"
                         type="password"
                         name="confirmPassword"
-                        required={"true"}
+                        required={'true'}
                         errors={errors}
                         register={register}
                         className="pl-8 w-full h-8 bg-gray-50 border-gray-200 rounded-md focus:ring-2 focus:ring-gray-900"
@@ -153,8 +159,10 @@ const SignupPage = () => {
                       />
                     </div>
                     {errors?.confirmPassword && (
-          <label className="text-xs text-red-700 mt-1">{errors.confirmPassword.message}</label>
-        )}
+                      <label className="text-xs text-red-700 mt-1">
+                        {errors.confirmPassword.message}
+                      </label>
+                    )}
                   </div>
                 </div>
 
@@ -164,15 +172,15 @@ const SignupPage = () => {
                   className="w-full h-8 bg-gray-900 hover:bg-gray-800 text-white text-xs font-medium rounded-md transition-all duration-150 ease-in-out hover:shadow-lg"
                 >
                   {signupMutation.isPending
-                    ? "Creating account..."
-                    : "Create account"}
+                    ? 'Creating account...'
+                    : 'Create account'}
                 </Button>
               </form>
 
               <p className="text-center text-xs text-gray-500">
-                Already have an account?{" "}
+                Already have an account?{' '}
                 <button
-                  onClick={() => navigate("/login")}
+                  onClick={() => navigate('/login')}
                   className="font-medium text-gray-900 hover:text-gray-700"
                 >
                   Sign in
@@ -192,7 +200,7 @@ const SignupPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignupPage;
+export default SignupPage

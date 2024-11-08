@@ -1,6 +1,17 @@
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from '@headlessui/react'
 import CONSTANTS_STRING from '../../constants/strings'
-export default function DeleteAlert({open, setOpen,confirmCallback,cancelCallback,taskTitle}) {
+export default function DeleteAlert({
+  open,
+  setOpen,
+  confirmCallback,
+  cancelCallback,
+  taskTitle,
+}) {
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
@@ -16,15 +27,15 @@ export default function DeleteAlert({open, setOpen,confirmCallback,cancelCallbac
           >
             <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
-               
                 <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                  <DialogTitle as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                   {CONSTANTS_STRING.ARE_YOU_SURE_TO_DELETE}
+                  <DialogTitle
+                    as="h3"
+                    className="text-base font-semibold leading-6 text-gray-900"
+                  >
+                    {CONSTANTS_STRING.ARE_YOU_SURE_TO_DELETE}
                   </DialogTitle>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                    "{taskTitle}"
-                    </p>
+                    <p className="text-sm text-gray-500">"{taskTitle}"</p>
                   </div>
                 </div>
               </div>

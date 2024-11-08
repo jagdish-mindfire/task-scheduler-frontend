@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 
 const PopoverContext = React.createContext({
   open: false,
-  setOpen: () => {}
+  setOpen: () => {},
 })
 
 export const Popover = ({ children }) => {
@@ -21,7 +21,7 @@ export const PopoverTrigger = ({ children, asChild = false }) => {
   const child = asChild ? React.Children.only(children) : children
 
   return React.cloneElement(child, {
-    onClick: () => setOpen(prev => !prev),
+    onClick: () => setOpen((prev) => !prev),
   })
 }
 
@@ -48,6 +48,6 @@ export const PopoverContent = ({ children }) => {
     <div ref={ref} className="absolute z-50 bg-white rounded shadow-lg p-4">
       {children}
     </div>,
-    document.body
+    document.body,
   )
 }

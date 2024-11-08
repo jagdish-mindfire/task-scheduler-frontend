@@ -1,14 +1,14 @@
-import { useContext } from "react";
-import { MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { BellIcon } from "@heroicons/react/24/outline";
-import NotificationItem from "./NotificationItem";
-import useNotification from "../../hooks/useNotification";
-import { TaskContext } from "../../context/TaskContext";
-import CONSTANTS_STRING from "../../constants/strings";
+import { useContext } from 'react'
+import { MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { BellIcon } from '@heroicons/react/24/outline'
+import NotificationItem from './NotificationItem'
+import useNotification from '../../hooks/useNotification'
+import { TaskContext } from '../../context/TaskContext'
+import CONSTANTS_STRING from '../../constants/strings'
 
 export default function NotificationCard() {
-  const { clearNotification, clearAllNotifications } = useNotification();
-  const { allNotifications, notificationCount } = useContext(TaskContext);
+  const { clearNotification, clearAllNotifications } = useNotification()
+  const { allNotifications, notificationCount } = useContext(TaskContext)
 
   return (
     <>
@@ -45,8 +45,8 @@ export default function NotificationCard() {
             <span
               data-testid="clear_all_notifications"
               onClick={(e) => {
-                e.stopPropagation();
-                clearAllNotifications();
+                e.stopPropagation()
+                clearAllNotifications()
               }}
               className="w-full text-white py-2 text-center font-bold rounded"
             >
@@ -73,5 +73,5 @@ export default function NotificationCard() {
         )}
       </MenuItems>
     </>
-  );
+  )
 }

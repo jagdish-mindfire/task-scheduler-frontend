@@ -1,52 +1,66 @@
-import axios from "axios";
-import { getLocalAsString, localKeys, setLocalAsString } from "../services/localStorage";
+import axios from 'axios'
+import {
+  getLocalAsString,
+  localKeys,
+  setLocalAsString,
+} from '../services/localStorage'
 
-const API_URL = import.meta.env.VITE_API_URL ;
-
+const API_URL = import.meta.env.VITE_API_URL
 
 export const axiosClient = axios.create({
-    baseURL: API_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    }
-});
+  baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
 
 // intercepting to capture errors
-axiosClient.interceptors.response.use(function (response) {
+axiosClient.interceptors.response.use(
+  function (response) {
     const data = response.data ? response.data : response
-    return data;
-}, function (error) {
-    let message;
-    let status = error?.response?.status;
+    return data
+  },
+  function (error) {
+    let message
+    let status = error?.response?.status
     if (Number(status) === 401) {
-        window.location.href = "/login";
-        return Promise.reject(message);
+      window.location.href = '/login'
+      return Promise.reject(message)
     }
-    return Promise.reject(error);
-});
+    return Promise.reject(error)
+  },
+)
 
 // Request Interceptor to Add Authorization Token
-axiosClient.interceptors.request.use(async function (config) {
-    const refreshToken = getLocalAsString(localKeys.REFRESH_TOKEN);
-    let accessToken = getLocalAsString(localKeys.ACCESS_TOKEN);
+axiosClient.interceptors.request.use(
+  async function (config) {
+    const refreshToken = getLocalAsString(localKeys.REFRESH_TOKEN)
+    let accessToken = getLocalAsString(localKeys.ACCESS_TOKEN)
     // min 2
-    if(!accessToken || (JSON.parse(atob(accessToken.split('.')[1]))).exp * 1000 < new Date().getTime() ){
-        try {
-            let { data } = await axios.post(API_URL + '/auth/token', {refresh_token:refreshToken});
-            accessToken =  data?.access_token;
-            setLocalAsString(localKeys.ACCESS_TOKEN,accessToken);
-        } catch (error) {
-            console.log(error);
-        }
-
+    if (
+      !accessToken ||
+      JSON.parse(atob(accessToken.split('.')[1])).exp * 1000 <
+        new Date().getTime()
+    ) {
+      try {
+        let { data } = await axios.post(API_URL + '/auth/token', {
+          refresh_token: refreshToken,
+        })
+        accessToken = data?.access_token
+        setLocalAsString(localKeys.ACCESS_TOKEN, accessToken)
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     if (accessToken) {
-        // Attach the token to the Authorization header
-        config.headers['Authorization'] = `Bearer ${accessToken}`;
+      // Attach the token to the Authorization header
+      config.headers['Authorization'] = `Bearer ${accessToken}`
     }
-    return config;
-}, function (error) {
+    return config
+  },
+  function (error) {
     // Handle the request error here
-    return Promise.reject(error);
-});
+    return Promise.reject(error)
+  },
+)

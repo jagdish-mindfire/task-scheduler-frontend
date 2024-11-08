@@ -1,83 +1,78 @@
 const CONSTANTS_STRING = {
+  // header
+  PROFILE: 'Profile',
+  SETTINGS: 'Settings',
+  LOGOUT: 'Logout',
+  MY_ACCOUNT: 'My Account',
 
-    // header
-    PROFILE : 'Profile',
-    SETTINGS : 'Settings',
-    LOGOUT : 'Logout',
-    MY_ACCOUNT : 'My Account',
+  // Footer
+  COPYRIGHT_TEXT: '© 2024 Schedule Me. All rights reserved.',
+  PRIVACY_POLICY_TEXT: 'Privacy Policy',
+  TERMS_OF_SERVICE_TEXT: 'Terms of Service',
 
+  // Left Navbar
+  YOUR_WORKSPACE: "Your's Workspace",
+  HOME: 'Home',
+  MY_TASKS: 'My Tasks',
+  BOARD: 'Board',
+  CALENDAR: 'Calendar',
+  PROJECTS: 'Projects',
+  ADD_PROJECT: 'Add Project',
 
-    // Footer
-    COPYRIGHT_TEXT : "© 2024 Schedule Me. All rights reserved.",
-    PRIVACY_POLICY_TEXT : "Privacy Policy",
-    TERMS_OF_SERVICE_TEXT : "Terms of Service",
+  // Task
+  MY_TASKS: 'My Tasks',
+  LIST: 'List',
+  BOARD: 'Board',
+  CALENDAR: 'Calendar',
 
-    // Left Navbar
-    YOUR_WORKSPACE : "Your's Workspace",
-    HOME : "Home",
-    MY_TASKS : "My Tasks",
-    BOARD : "Board",
-    CALENDAR : "Calendar",
-    PROJECTS : "Projects",
-    ADD_PROJECT : "Add Project",
+  // Common :
+  APP_TITLE: 'Schedule Me',
 
+  // Login
+  LOGIN_TO_YOUR_ACCOUNT: 'Sign in to your account',
+  EMAIL: 'Email Address',
+  PASSWORD: 'Password',
+  DONT_HAVE_ACCOUNT: "Don't have a account ?",
 
-    // Task
-    MY_TASKS:"My Tasks",
-    LIST : "List",
-    BOARD : "Board",
-    CALENDAR : "Calendar",
+  SIGNUP: 'Sign up',
+  SIGN_UP_TO_USE_APP: ' Sign up to use Task Scheduler',
+  NAME: 'Name',
 
-    // Common :
-    APP_TITLE : "Schedule Me",
+  SOMETHING_WENT_WRONG: 'Something went wrong please try again',
+  LOADING: 'Loading...',
+  ALREADY_HAVE_AN_ACCOUNT: 'Already Got an account ?',
+  SIGNIN: 'Sign In',
 
+  //View
+  CREATED_AT: 'Created At',
+  DUE_DATE: 'Due Date',
+  COMPLETED_AT: 'Completed At',
+  MARK_COMPLETE: 'Mark Completed',
+  EDIT: 'Edit',
+  DELETE: 'Delete',
 
-    // Login
-    LOGIN_TO_YOUR_ACCOUNT : "Sign in to your account",
-    EMAIL : "Email Address",
-    PASSWORD : "Password",
-    DONT_HAVE_ACCOUNT : "Don't have a account ?",
+  //Edit
+  UPDATE_TASK: 'Update Task',
+  TITLE: 'Title',
+  DESCRIPTION: 'Description',
 
-    SIGNUP : "Sign up",
-    SIGN_UP_TO_USE_APP : " Sign up to use Task Scheduler",
-    NAME:"Name",
+  ADD_TASK: 'Add Task',
 
-    SOMETHING_WENT_WRONG : "Something went wrong please try again",
-    LOADING:"Loading...",
-    ALREADY_HAVE_AN_ACCOUNT : "Already Got an account ?",
-    SIGNIN : "Sign In",
+  ARE_YOU_SURE_TO_DELETE: 'Are you sure you want to delete this task',
+  DELETE: 'Delete',
+  CANCEL: 'Cancel',
 
-    //View
-    CREATED_AT:"Created At",
-    DUE_DATE  : "Due Date",
-    COMPLETED_AT : "Completed At",
-    MARK_COMPLETE : "Mark Completed",
-    EDIT : "Edit",
-    DELETE : "Delete",
+  DELETE_SUCCESS: 'Task deleted successfully',
+  TASK_CREATE_SUCCESS: 'Task created successfully',
+  MARKED_AS_COMPLETE: 'Congratulations on completion of task',
+  TASK_UPDATED_SUCCESS: 'Task updated successfully',
 
-    //Edit
-    UPDATE_TASK : "Update Task",
-    TITLE:"Title",
-    DESCRIPTION:"Description",
-    
-    ADD_TASK : "Add Task",
+  TASK_NAME: 'Task',
+  ACTIONS: 'Actions',
+  CREATE_FIRST_TASK: 'Click on Add Task to create your first task',
+  VIEW: 'View',
+}
 
-    ARE_YOU_SURE_TO_DELETE:"Are you sure you want to delete this task",
-    DELETE : 'Delete',
-    CANCEL : 'Cancel',
+export const nevigationMenu = [{ name: 'Dashboard', href: '#', current: true }]
 
-    DELETE_SUCCESS : "Task deleted successfully",
-    TASK_CREATE_SUCCESS : "Task created successfully",
-    MARKED_AS_COMPLETE : "Congratulations on completion of task",
-    TASK_UPDATED_SUCCESS : "Task updated successfully",
-
-    TASK_NAME:"Task",
-    ACTIONS : "Actions",
-    CREATE_FIRST_TASK : "Click on Add Task to create your first task",
-    VIEW : "View",
-
-};
-
-export const nevigationMenu = [{ name: "Dashboard", href: "#", current: true }];
-
-export default CONSTANTS_STRING;
+export default CONSTANTS_STRING

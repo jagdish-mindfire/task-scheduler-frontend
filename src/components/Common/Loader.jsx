@@ -1,4 +1,4 @@
-import { TailSpin } from "react-loader-spinner";
+import { TailSpin } from 'react-loader-spinner'
 
 const Loader = () => {
   return (
@@ -20,7 +20,7 @@ const Loader = () => {
         <img src={Logo} alt="Logo" className="h-12 md:h-16 lg:h-20" />
       </div> */}
     </div>
-  );
-};
+  )
+}
 
-export default Loader;
+export default Loader
