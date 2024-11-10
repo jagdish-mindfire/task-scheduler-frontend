@@ -72,7 +72,6 @@ const useTask = () => {
   const updateTask = async (id, updatedTask) => {
     try {
       const response = await updateTaskDetails(id, updatedTask)
-      console.log(response)
       setTaskList((prevTasks) =>
         prevTasks.map((task) => (task._id === id ? response?.task : task)),
       )

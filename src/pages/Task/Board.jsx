@@ -27,7 +27,6 @@ export default function Board() {
     const [reorderedItem] = sourceTasks.splice(source.index, 1)
     destTasks.splice(destination.index, 0, reorderedItem)
 
-    // console.log({sourceColumn,destColumn,destRow:destination.index,_id:reorderedItem._id})
     updateTask(reorderedItem._id, {
       boardColumnId: Number(destColumn),
       boardPosition: Number(destination.index),
@@ -40,7 +39,6 @@ export default function Board() {
   }
 
   useEffect(() => {
-    console.log(tasks)
     if (taskList.length > 0) {
       const newTasks = {
         0: taskList.filter((task) => task.boardColumnId === 0),
