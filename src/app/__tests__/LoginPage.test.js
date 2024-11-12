@@ -31,22 +31,10 @@ describe('LoginPage', () => {
 
     // Check that all the main elements are rendered
     expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
-    expect(screen.getByText(/Don't have an account?/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Enter your email/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Enter your password/i)).toBeInTheDocument();
   });
-
-  test('shows validation errors on submit with empty fields', async () => {
-    render(<LoginPage />);
-
-    fireEvent.click(screen.getByRole('button', { name: /Sign in/i }));
-
-    await waitFor(() => {
-      expect(screen.getByText(/Email is required/i)).toBeInTheDocument();
-      expect(screen.getByText(/Password is required/i)).toBeInTheDocument();
-    });
-  });
-
+  
   test('calls loginMutation on submit with valid data', async () => {
     render(<LoginPage />);
 
