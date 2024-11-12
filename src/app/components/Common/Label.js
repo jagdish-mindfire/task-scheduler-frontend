@@ -1,5 +1,5 @@
 import React from 'react';
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge';
 
 const cn = (...inputs) => twMerge(inputs);
 
@@ -8,10 +8,12 @@ const Label = React.forwardRef(({ htmlFor, className, ...props }, ref) => {
     <label
       ref={ref}
       htmlFor={htmlFor}
-      className={cn("label-class", className)} // Adjust class name as needed
+      className={cn('label-class', className)} 
       {...props}
     />
   );
 });
+
+Label.displayName = 'Label'; 
 
 export default Label;

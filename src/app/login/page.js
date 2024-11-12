@@ -1,16 +1,16 @@
-"use client"
+'use client';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import { Mail, Lock } from 'lucide-react';
-import Image from 'next/image'
+import Image from 'next/image';
 
-import { Button } from "@/app/components/Common/Button";
-import Input from "@/app/components/Common/Input";
-import Label from "@/app/components/Common/Label";
+import { Button } from '@/app/components/Common/Button';
+import Input from '@/app/components/Common/Input';
+import Label from '@/app/components/Common/Label';
 import useAuth from '@/app/hooks/useAuth';
-import { loginSchema } from "@/app/validation-schema/schema";
+import { loginSchema } from '@/app/validation-schema/schema';
 
 import CONSTANTS_STRING from '../constants/strings';
 
@@ -39,12 +39,24 @@ export default function LoginPage() {
               {/* Logo and Title */}
               <div className="space-y-4">
                 <div className="flex items-center justify-start">
-                  <Image src="/logo.png" alt="Schedule Me Logo" className="w-8 h-8" width={30} height={20}/>
-                  <h1 className="ml-2 text-xl font-bold text-gray-900">{CONSTANTS_STRING.APP_TITLE}</h1>
+                  <Image
+                    src="/logo.png"
+                    alt="Schedule Me Logo"
+                    className="w-8 h-8"
+                    width={30}
+                    height={20}
+                  />
+                  <h1 className="ml-2 text-xl font-bold text-gray-900">
+                    {CONSTANTS_STRING.APP_TITLE}
+                  </h1>
                 </div>
                 <div className="space-y-1">
-                  <h2 className="text-2xl font-bold tracking-tight text-gray-900">{CONSTANTS_STRING.WELCOME_BACK}</h2>
-                  <p className="text-sm text-gray-500">{CONSTANTS_STRING.ENTER_CREDENTIALS}</p>
+                  <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+                    {CONSTANTS_STRING.WELCOME_BACK}
+                  </h2>
+                  <p className="text-sm text-gray-500">
+                    {CONSTANTS_STRING.ENTER_CREDENTIALS}
+                  </p>
                 </div>
               </div>
 
@@ -52,8 +64,11 @@ export default function LoginPage() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="space-y-3">
                   <div>
-                    <Label htmlFor="email" className="text-xs font-medium text-gray-700">
-                    {CONSTANTS_STRING.EMAIL}
+                    <Label
+                      htmlFor="email"
+                      className="text-xs font-medium text-gray-700"
+                    >
+                      {CONSTANTS_STRING.EMAIL}
                     </Label>
                     <div className="mt-1 relative">
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -69,13 +84,18 @@ export default function LoginPage() {
                       />
                     </div>
                     {errors?.email && (
-                      <label className="text-xs text-red-700 mt-1">{errors.email.message}</label>
+                      <label className="text-xs text-red-700 mt-1">
+                        {errors.email.message}
+                      </label>
                     )}
                   </div>
                   <div>
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="password" className="text-xs font-medium text-gray-700">
-                    {CONSTANTS_STRING.PASSWORD}
+                      <Label
+                        htmlFor="password"
+                        className="text-xs font-medium text-gray-700"
+                      >
+                        {CONSTANTS_STRING.PASSWORD}
                       </Label>
                     </div>
                     <div className="mt-1 relative">
@@ -92,7 +112,9 @@ export default function LoginPage() {
                       />
                     </div>
                     {errors?.password && (
-                      <label className="text-xs text-red-700 mt-1">{errors.password.message}</label>
+                      <label className="text-xs text-red-700 mt-1">
+                        {errors.password.message}
+                      </label>
                     )}
                   </div>
                 </div>
@@ -103,18 +125,17 @@ export default function LoginPage() {
                   className="w-full h-10 bg-gray-900 hover:bg-gray-800 text-white text-xs font-medium rounded-lg
                     transition-all duration-150 ease-in-out hover:shadow-lg"
                 >
-                  {loginMutation.isPending ? "Signing in..." : "Sign in"}
+                  {loginMutation.isPending ? 'Signing in...' : 'Sign in'}
                 </Button>
               </form>
 
               <p className="text-center text-xs text-gray-500">
-              {CONSTANTS_STRING.DONT_HAVE_ACCOUNT_TEXT}
-              {" "}
+                {CONSTANTS_STRING.DONT_HAVE_ACCOUNT_TEXT}{' '}
                 <button
                   onClick={() => router.push('/signup')}
                   className="font-medium text-gray-900 hover:text-gray-700"
                 >
-                    {CONSTANTS_STRING.SIGNUP}
+                  {CONSTANTS_STRING.SIGNUP}
                 </button>
               </p>
             </div>
@@ -126,7 +147,8 @@ export default function LoginPage() {
               src="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
               alt="Productivity"
               className="w-full h-full object-cover rounded-l-2xl"
-              width={300} height={200}
+              width={300}
+              height={200}
             />
           </div>
         </div>

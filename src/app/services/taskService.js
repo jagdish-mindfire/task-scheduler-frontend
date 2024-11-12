@@ -1,10 +1,12 @@
-import { endpoints } from "../constants/endpoints";
-import { appApi } from "./apiService";
+import { endpoints } from '../constants/endpoints';
+import { appApi } from './apiService';
 
 const api = new appApi();
 
 export const fetchAllTasks = async (sortingType) => {
-  const response = await api.get(endpoints.GET_ALL_TASKS, { sort: sortingType });
+  const response = await api.get(endpoints.GET_ALL_TASKS, {
+    sort: sortingType,
+  });
   return response;
 };
 
@@ -19,7 +21,10 @@ export const CreateNewTask = async (task) => {
 };
 
 export const UpdateTask = async (id, updatedTask) => {
-  const response = await api.update(endpoints.UPDATE_TASK + `/${id}`, updatedTask);
+  const response = await api.update(
+    endpoints.UPDATE_TASK + `/${id}`,
+    updatedTask
+  );
   return response;
 };
 

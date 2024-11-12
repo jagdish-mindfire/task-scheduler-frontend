@@ -1,19 +1,15 @@
-"use client";
-import React from "react";
-import { Draggable } from "react-beautiful-dnd";
-import { useRouter } from "next/navigation"; // Updated import
-import {
-  CheckCircle2,
-  Circle,
-  Calendar as CalendarIcon,
-} from "lucide-react";
-import moment from "moment";
+'use client';
+import React from 'react';
+import { Draggable } from 'react-beautiful-dnd';
+import { useRouter } from 'next/navigation'; // Updated import
+import { CheckCircle2, Circle, Calendar as CalendarIcon } from 'lucide-react';
+import moment from 'moment';
 
 export default function TaskCard({ task, index }) {
   const router = useRouter();
 
   return (
-    <Draggable  draggableId={task?._id?.toString()} index={index}>
+    <Draggable draggableId={task?._id?.toString()} index={index}>
       {(provided) => (
         <div
           onClick={() => router.push(`/tasks/board/${task._id}`)}
@@ -31,8 +27,8 @@ export default function TaskCard({ task, index }) {
             <span
               className={
                 task.completed
-                  ? "line-through text-gray-500 text-sm"
-                  : "text-sm"
+                  ? 'line-through text-gray-500 text-sm'
+                  : 'text-sm'
               }
             >
               {task.title}

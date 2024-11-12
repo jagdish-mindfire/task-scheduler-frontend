@@ -1,14 +1,14 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { ToastContainer } from "react-toastify";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import "react-toastify/dist/ReactToastify.css";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { TaskProvider } from "../context/TaskContext";
-import { UserProvider } from "../context/UserContext";
-import LeftNavbar from "@/app/components/layout/LeftNavbar";
-import Footer from "@/app/components/layout/Footer";
-import Header from "@/app/components/layout/Header";
+import { TaskProvider } from '../context/TaskContext';
+import { UserProvider } from '../context/UserContext';
+import LeftNavbar from '@/app/components/layout/LeftNavbar';
+import Footer from '@/app/components/layout/Footer';
+import Header from '@/app/components/layout/Header';
 
 export default function ProtectedLayout({ children }) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(true);

@@ -3,15 +3,18 @@ import axios from 'axios';
 import { endpoints } from '@/app/constants/endpoints';
 export async function POST(request) {
   try {
-    const { email, password,name } = await request.json();
-    
+    const { email, password, name } = await request.json();
+
     // Proxy the signup request to the external server
-    const response = await axios.post(process.env.EXTERNAL_API_URL + endpoints.SIGNUP, { email, password,name },{
+    const response = await axios.post(
+      process.env.EXTERNAL_API_URL + endpoints.SIGNUP,
+      { email, password, name },
+      {
         headers: { 'Content-Type': 'application/json' },
-    });
+      }
+    );
 
-    const data =  response.data;
-
+    const data = response.data;
 
     const { message } = data;
 
@@ -19,7 +22,7 @@ export async function POST(request) {
     const res = NextResponse.json({ message });
     return res;
   } catch (error) {
-    console.log("Error in login route:", error);
+    console.log('Error in login route:', error);
     // Handle different error responses
     const status = error.response ? error.response.status : 500;
     const message = error.response?.data?.message || 'Internal Server Error';

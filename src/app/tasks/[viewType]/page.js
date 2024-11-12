@@ -1,27 +1,27 @@
-"use client";
-import { notFound } from "next/navigation";
-import React, { useState, useEffect } from "react";
-import { twMerge } from "tailwind-merge";
+'use client';
+import { notFound } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
 import {
   ChevronDown,
   List,
   LayoutGrid,
   Calendar as CalendarIcon,
   Plus,
-} from "lucide-react";
-import Link from "next/link";
-import { useParams } from 'next/navigation'
+} from 'lucide-react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
-import TaskList from "./TaskList";
-import Calendar from "./Calendar";
-import Board from "./Board";
-import StringDP from "../../components/Common/StringDP";
-import { Button } from "../../components/Common/Button";
-import useTask from "../../hooks/useTask";
-import CONSTANT_STRINGS from "../../constants/strings";
+import TaskList from './TaskList';
+import Calendar from './Calendar';
+import Board from './Board';
+import StringDP from '../../components/Common/StringDP';
+import { Button } from '../../components/Common/Button';
+import useTask from '../../hooks/useTask';
+import CONSTANT_STRINGS from '../../constants/strings';
 
 export default function Index() {
-  const [activeTab, setActiveTab] = useState("list");
+  const [activeTab, setActiveTab] = useState('list');
   const { getAllTasks } = useTask();
   const { viewType } = useParams();
 
@@ -29,19 +29,19 @@ export default function Index() {
 
   useEffect(() => {
     getAllTasks();
-  }, []); // Ensure getAllTasks only runs once on mount
+  }, [getAllTasks]); // Ensure getAllTasks only runs once on mount
 
   useEffect(() => {
-    setActiveTab(viewType ? viewType.toLowerCase() : "list");
+    setActiveTab(viewType ? viewType.toLowerCase() : 'list');
   }, [viewType]); // add viewType to dependency array to avoid re-renders
 
   const renderTaskContent = () => {
     switch (activeTab) {
-      case "list":
+      case 'list':
         return <TaskList />;
-      case "board":
+      case 'board':
         return <Board />;
-      case "calendar":
+      case 'calendar':
         return <Calendar />;
       default:
         notFound();
@@ -63,44 +63,42 @@ export default function Index() {
 
       {/* Tabs Section */}
       <div className="flex items-center space-x-1 mb-4 border-b overflow-x-auto">
-        <Link href={"/tasks/list"}>
+        <Link href={'/tasks/list'}>
           <Button
             variant="ghost"
             className={cn(
-              "border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4",
-              activeTab === "list"
-                ? "border-x-4 border-blue-500 text-blue-700"
-                : "border-transparent"
+              'border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4',
+              activeTab === 'list'
+                ? 'border-2 border-black'
+                : 'border-transparent'
             )}
           >
             <List className="w-4 h-4 mr-1 sm:mr-2" />
             <span className="text-xs sm:text-sm">{CONSTANT_STRINGS.LIST}</span>
           </Button>
         </Link>
-        <Link href={"/tasks/board"}>
+        <Link href={'/tasks/board'}>
           <Button
             variant="ghost"
             className={cn(
-              "border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4",
-              activeTab === "board"
-                ? "border-x-4 border-blue-500 text-blue-700"
-                : "border-transparent"
+              'border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4',
+              activeTab === 'board'
+                ? 'border-2 border-black'
+                : 'border-transparent'
             )}
           >
             <LayoutGrid className="w-4 h-4 mr-1 sm:mr-2" />
-            <span className="text-xs sm:text-sm">
-              {CONSTANT_STRINGS.BOARD}
-            </span>
+            <span className="text-xs sm:text-sm">{CONSTANT_STRINGS.BOARD}</span>
           </Button>
         </Link>
-        <Link href={"/tasks/calendar"}>
+        <Link href={'/tasks/calendar'}>
           <Button
             variant="ghost"
             className={cn(
-              "border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4",
-              activeTab === "calendar"
-                ? "border-x-4 border-blue-500 text-blue-700"
-                : "border-transparent"
+              'border-b-2 flex items-center whitespace-nowrap px-2 sm:px-4',
+              activeTab === 'calendar'
+                ? 'border-2 border-black'
+                : 'border-transparent'
             )}
           >
             <CalendarIcon className="w-4 h-4 mr-1 sm:mr-2" />
@@ -110,7 +108,7 @@ export default function Index() {
           </Button>
         </Link>
         <Button variant="ghost" className="flex items-center px-2 sm:px-4">
-          <Plus className="w-4 h-4" />
+          {/* <Plus className="w-4 h-4" /> */}
         </Button>
       </div>
 

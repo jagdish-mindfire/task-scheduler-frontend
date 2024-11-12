@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const signupSchema = z
   .object({
@@ -8,10 +8,10 @@ export const signupSchema = z
     name: z.string().min(3),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"], // error path
+    message: 'Passwords do not match',
+    path: ['confirmPassword'], // error path
   });
-  
+
 export const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
@@ -23,6 +23,7 @@ export const taskFormSchema = z.object({
   due_date: z
     .string()
     .refine((val) => !isNaN(new Date(val).getTime()), {
-      message: "Invalid due date",
-    }).optional(),
+      message: 'Invalid due date',
+    })
+    .optional(),
 });

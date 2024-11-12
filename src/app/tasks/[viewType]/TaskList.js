@@ -1,7 +1,7 @@
-"use client"
+'use client';
 
-import React, { useState, useRef, useEffect, useContext } from "react";
-import Link from "next/link.js";
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import Link from 'next/link.js';
 import {
   MoreHorizontal,
   CheckCircle2,
@@ -13,17 +13,17 @@ import {
   Filter,
   ArrowUpDown,
   Group,
-} from "lucide-react";
+} from 'lucide-react';
 
-import { Button } from "../../components/Common/Button";
-import useTask from "../../hooks/useTask";
-import { TaskContext } from "../../context/TaskContext";
-import DueDateInput from "../../components/Common/DueDateInput";
+import { Button } from '../../components/Common/Button';
+import useTask from '../../hooks/useTask';
+import { TaskContext } from '../../context/TaskContext';
+import DueDateInput from '../../components/Common/DueDateInput';
 
 export default function TaskList() {
   const [editingTaskId, setEditingTaskId] = useState(null);
-  const [editingTitle, setEditingTitle] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [editingTitle, setEditingTitle] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc');
   const [selectedDueDate, setSelectedDueDate] = useState(null);
   const [isAddingNewTask, setIsAddingNewTask] = useState(false);
   const editInputRef = useRef(null);
@@ -57,8 +57,8 @@ export default function TaskList() {
   };
 
   const handleTitleEdit = (taskId) => {
-    if (editingTitle.trim() !== "") {
-      if (taskId === "new") {
+    if (editingTitle.trim() !== '') {
+      if (taskId === 'new') {
         addTask({ title: editingTitle, dueDate: selectedDueDate });
       } else {
         updateTask(taskId, { title: editingTitle });
@@ -66,20 +66,20 @@ export default function TaskList() {
     }
     setEditingTaskId(null);
     setIsAddingNewTask(false);
-    setEditingTitle("");
+    setEditingTitle('');
     setSelectedDueDate(null);
   };
 
   const handleAddTask = () => {
     setIsAddingNewTask(true);
-    setEditingTaskId("new");
-    setEditingTitle("");
+    setEditingTaskId('new');
+    setEditingTitle('');
     setSelectedDueDate(null);
   };
 
   const handleInputBlur = () => {
-    if (editingTaskId === "new") {
-      handleTitleEdit("new");
+    if (editingTaskId === 'new') {
+      handleTitleEdit('new');
     } else if (editingTaskId) {
       handleTitleEdit(editingTaskId);
     }
@@ -91,7 +91,7 @@ export default function TaskList() {
         <Button
           variant="default"
           size="sm"
-          className="bg-blue-500 hover:bg-blue-600 p-5"
+          className="bg-slate-600 text-white border-2 border-slate-800 hover:bg-black hover:border-black p-5"
           onClick={handleAddTask}
         >
           <Plus className="w-3 h-3 mr-1" />
@@ -102,9 +102,7 @@ export default function TaskList() {
             <Filter className="w-3 h-3 mr-1" />
             Filter
           </Button> */}
-          <Button variant="outline" size="sm" 
-                onClick={sortTasks}
-          >
+          <Button variant="outline" size="sm" onClick={sortTasks}>
             <ArrowUpDown className="w-3 h-3 mr-1" />
             Sort
           </Button>
@@ -132,7 +130,7 @@ export default function TaskList() {
                 onClick={sortTasks}
               >
                 Due date
-                {sortOrder === "asc" ? (
+                {sortOrder === 'asc' ? (
                   <ChevronUp className="inline-block w-4 h-4 ml-1" />
                 ) : (
                   <ChevronDown className="inline-block w-4 h-4 ml-1" />
@@ -165,8 +163,8 @@ export default function TaskList() {
                       onChange={(e) => setEditingTitle(e.target.value)}
                       onBlur={handleInputBlur}
                       onKeyPress={(e) => {
-                        if (e.key === "Enter") {
-                          handleTitleEdit("new");
+                        if (e.key === 'Enter') {
+                          handleTitleEdit('new');
                         }
                       }}
                       className="bg-transparent focus:outline-none text-xs w-full"
@@ -178,7 +176,7 @@ export default function TaskList() {
                   <DueDateInput
                     selectedDueDate={selectedDueDate}
                     setSelectedDueDate={setSelectedDueDate}
-                    task={{ _id: "new" }}
+                    task={{ _id: 'new' }}
                   />
                 </td>
                 <td className="px-4 py-2 whitespace-nowrap text-xs">
@@ -216,7 +214,7 @@ export default function TaskList() {
                         onChange={(e) => setEditingTitle(e.target.value)}
                         onBlur={handleInputBlur}
                         onKeyPress={(e) => {
-                          if (e.key === "Enter") {
+                          if (e.key === 'Enter') {
                             handleTitleEdit(task._id);
                           }
                         }}
@@ -225,7 +223,7 @@ export default function TaskList() {
                     ) : (
                       <span
                         className={`cursor-pointer text-xs ${
-                          task.isCompleted ? "text-gray-500" : "font-bold"
+                          task.isCompleted ? 'text-gray-500' : 'font-bold'
                         }`}
                         onClick={() => startEditingTitle(task._id, task.title)}
                       >
@@ -288,8 +286,8 @@ export default function TaskList() {
                 onChange={(e) => setEditingTitle(e.target.value)}
                 onBlur={handleInputBlur}
                 onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    handleTitleEdit("new");
+                  if (e.key === 'Enter') {
+                    handleTitleEdit('new');
                   }
                 }}
                 className="bg-transparent focus:outline-none text-sm w-full"
@@ -299,7 +297,7 @@ export default function TaskList() {
             <DueDateInput
               selectedDueDate={selectedDueDate}
               setSelectedDueDate={setSelectedDueDate}
-              task={{ _id: "new" }}
+              task={{ _id: 'new' }}
             />
           </div>
         )}
@@ -326,7 +324,7 @@ export default function TaskList() {
                   onChange={(e) => setEditingTitle(e.target.value)}
                   onBlur={handleInputBlur}
                   onKeyPress={(e) => {
-                    if (e.key === "Enter") {
+                    if (e.key === 'Enter') {
                       handleTitleEdit(task._id);
                     }
                   }}
@@ -335,7 +333,7 @@ export default function TaskList() {
               ) : (
                 <span
                   className={`cursor-pointer text-sm ${
-                    task.isCompleted ? "text-gray-500" : "font-bold"
+                    task.isCompleted ? 'text-gray-500' : 'font-bold'
                   }`}
                   onClick={() => startEditingTitle(task._id, task.title)}
                 >
@@ -368,9 +366,11 @@ export default function TaskList() {
           </div>
         ))}
       </div>
-        {
-            taskList?.length === 0 && <p className="text-center p-5">Schedule Your first task by clicking on Add task</p>
-        }
+      {taskList?.length === 0 && (
+        <p className="text-center p-5">
+          Schedule Your first task by clicking on Add task
+        </p>
+      )}
     </div>
   );
 }

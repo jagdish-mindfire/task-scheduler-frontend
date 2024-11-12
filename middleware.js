@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
-import { isLoggedIn } from "./src/app/utils/auth";
-import { pageRoutes } from "@/app/constants/endpoints";
+import { NextResponse } from 'next/server';
+import { isLoggedIn } from './src/app/utils/auth';
+import { pageRoutes } from '@/app/constants/endpoints';
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
-  const refreshToken = request.cookies.get("refreshToken");
+  const refreshToken = request.cookies.get('refreshToken');
 
   const protectedRoutes = [pageRoutes.TASK_PAGE, pageRoutes.HOME_PAGE];
   const unProtectedRoutes = [pageRoutes.LOGIN_PAGE, pageRoutes.SIGNUP_PAGE];
@@ -22,7 +22,7 @@ export async function middleware(request) {
 
   // If login check fails, delete refreshToken cookie
   if (!checkLogin) {
-    response.cookies.delete("refreshToken");
+    response.cookies.delete('refreshToken');
   }
 
   if (isUnprotectedRoute && checkLogin) {
@@ -34,19 +34,21 @@ export async function middleware(request) {
     return NextResponse.redirect(new URL(pageRoutes.LOGIN_PAGE, request.url));
   }
 
-  if (pathname === "/" && !checkLogin) {
+  if (pathname === '/' && !checkLogin) {
     return NextResponse.redirect(new URL(pageRoutes.LOGIN_PAGE, request.url));
-  } else if (pathname === "/" && checkLogin) {
+  } else if (pathname === '/' && checkLogin) {
     return NextResponse.redirect(new URL(pageRoutes.HOME_PAGE, request.url));
   }
 
   if (pathname === pageRoutes.TASK_PAGE) {
-    return NextResponse.redirect(new URL(pageRoutes.TASK_LIST_PAGE, request.url));
+    return NextResponse.redirect(
+      new URL(pageRoutes.TASK_LIST_PAGE, request.url)
+    );
   }
 
   return response;
 }
 
 export const config = {
-  matcher: "/:path*",
+  matcher: '/:path*',
 };

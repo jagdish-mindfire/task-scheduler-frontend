@@ -1,6 +1,6 @@
-"use client"
-import React from "react";
-import Link from "next/link";
+'use client';
+import React from 'react';
+import Link from 'next/link';
 import {
   Home,
   Calendar,
@@ -9,19 +9,18 @@ import {
   PlusCircle,
   Settings,
   HelpCircle,
-  LayoutGrid
-} from "lucide-react";
+  LayoutGrid,
+} from 'lucide-react';
 
-import ScrollArea from "../Common/ScrollArea.js";
-import StringDP from "../Common/StringDP";
+import ScrollArea from '../Common/ScrollArea.js';
+import StringDP from '../Common/StringDP';
 import CONSTANT_STRING from '../../constants/strings';
-
 
 const LeftNavbar = ({ isOpen }) => {
   return (
     <div
       className={`h-screen bg-black flex flex-col border-r border-gray-700 transition-all duration-300 ${
-        isOpen ? "w-64" : "w-0 overflow-hidden"
+        isOpen ? 'w-64' : 'w-0 overflow-hidden'
       }`}
     >
       <div className="p-4">
@@ -44,23 +43,28 @@ const LeftNavbar = ({ isOpen }) => {
             href="/tasks"
             className="flex items-center w-full justify-start text-white hover:bg-gray-800 p-2"
           >
-            <CheckCircle className="mr-2 h-4 w-4" />{CONSTANT_STRING.MY_TASKS}
+            <CheckCircle className="mr-2 h-4 w-4" />
+            {CONSTANT_STRING.MY_TASKS}
           </Link>
           <Link
             href="/tasks/board"
             className="flex items-center w-full justify-start text-white hover:bg-gray-800 p-2"
           >
-            <LayoutGrid className="mr-2 h-4 w-4" />{CONSTANT_STRING.BOARD} 
+            <LayoutGrid className="mr-2 h-4 w-4" />
+            {CONSTANT_STRING.BOARD}
           </Link>
           <Link
             href="/tasks/calendar"
             className="flex items-center w-full justify-start text-white hover:bg-gray-800 p-2"
           >
-            <Calendar className="mr-2 h-4 w-4" />{CONSTANT_STRING.CALENDAR} 
+            <Calendar className="mr-2 h-4 w-4" />
+            {CONSTANT_STRING.CALENDAR}
           </Link>
         </nav>
         <div className="mt-6 px-4">
-          <h3 className="mb-2 text-sm font-semibold text-gray-400">{CONSTANT_STRING.PROJECTS}</h3>
+          <h3 className="mb-2 text-sm font-semibold text-gray-400">
+            {CONSTANT_STRING.PROJECTS}
+          </h3>
           <nav className="space-y-1">
             {/* <button className="w-full justify-start text-sm text-white hover:bg-gray-800">
               Marketing Campaign
@@ -69,7 +73,8 @@ const LeftNavbar = ({ isOpen }) => {
         </div>
         <div className="mt-4 px-4">
           <button className="w-full flex items-center justify-start text-sm text-white hover:bg-gray-800 p-2">
-            <PlusCircle className="mr-2 h-4 w-4" /> {CONSTANT_STRING.ADD_PROJECT}
+            <PlusCircle className="mr-2 h-4 w-4" />{' '}
+            {CONSTANT_STRING.ADD_PROJECT}
           </button>
         </div>
       </ScrollArea>

@@ -1,4 +1,4 @@
-import { endpoints } from "../constants/endpoints";
+import { endpoints } from '../constants/endpoints';
 
 export const isLoggedIn = async (refreshToken) => {
   let validity = false;
@@ -6,13 +6,16 @@ export const isLoggedIn = async (refreshToken) => {
     if (!refreshToken || refreshToken.length === 0) {
       validity = false;
     } else {
-      const response = await fetch(process.env.EXTERNAL_API_URL + endpoints.TOKEN, {
-        method: "POST",
-        body: JSON.stringify({
-          refresh_token: refreshToken,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(
+        process.env.EXTERNAL_API_URL + endpoints.TOKEN,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            refresh_token: refreshToken,
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
 
       if (response.status === 200) {
         const data = await response.json();

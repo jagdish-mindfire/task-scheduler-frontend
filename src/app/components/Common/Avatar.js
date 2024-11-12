@@ -1,8 +1,8 @@
-"use client"; // Ensure Next.js treats this as a client component
+'use client'; // Ensure Next.js treats this as a client component
 
-import React from "react";
-import * as AvatarPrimitive from "@radix-ui/react-avatar";
-import { twMerge } from "tailwind-merge";
+import React from 'react';
+import * as AvatarPrimitive from '@radix-ui/react-avatar';
+import { twMerge } from 'tailwind-merge';
 
 const cn = (...inputs) => twMerge(inputs);
 
@@ -10,31 +10,33 @@ export const Avatar = React.forwardRef(({ className, ...props }, ref) => (
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      'relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full',
       className
     )}
     {...props}
   />
 ));
-Avatar.displayName = "Avatar";
+Avatar.displayName = 'Avatar';
 
 export const AvatarImage = React.forwardRef(({ className, ...props }, ref) => (
   <AvatarPrimitive.Image
     ref={ref}
-    className={cn("aspect-square h-full w-full", className)}
+    className={cn('aspect-square h-full w-full', className)}
     {...props}
   />
 ));
-AvatarImage.displayName = "AvatarImage";
+AvatarImage.displayName = 'AvatarImage';
 
-export const AvatarFallback = React.forwardRef(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Fallback
-    ref={ref}
-    className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-green-500",
-      className
-    )}
-    {...props}
-  />
-));
-AvatarFallback.displayName = "AvatarFallback";
+export const AvatarFallback = React.forwardRef(
+  ({ className, ...props }, ref) => (
+    <AvatarPrimitive.Fallback
+      ref={ref}
+      className={cn(
+        'flex h-full w-full items-center justify-center rounded-full bg-green-500',
+        className
+      )}
+      {...props}
+    />
+  )
+);
+AvatarFallback.displayName = 'AvatarFallback';

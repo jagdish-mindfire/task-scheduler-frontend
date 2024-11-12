@@ -1,24 +1,25 @@
-"use client";
+'use client';
 
-import { useState, useContext, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation"; // Updated to next/navigation
-import { useQueryClient } from "@tanstack/react-query";
+import { useState, useContext, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation'; // Updated to next/navigation
+import { useQueryClient } from '@tanstack/react-query';
 
-import { TaskContext } from "../context/TaskContext";
+import { TaskContext } from '../context/TaskContext';
 import {
   fetchAllTasks,
   CreateNewTask,
   UpdateTask,
   DeleteTask,
   fetchTask,
-} from "../services/taskService";
-import { ShowErrorToast, ShowTaskDeleteToast } from "../services/toastService";
-import { pageRoutes } from "../constants/endpoints";
+} from '../services/taskService';
+import { ShowErrorToast, ShowTaskDeleteToast } from '../services/toastService';
+import { pageRoutes } from '../constants/endpoints';
 
 const useTask = () => {
-  const { setTaskList, taskList, setTaskLoader, task, setTask } = useContext(TaskContext);
+  const { setTaskList, taskList, setTaskLoader, task, setTask } =
+    useContext(TaskContext);
   const callingSortingAPI = useRef(false);
-  const [sortingType, setSortingType] = useState("asc");
+  const [sortingType, setSortingType] = useState('asc');
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -27,8 +28,8 @@ const useTask = () => {
     if (!callingSortingAPI.current) {
       callingSortingAPI.current = true;
       const currentSortingType = sortingType;
-      setSortingType((prev) => (prev === "asc" ? "desc" : "asc"));
-      await getAllTasks(currentSortingType === "asc" ? "desc" : "asc");
+      setSortingType((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+      await getAllTasks(currentSortingType === 'asc' ? 'desc' : 'asc');
       callingSortingAPI.current = false;
     }
   };
@@ -38,7 +39,7 @@ const useTask = () => {
     try {
       setTaskLoader(true);
       const data = await queryClient.fetchQuery({
-        queryKey: ["allTasks", sortingType],
+        queryKey: ['allTasks', sortingType],
         queryFn: () => fetchAllTasks(sortingType),
       });
       setTaskList(data);
@@ -54,7 +55,7 @@ const useTask = () => {
     try {
       setTaskLoader(true);
       const data = await queryClient.fetchQuery({
-        queryKey: ["getSingleTask", taskId],
+        queryKey: ['getSingleTask', taskId],
         queryFn: () => fetchTask(taskId),
       });
       setTask(data.task);
@@ -105,7 +106,14 @@ const useTask = () => {
     }
   };
 
-  return { sortTasks, getAllTasks, addTask, deleteTask, updateTask, getSingleTask };
+  return {
+    sortTasks,
+    getAllTasks,
+    addTask,
+    deleteTask,
+    updateTask,
+    getSingleTask,
+  };
 };
 
 export default useTask;

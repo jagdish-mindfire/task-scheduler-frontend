@@ -8,15 +8,20 @@ export async function POST(request) {
     const refreshToken = request.cookies.get('refreshToken');
 
     if (!refreshToken) {
-      return NextResponse.json({ message: 'No refresh token found' }, { status: 400 });
+      return NextResponse.json(
+        { message: 'No refresh token found' },
+        { status: 400 }
+      );
     }
 
     // Call the external server's logout endpoint to invalidate the refresh token
-    await axios.post(
+    const abcd = await axios.post(
       process.env.EXTERNAL_API_URL + endpoints.LOGOUT,
-      { refresh_token: refreshToken },
+      { refresh_token: refreshToken.value },
       { headers: { 'Content-Type': 'application/json' } }
     );
+
+    console.log(abcd);
 
     // Clear the refreshToken from cookies
     const res = NextResponse.json({ message: 'Logout successful' });
