@@ -15,13 +15,12 @@ export async function POST(request) {
     }
 
     // Call the external server's logout endpoint to invalidate the refresh token
-    const abcd = await axios.post(
+   await axios.post(
       process.env.EXTERNAL_API_URL + endpoints.LOGOUT,
       { refresh_token: refreshToken.value },
       { headers: { 'Content-Type': 'application/json' } }
     );
 
-    console.log(abcd);
 
     // Clear the refreshToken from cookies
     const res = NextResponse.json({ message: 'Logout successful' });

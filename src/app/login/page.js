@@ -6,11 +6,11 @@ import { useForm } from 'react-hook-form';
 import { Mail, Lock } from 'lucide-react';
 import Image from 'next/image';
 
-import { Button } from '@/app/components/Common/Button';
-import Input from '@/app/components/Common/Input';
-import Label from '@/app/components/Common/Label';
-import useAuth from '@/app/hooks/useAuth';
-import { loginSchema } from '@/app/validation-schema/schema';
+import { Button } from '../components/Common/Button';
+import Input from '../components/Common/Input';
+import Label from '../components/Common/Label';
+import useAuth from '../hooks/useAuth';
+import { loginSchema } from '../validation-schema/schema';
 
 import CONSTANTS_STRING from '../constants/strings';
 
