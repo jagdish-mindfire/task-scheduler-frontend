@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
+import { endpoints } from '@/app/constants/endpoints';
 
 export async function POST(request) {
   try {
@@ -12,7 +13,7 @@ export async function POST(request) {
 
     // Call the external server's logout endpoint to invalidate the refresh token
     await axios.post(
-      `${process.env.EXTERNAL_API_URL}/auth/logout`,
+      process.env.EXTERNAL_API_URL + endpoints.LOGOUT,
       { refresh_token: refreshToken },
       { headers: { 'Content-Type': 'application/json' } }
     );

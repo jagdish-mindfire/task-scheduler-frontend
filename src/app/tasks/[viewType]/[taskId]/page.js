@@ -1,24 +1,23 @@
 "use client";
-import React, { useState, useRef, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ArrowRight, X, ChevronDown, Flag, MessageSquare, UserPlus, Calendar, Plus, Link, Trash2, Check } from 'lucide-react';
 import moment from "moment";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import { useParams, useRouter } from 'next/navigation';
+import { Button } from '../../../components/Common/Button';
+import StringDP from "../../../components/Common/StringDP";
+import useTask from "../../../hooks/useTask.js";
+import { TaskContext } from '../../../context/TaskContext';
+import { UserContext } from '../../../context/UserContext';
 
-import {Button}  from '../../components/Common/Button';
-import StringDP from "../../components/Common/StringDP";
-import useTask from "../../hooks/useTask.js";
-import { TaskContext } from '../../context/TaskContext';
-import { UserContext } from '../../context/UserContext';
-
-const TaskDetails = ({ taskId, onClose }) => {
+const TaskDetails = ({ onClose }) => {
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const { userData } = useContext(UserContext);
-  const quillRef = useRef(null);
   const { task, setTask } = useContext(TaskContext);
   const { updateTask, deleteTask, getSingleTask } = useTask();
-  const [description, setDescription] = useState(task?.description || "");
+  const [description, setDescription] = useState(task?.description || "");  
+  const { taskId } = useParams();
+  const router = useRouter();
 
   useEffect(() => {
     if (taskId) getSingleTask(taskId);
@@ -32,8 +31,8 @@ const TaskDetails = ({ taskId, onClose }) => {
     setIsEditingDescription(true);
   };
 
-  const handleDescriptionChange = (content) => {
-    setDescription(content);
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
   };
 
   const handleDescriptionBlur = () => {
@@ -48,8 +47,7 @@ const TaskDetails = ({ taskId, onClose }) => {
   const handleConfirmDelete = () => {
     deleteTask(task._id);
     setShowDeleteConfirmation(false);
-    setTask(null);
-    onClose();
+    router.back();
   };
 
   const handleCancelDelete = () => {
@@ -60,12 +58,11 @@ const TaskDetails = ({ taskId, onClose }) => {
     <div className="fixed inset-y-0 right-0 w-full md:w-[30rem] bg-white shadow-lg overflow-y-auto z-50">
       <div className="sticky top-0 bg-white z-10 p-4 border-b flex justify-between items-center">
         <h2 className="text-lg md:text-2xl font-bold truncate">{task?.title || "Loading..."}</h2>
-        <Button variant="ghost" className="hover:bg-slate-300" size="sm" onClick={onClose}>
+        <Button variant="ghost" className="hover:bg-slate-300" size="sm" onClick={() => router.back()}>
           <ArrowRight className="w-4 h-4" />
         </Button>
       </div>
 
-      {/* Main content here */}
       <div className="p-4 space-y-6">
         {/* Completion Button */}
         <div className="flex items-center justify-between">
@@ -90,6 +87,7 @@ const TaskDetails = ({ taskId, onClose }) => {
             </Button>
           )}
         </div>
+        
         {/* Assigned User */}
         <div className="flex items-center">
           <StringDP />
@@ -107,65 +105,27 @@ const TaskDetails = ({ taskId, onClose }) => {
           <X className="w-4 h-4 ml-2 text-gray-400" />
         </div>
 
-        {/* Projects Section */}
-        <div>
-          <h3 className="font-semibold mb-2">Projects</h3>
-          <Button variant="outline" size="sm" className="w-full justify-start">
-            <Plus className="w-4 h-4 mr-2" />
-            Add to projects
-          </Button>
-        </div>
-
         {/* Description Section */}
         <div>
           <h3 className="font-semibold mb-2">Description</h3>
           {isEditingDescription ? (
-            <ReactQuill
-              ref={quillRef}
+            <textarea
               value={description}
               onChange={handleDescriptionChange}
               onBlur={handleDescriptionBlur}
-              modules={{
-                toolbar: [
-                  [{ 'header': [1, 2, false] }],
-                  ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                  [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-                  ['link'],
-                  ['clean']
-                ],
-              }}
+              className="w-full border rounded-md p-2"
+              rows={5}
             />
           ) : (
             <div
               onClick={handleDescriptionClick}
               className="w-full border rounded-md p-2 cursor-pointer min-h-[100px] text-gray-500"
-              dangerouslySetInnerHTML={{ __html: description || "Click to add a description..." }}
-            />
+            >
+              {description || "Click to add a description..."}
+            </div>
           )}
         </div>
 
-        {/* Comments Section */}
-        <div>
-          <div className="flex items-center mb-2">
-            <StringDP />
-            <input
-              type="text"
-              placeholder="Add a comment..."
-              className="w-full rounded border-b ml-2 p-2 focus:outline-none focus:border-blue-500"
-            />
-          </div>
-        </div>
-
-        {/* Collaborators Section */}
-        <div>
-          <h3 className="font-semibold mb-2">Collaborators</h3>
-          <div className="flex items-center">
-            <StringDP />
-            <Button variant="ghost" size="sm">
-              <UserPlus className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
       </div>
 
       {/* Delete Button */}
@@ -199,7 +159,7 @@ const TaskDetails = ({ taskId, onClose }) => {
                 variant="outline"
                 size="sm"
                 className="text-red-500 hover:bg-red-50 hover:text-red-600"
-                onClick={(handleConfirmDelete)}
+                onClick={handleConfirmDelete}
               >
                 Delete
               </Button>

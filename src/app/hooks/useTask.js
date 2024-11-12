@@ -13,6 +13,7 @@ import {
   fetchTask,
 } from "../services/taskService";
 import { ShowErrorToast, ShowTaskDeleteToast } from "../services/toastService";
+import { pageRoutes } from "../constants/endpoints";
 
 const useTask = () => {
   const { setTaskList, taskList, setTaskLoader, task, setTask } = useContext(TaskContext);
@@ -58,7 +59,7 @@ const useTask = () => {
       });
       setTask(data.task);
     } catch (error) {
-      router.push('/home'); // Redirect to /home if fetching fails
+      router.push(pageRoutes.HOME_PAGE); // Redirect to /home if fetching fails
       ShowErrorToast(error?.response?.data?.message || error?.message);
     } finally {
       setTaskLoader(false);

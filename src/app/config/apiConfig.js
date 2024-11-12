@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getLocalAsString, localKeys, setLocalAsString } from "@/app/services/localStorage";
+import { nextApiEndpoints, pageRoutes } from "../constants/endpoints";
 
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ;
@@ -20,7 +21,7 @@ axiosClient.interceptors.response.use(function (response) {
     let message;
     let status = error?.response?.status;
     if (Number(status) === 401) {
-        window.location.href = "/login";
+        window.location.href = pageRoutes.LOGIN_PAGE;
         return Promise.reject(message);
     }
     return Promise.reject(error);
@@ -32,11 +33,12 @@ axiosClient.interceptors.request.use(async function (config) {
     // min 2
     if(!accessToken || (JSON.parse(atob(accessToken.split('.')[1]))).exp * 1000 < new Date().getTime() ){
         try {
-            let { data } = await axios.post('/api/auth/token');
+            let { data } = await axios.post(nextApiEndpoints.TOKEN);
             accessToken =  data?.access_token;
             setLocalAsString(localKeys.ACCESS_TOKEN,accessToken);
         } catch (error) {
             console.log(error);
+            // window.location.href = pageRoutes.LOGIN_PAGE;
         }
 
     }

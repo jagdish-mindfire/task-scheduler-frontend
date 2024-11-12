@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import TaskCard from './TaskCard'

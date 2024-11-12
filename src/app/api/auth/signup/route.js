@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
+import { endpoints } from '@/app/constants/endpoints';
 export async function POST(request) {
   try {
     const { email, password,name } = await request.json();
     
     // Proxy the signup request to the external server
-    const response = await axios.post(`${process.env.EXTERNAL_API_URL}/auth/signup`, { email, password,name },{
+    const response = await axios.post(process.env.EXTERNAL_API_URL + endpoints.SIGNUP, { email, password,name },{
         headers: { 'Content-Type': 'application/json' },
     });
 

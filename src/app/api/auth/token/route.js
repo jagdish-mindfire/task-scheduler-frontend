@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
+import { endpoints } from '@/app/constants/endpoints';
 
 export async function POST(request) {
   try {
     const refreshToken = request.cookies.get('refreshToken');
-
+    console.log('Refreshing', refreshToken);
     // Make the axios POST request
-    const response = await axios.post(`${process.env.EXTERNAL_API_URL}/auth/token`, {
+    const response = await axios.post(process.env.EXTERNAL_API_URL + endpoints.TOKEN, {
      refresh_token: refreshToken.value
     }, {
       headers: { 'Content-Type': 'application/json' },

@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
+import { endpoints } from '@/app/constants/endpoints';
 
 export async function POST(request) {
   try {
     const bodyData = await request.json();
 
     // Make the axios POST request
-    const response = await axios.post(`${process.env.EXTERNAL_API_URL}/auth/login`, {
+    const response = await axios.post(process.env.EXTERNAL_API_URL +  endpoints.LOGIN, {
       email: bodyData?.email,
       password: bodyData?.password,
     }, {

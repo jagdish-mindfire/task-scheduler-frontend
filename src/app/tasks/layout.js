@@ -1,11 +1,11 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import TaskDetails from "./[viewType]/[taskId]"; // Correctly import TaskDetails
+import Page from './[viewType]/page';
 
 export default function Layout({ children }) {
   const pathname = usePathname();
-  const [taskId, setTaskId] = useState(null);
+  const [taskId, setTaskId] = useState(false);
 
   useEffect(() => {
     const parts = pathname.split("/");
@@ -14,13 +14,9 @@ export default function Layout({ children }) {
   }, [pathname]);
 
   return (
-    <div className="flex relative">
-      <div className="flex-1">{children}</div>
-      {taskId && (
-        <div className="absolute top-0 right-0 w-full md:w-1/3 h-full bg-white shadow-lg p-4">
-          <TaskDetails taskId={taskId} onClose={() => setTaskId(null)} />
-        </div>
-      )}
-    </div>
+    <>
+    {taskId &&  <Page/> }
+    {children}
+    </>
   );
 }

@@ -1,3 +1,4 @@
+"use client"
 import React, { useContext, useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import TaskColumn from "../../components/task/TaskColumn";
@@ -28,6 +29,7 @@ export default function Board() {
   }, [taskList]);
 
   const onDragEnd = (result) => {
+    console.log('erehi')
     const { source, destination } = result;
     if (!destination) return;
 

@@ -7,6 +7,7 @@ import {
   Circle,
   Calendar as CalendarIcon,
 } from "lucide-react";
+import moment from "moment";
 
 export default function TaskCard({ task, index }) {
   const router = useRouter();
@@ -40,7 +41,7 @@ export default function TaskCard({ task, index }) {
           {task.dueDate && (
             <div className="text-xs text-gray-500 mt-1">
               <CalendarIcon className="w-3 h-3 inline-block mr-1" />
-              {task.dueDate}
+              {moment(task.dueDate).format('LL')}
             </div>
           )}
         </div>

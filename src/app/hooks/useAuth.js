@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { ShowErrorToast, ShowSuccessToast } from "@/app/services/toastService";
 import { userLogin,userSignup } from "@/app/services/loginApiService";
+import { pageRoutes } from "../constants/endpoints";
 
 const useAuth = () => {
 //   const navigate = useNavigate();
@@ -12,10 +13,7 @@ const router = useRouter();
   const loginMutation = useMutation({
     mutationFn: (credentials) => userLogin(credentials),
     onSuccess: () => {
-      // window.location.replace("/home");
-      router.push('/home')
-    //   navigate("/home", { state: { showSuccess: true } });
-
+      window.location.replace(pageRoutes.HOME_PAGE);
       ShowSuccessToast("You're now logged in! Welcome back.");
     },
     onError: (error) => {
@@ -29,8 +27,7 @@ const router = useRouter();
   const signupMutation = useMutation({
     mutationFn: (credentials) => userSignup(credentials),
     onSuccess: () => {
-      router.push('/login')
-    //   navigate("/login", { state: { showSuccess: true } });
+      router.push(pageRoutes.LOGIN_PAGE)
       ShowSuccessToast("Account Created Successfully,Login to continue");
     },
     onError: (error) => {

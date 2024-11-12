@@ -19,11 +19,10 @@ export default function Calendar() {
   }, [getAllTasks]);
   
   const handleEventClick = (clickInfo) => {
+    console.log('jojo')
     const taskId = clickInfo.event._def.extendedProps._id;
     console.log(taskId);
-    // Navigate to task details page
     router.push(`/tasks/calendar/${taskId}`);
-    // navigate(`/tasks/calendar/${taskId}`);
   };
   
   return (
@@ -35,7 +34,7 @@ export default function Calendar() {
       events={[
         ...Object.values(taskList).flat().filter(task => task.dueDate).map(task => ({
           title: task.title,
-          date: task.dueDate,
+          date: task.dueDate.split('T')[0],
           _id: task._id
         })),
       ]}

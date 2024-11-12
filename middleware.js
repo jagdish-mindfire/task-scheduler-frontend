@@ -1,13 +1,14 @@
-// middleware.js
 import { NextResponse } from "next/server";
 import { isLoggedIn } from "./src/app/utils/auth";
+import { pageRoutes } from "@/app/constants/endpoints";
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
   const refreshToken = request.cookies.get("refreshToken");
 
-  const protectedRoutes = ["/tasks", "/home"];
-  const unProtectedRoutes = ["/login", "/signup"];
+  const protectedRoutes = [pageRoutes.TASK_PAGE, pageRoutes.HOME_PAGE];
+  const unProtectedRoutes = [pageRoutes.LOGIN_PAGE, pageRoutes.SIGNUP_PAGE];
+
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );
@@ -16,28 +17,32 @@ export async function middleware(request) {
   );
 
   const checkLogin = await isLoggedIn(refreshToken?.value);
-  
-  if (isUnprotectedRoute && checkLogin) {
-    return NextResponse.redirect(new URL("/home", request.url));
-  }
-  
-  // Redirect based on login status
-  if (isProtectedRoute && !checkLogin) {
-    return NextResponse.redirect(new URL("/login", request.url));
+
+  const response = NextResponse.next();
+
+  // If login check fails, delete refreshToken cookie
+  if (!checkLogin) {
+    response.cookies.delete("refreshToken");
   }
 
-  if(pathname === "/" && !checkLogin){
-    return NextResponse.redirect(new URL("/login", request.url));
-  }else if(pathname === "/" && checkLogin){
-    return NextResponse.redirect(new URL("/home", request.url));
+  if (isUnprotectedRoute && checkLogin) {
+    return NextResponse.redirect(new URL(pageRoutes.HOME_PAGE, request.url));
   }
-  // Create the response and set an `isAuthenticated` cookie
-  const response = NextResponse.next();
-  response.cookies.set("isAuthenticated", checkLogin ? "true" : "false", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-  });
+
+  // Redirect based on login status
+  if (isProtectedRoute && !checkLogin) {
+    return NextResponse.redirect(new URL(pageRoutes.LOGIN_PAGE, request.url));
+  }
+
+  if (pathname === "/" && !checkLogin) {
+    return NextResponse.redirect(new URL(pageRoutes.LOGIN_PAGE, request.url));
+  } else if (pathname === "/" && checkLogin) {
+    return NextResponse.redirect(new URL(pageRoutes.HOME_PAGE, request.url));
+  }
+
+  if (pathname === pageRoutes.TASK_PAGE) {
+    return NextResponse.redirect(new URL(pageRoutes.TASK_LIST_PAGE, request.url));
+  }
 
   return response;
 }

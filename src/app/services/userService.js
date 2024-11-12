@@ -1,11 +1,8 @@
 import { appApi } from "./apiService";
-
+import { endpoints } from "../constants/endpoints";
 const api = new appApi();
-const USERS_ENDPOINT = '/user';
-const ME_ENDPOINT = USERS_ENDPOINT + '/me';
 
 export const fetchUserDetails = async () => {
-    const response = await api.get(ME_ENDPOINT);
-    console.log(response);
+    const response = await api.get(endpoints.ME_ENDPOINT);
     return response;
   };
